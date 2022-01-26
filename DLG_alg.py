@@ -58,8 +58,8 @@ def roots(r,t,u,l):
 
 #the input to this function is a black box polynomial p, its derivative p',
 #a representation of a complex number x = r*e^{2*pi*i*(t/u)}, and an integer l
-#so that circ_DLG(p,dp,r,t,u,l) = [(d^l/dz^l)(p'/p)](x);
-#i.e., circ_DLG(p,dp,r,t,u,l) = "the l^th derivative of p'/p evaluated at x"
+#so that circ_DLG(p,dp,r,t,u,l) = (1/2z) p'_i(z)/p_i(z) - p'_i(z)/p_i(z) were
+#z = x^(-1/2); i.e., circ_DLG(p,dp,r,t,u,l) = "the l^th difference of p'/p at x"
 def DLG_int_form(p,dp,r,t,u,l):
 	root       = roots(r,t,u,l)
 	base_step  = [dp(r)*np.reciprocal(p(r)) for r in root]
@@ -69,13 +69,12 @@ def DLG_int_form(p,dp,r,t,u,l):
 		for j in range(2**(l-i-1)):
 			derivs[i+1].append((1/(2*root[2*j]))*(derivs[i][2*j] - derivs[i][2*j+1]))
 		root = roots(r,t,u,l-1-i)
-		tree.append(root)
 	return derivs[l][0]
 
 p  = lambda x:(x**2-1)*(x**2+1)
 dp = lambda x:4*x*(x**2)
-r  = 15
+r  = 6
 t  = 1
 u  = 1
-l  = 2
+l  = 13
 print(DLG_int_form(p,dp,r,t,u,l))
