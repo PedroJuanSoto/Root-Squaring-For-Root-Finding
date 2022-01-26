@@ -82,14 +82,3 @@ def DLG(p,dp,x,l):
 	t,u       = angle_deg.as_integer_ratio()
 	r         = np.absolute(x)
 	return DLG_rational_form(p,dp,r,t,u,l)
-
-
-p  = lambda x:(x**2-4)*(x**2+4)
-dp = lambda x:4*x*(x**2)
-r  = 1
-t  = 1
-u  = 1
-l  = 2
-print(DLG_rational_form(p,dp,r,t,u,l))
-x=1
-print(DLG(p,dp,x,l))
