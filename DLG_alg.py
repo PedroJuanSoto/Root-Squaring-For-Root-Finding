@@ -6,7 +6,7 @@ import numpy as np
 #implies y^2 = x
 def circ_sq_root(p,q):
 	if p%q == 0:
-		return p,q
+		return 1,1
 	else:
 		return p, 2*q
 
@@ -67,14 +67,14 @@ def DLG_int_form(p,dp,r,t,u,l):
 	for i in range(l):
 		derivs.append([])
 		for j in range(2**(l-i-1)):
-			derivs[i+1].append((1/(2*root[2*j]))*(derivs[i][2*j] - derivs[i][2*j+1]))
+			derivs[i+1].append((np.reciprocal(root[2*j])/2)*(derivs[i][2*j] - derivs[i][2*j+1]))
 		root = roots(r,t,u,l-1-i)
 	return derivs[l][0]
 
-p  = lambda x:(x**2-1)*(x**2+1)
+p  = lambda x:(x**2-4)*(x**2+4)
 dp = lambda x:4*x*(x**2)
-r  = 6
+r  = 1
 t  = 1
 u  = 1
-l  = 13
+l  = 2
 print(DLG_int_form(p,dp,r,t,u,l))
