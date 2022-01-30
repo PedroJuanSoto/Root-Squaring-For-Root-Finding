@@ -1,5 +1,6 @@
-from DLG_alg import DLG_rational_form, DLG 
+from DLG_alg_mpmath import DLG_rational_form, DLG 
 import numpy as np
+import mpmath as mp
 
 #complex number
 j = complex(0, 1)
@@ -40,7 +41,7 @@ for k in range(len(P)):
                 if f == 0:
                     #print("ERROR: zero outcome")
                     continue
-                rel_rat = delta_f*np.reciprocal(np.absolute(f)*delta_x)
+                rel_rat = delta_f*np.reciprocal(np.absolute(f)*delta_x)*np.absolute(x)
                 max_rel_rat = max(max_rel_rat, rel_rat)
             
             # aggregate the data
