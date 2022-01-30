@@ -1,10 +1,12 @@
 import mpmath as mp
 
-precision = 20 
+precision = 30 
 add = lambda x,y : mp.fadd(x, y, exact = True)
 sub = lambda x,y : mp.fsub(x, y, exact = True)
 mul = lambda x,y : mp.fmul(x, y, exact = True)
 div = lambda x,y : mp.fdiv(x, y, dps = precision)
+mpf = lambda x   : mp.mpf( x,    dps = precision)
+mpc = lambda x,y : mp.mpc( mpf(x), mpf(y))
 
 #the input to this function is a representation
 #of a complex number x = e^{2*pi*i*(p/q)} so that
@@ -49,9 +51,8 @@ def circ_roots_rational_form(p,q,l):
 #so that circ_roots(p,q,l) = y_1,...,y_{2^l} where y_i^{2^l} = x
 #with the y_i ordered according to the DLG recursion
 def circ_roots(p,q,l):
-	i = complex(0,1)
 	roots = circ_roots_rational_form(p,q,l)
-	return [mp.expjpi(2*div(r,s)) for r,s in roots]
+	return [mp.expjpi(mul(2,div(r,s))) for r,s in roots]
 
 #the input to this function is a representation of a complex number
 #x = r*e^{2*pi*i*(t/u)}, and an integer l
@@ -84,5 +85,5 @@ def DLG_rational_form(p,dp,r,t,u,l):
 def DLG(p,dp,x,l):
 	angle     = mp.arg(x)
 	t, u      = float(angle).as_integer_ratio()
-	r         = mp.fabs(x)
+	r         = mpf(mp.fabs(x))
 	return DLG_rational_form(p,dp,r,t,u,l)
