@@ -9,19 +9,21 @@ j = mpc(0, 1)
 P = [lambda x:mul(sub(mp.power(x,2),4),add(mp.power(x,2),4))]#, lambda x:x**2+2]
 dP = [lambda x:mul(4,mul(x,mp.power(x,2)))]#, lambda x: 2*x]
 # define number of tests
-N = 10
+N = 50
 
-min_x = -3.01
-max_x = 3.01
-num_x = 7
+r = 2
+
+min_x = 0
+max_x = 0.25
+num_x = 3
 X = mp.linspace(min_x, max_x, num_x) #key points for evaluation, re: roots of p
 
 min_l = 1
-max_l = 9
+max_l = 10
 L = [i for i in range(min_l, max_l+1, 2)]
 
-min_d = 1
-max_d = 40
+min_d = 15
+max_d = 30
 D = [i for i in range(min_d, max_d+1)]
 
 print("number of tests in a block = %s" % N)
@@ -33,11 +35,11 @@ for k in range(len(P)):
 	abs_res = []
 	rel_res = []
 
-	for x in X:
+	for i in range(num_x):
 		abs_res.append([])
 		rel_res.append([])
-		#angle = X[i]#mp.rand()
-		#x = mp.expjpi(angle*2)
+		angle = X[i]#mp.rand()
+		x = mul(mp.expjpi(angle*2),r)
 		#for l in range(1,13):   
 		for l in L:
 			abs_res[-1].append([])
@@ -81,35 +83,25 @@ for k in range(len(P)):
 				print("estimated relative cond num: %s" % max_rel_rat)
 			print("")
 
-#plt.subplot(1,2,1)
-#plt.plot(abs_res[0][0])
-#plt.plot(rel_res[0][0])
-#plt.subplot(1,2,2)
-#plt.plot(abs_res[0][1])
-#plt.plot(rel_res[0][1])
-#plt.show()
-
-fig, axs = plt.subplots(nrows=num_x, ncols=1, constrained_layout=True, figsize=(2,3))
-fig.suptitle("graphs")
+fig, axs = plt.subplots(nrows=num_x, ncols=1, figsize=(5,5)) #constrained_layout=True, figsize=(2,3))
 for ax in axs:
 	ax.remove()
 gridspec = axs[0].get_subplotspec().get_gridspec()
 subfigs = [fig.add_subfigure(gs) for gs in gridspec]
-#for row, subfig in enumerate(subfigs):
 
 for i in range(num_x):
 	subfig = subfigs[i]
-	subfig.suptitle(f'x = {X[i]}')
+	subfig.suptitle(f'x = {mul(mp.expjpi(angle*2),r)}') #'angle = {X[i]}')
 
-	# create 1x3 subplots per subfig
-	axs_s = subfig.subplots(nrows=1, ncols=len(L)) #num_l
-	#for col, ax in enumerate(axs):
-	#for col, ax in zip(col_labels, axs):
+	axs_s = subfig.subplots(nrows=1, ncols=2)
+	#axs_s[0].set_title(f'absolute')
+	axs_s[0].set_xlabel('-ln(error bound)')
 	for j in range(len(L)):
-		#plt.hist(df[row,col])
-		#ax.plot()
-		axs_s[j].plot(abs_res[i][j], D)
-		axs_s[j].plot(rel_res[i][j], D)
-		axs_s[j].set_title(f'l = {L[j]}')
+		axs_s[0].plot(abs_res[i][j])
+
+	#axs_s[1].set_title(f'relative')
+	axs_s[1].set_xlabel('-ln(error bound)')
+	for j in range(len(L)):
+		axs_s[1].plot(rel_res[i][j])
 
 plt.show()
