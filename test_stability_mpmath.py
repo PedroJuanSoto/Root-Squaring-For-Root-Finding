@@ -9,7 +9,7 @@ j = mpc(0, 1)
 P = [lambda x:mul(sub(mp.power(x,2),4),add(mp.power(x,2),4))]#, lambda x:x**2+2]
 dP = [lambda x:mul(4,mul(x,mp.power(x,2)))]#, lambda x: 2*x]
 # define number of tests
-N = 50
+N = 100
 
 r = 2
 
@@ -19,11 +19,11 @@ num_x = 3
 X = mp.linspace(min_x, max_x, num_x) #key points for evaluation, re: roots of p
 
 min_l = 1
-max_l = 10
-L = [i for i in range(min_l, max_l+1, 2)]
+max_l = 12
+L = [i for i in range(min_l, max_l+1, 3)]
 
 min_d = 15
-max_d = 30
+max_d = 40
 D = [i for i in range(min_d, max_d+1)]
 
 print("number of tests in a block = %s" % N)
