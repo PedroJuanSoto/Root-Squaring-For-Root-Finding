@@ -61,7 +61,7 @@ def circ_roots(p,q,l):
 def roots(r,t,u,l):
 	circ_root       = circ_roots(t,u,l)
 	r_root          = mp.root(r,2**l)
-	return [r_root*root for root in circ_root]
+	return [mul(r_root, root) for root in circ_root]
 
 #the input to this function is a black box polynomial p, its derivative p',
 #a representation of a complex number x = r*e^{2*pi*i*(t/u)}, and an integer l
