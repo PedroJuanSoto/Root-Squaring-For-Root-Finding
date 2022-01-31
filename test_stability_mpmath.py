@@ -2,6 +2,7 @@ from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision
 import mpmath as mp 
 import matplotlib.pyplot as plt
 
+mp.mp.dps = 20
 
 #complex number
 j = mpc(0, 1)
@@ -9,7 +10,7 @@ j = mpc(0, 1)
 P = [lambda x:mul(sub(mp.power(x,2),4),add(mp.power(x,2),4))]#, lambda x:x**2+2]
 dP = [lambda x:mul(4,mul(x,mp.power(x,2)))]#, lambda x: 2*x]
 # define number of tests
-N = 100
+N = 50
 
 r = 2
 
@@ -91,7 +92,7 @@ subfigs = [fig.add_subfigure(gs) for gs in gridspec]
 
 for i in range(num_x):
 	subfig = subfigs[i]
-	subfig.suptitle(f'x = {mul(mp.expjpi(angle*2),r)}') #'angle = {X[i]}')
+	subfig.suptitle(f'x = {mul(mp.expjpi(X[i]*2),r)}') #'angle = {X[i]}')
 
 	axs_s = subfig.subplots(nrows=1, ncols=2)
 	#axs_s[0].set_title(f'absolute')
