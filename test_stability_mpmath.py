@@ -1,5 +1,5 @@
 from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision, mpc, mpf
-import mpmath as mp 
+import mpmath as mp
 import matplotlib.pyplot as plt
 
 mp.mp.dps = 20
@@ -21,14 +21,14 @@ X = mp.linspace(min_x, max_x, num_x) #key points for evaluation, re: roots of p
 
 min_l = 1
 max_l = 12
-L = [i for i in range(min_l, max_l+1, 3)]
+L = [i for i in range(min_l,max_l)]#L = [i for i in range(min_l, max_l+1, 3)]
 
 min_d = 15
 max_d = 40
 D = [i for i in range(min_d, max_d+1)]
 
 print("number of tests in a block = %s" % N)
-gen_rand = lambda low, high : mpf((high - low)*mp.rand() + low) 
+gen_rand = lambda low, high : mpf((high - low)*mp.rand() + low)
 
 for k in range(len(P)):
 	p = P[k]
@@ -39,10 +39,12 @@ for k in range(len(P)):
 	for i in range(num_x):
 		abs_res.append([])
 		rel_res.append([])
-		angle = X[i]#mp.rand()
+		angle = mp.rand()#X[i]
 		x = mul(mp.expjpi(angle*2),r)
-		#for l in range(1,13):   
+		#for l in range(1,13):
 		for l in L:
+			precision += 2
+			mp.mp.dps = precision
 			abs_res[-1].append([])
 			rel_res[-1].append([])
 			print("l = %s" % l)
@@ -52,8 +54,6 @@ for k in range(len(P)):
 			#for d in range(0,41):
 			f = DLG(p, dp, mpc(x.real, x.imag), l)
 			for d in D:
-				precision += 2
-				mp.dps = precision 
 				print(mp.mp)
 				max_delta = 0.7*(2**(-d))
 				#print("max_delta = %s" % max_delta)
@@ -66,7 +66,7 @@ for k in range(len(P)):
 					x_pert = add(x, add(pert_r, mul(pert_i,j)))
 					delta_x = mpf(mp.fabs(add(pert_r,  pert_i*j)))
 					if delta_x == 0: print("ERROR: zero perturbation")
-	
+
 					f_pert = DLG(p, dp, mpc(x_pert.real, x_pert.imag), l)
 					delta_f = mpf(mp.fabs(sub(f_pert,  f)))
 					abs_rat = div(delta_f, delta_x)
@@ -76,7 +76,7 @@ for k in range(len(P)):
 						continue
 					rel_rat = div(mul(delta_f,mpf(mp.fabs(x))),mul(mpf(mp.fabs(f)),delta_x)),
 					max_rel_rat = max(max_rel_rat, rel_rat[0])
-	
+
 				# aggregate the data
 				abs_res[-1][-1].append(max_abs_rat)
 				rel_res[-1][-1].append(max_rel_rat)
