@@ -2,8 +2,8 @@ from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision
 import mpmath as mp
 import matplotlib.pyplot as plt
 
-precision = 15
-mp.mp.dps = 15 
+old_precision = precision
+mp.mp.dps = old_precision
 
 #complex number
 j = mpc(0, 1)
@@ -22,7 +22,7 @@ X = mp.linspace(min_x, max_x, num_x) #key points for evaluation, re: roots of p
 
 min_l = 1
 max_l = 12
-L = [i for i in range(min_l,max_l)]#L = [i for i in range(min_l, max_l+1, 3)]
+L = L = [i for i in range(min_l, max_l+1, 2)]#[i for i in range(min_l,max_l)]
 
 min_d = 15
 max_d = 40
@@ -38,15 +38,15 @@ for k in range(len(P)):
 	rel_res = []
 
 	for i in range(num_x):
-		new_precision = precision
+		precision = old_precision
 		abs_res.append([])
 		rel_res.append([])
 		angle = mp.rand()#X[i]
 		x = mul(mp.expjpi(angle*2),r)
 		#for l in range(1,13):
 		for l in L:
-			new_precision *= 2
-			mp.mp.dps = new_precision
+			precision *= 2
+			mp.mp.dps = precision
 			abs_res[-1].append([])
 			rel_res[-1].append([])
 			print("l = %s" % l)

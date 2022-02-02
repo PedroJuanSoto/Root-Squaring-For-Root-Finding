@@ -30,11 +30,25 @@ x = mp.expjpi(angle*2)
 
 #similar to the previous test bu now we try to vary epsilon and l at the same
 #time to see if it helps the limit converge
-new  = mpc(0,0)
-prev = mpc(0,0)
-for e in range(1,20):
-    precision *= 2 
+# new  = mpc(0,0)
+# prev = mpc(0,0)
+# for e in range(1,20):
+#     precision *= 2
+#     mp.mp.dps = precision
+#     new = DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),e)
+#     print(e,int(mp.fabs(mp.log(sub(new,prev)))))
+#     prev = new
+
+# #print the absolute values as we approch 0
+# for e in range(1,20):
+#     precision *= 2
+#     mp.mp.dps = precision
+#     print(float(mp.fabs(DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),e))))
+
+# #print the absolute values as we approch 0
+for l in range(l_max):
+    precision += 2
     mp.mp.dps = precision
-    new = DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),e)
-    print(e,int(mp.fabs(mp.log(sub(new,prev)))))
-    prev = new
+    print(l)
+    for e in range(1,20):
+        print(float(mp.fabs(DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l))))

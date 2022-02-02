@@ -99,32 +99,32 @@
 %% Of note is the shared affiliation of the first two authors, and the
 %% "authornote" and "authornotemark" commands
 %% used to denote shared contribution to the research.
-\author{Pedro}
-\affiliation{%
-    \institution{CUNY}
-    \city{NY}
-    \state{NY}
-    \country{USA}
-}
-% \email{psoto@gradcenter.cuny.edu}
-
-
-
-\author{Soo}
-\affiliation{%
-    \institution{CUNY}
-    \city{NY}
-    \state{NY}
-    \country{USA}
-}
-
-\author{Victor}
-\affiliation{%
-    \institution{CUNY}
-    \city{NY}
-    \state{NY}
-    \country{USA}
-}
+% \author{Pedro}
+% \affiliation{%
+%     \institution{CUNY}
+%     \city{NY}
+%     \state{NY}
+%     \country{USA}
+% }
+% % \email{psoto@gradcenter.cuny.edu}
+%
+%
+%
+% \author{Soo}
+% \affiliation{%
+%     \institution{CUNY}
+%     \city{NY}
+%     \state{NY}
+%     \country{USA}
+% }
+%
+% \author{Victor}
+% \affiliation{%
+%     \institution{CUNY}
+%     \city{NY}
+%     \state{NY}
+%     \country{USA}
+% }
 
 % \author{Aparna Patel}
 % \affiliation{%
@@ -230,32 +230,76 @@
 
 \section{Motivating Example}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.1\linewidth]{rational_root_tree.png}
+  \caption{The steps of circ\_roots\_rational\_form(p,q,l) in Alg.\ref{alg:circ_roots_rational_form}.}
+  \Description{}
+\end{figure}
+
+
 \section{Algorithm Design}
 
 
 \begin{algorithm}
-   \caption{Rational\_Angle\_Root\_Tree}
-   \label{alg:order_roots}
+   \caption{circ\_roots\_rational\_form(p,q,l)}
+   \label{alg:circ_roots_rational_form}
 \begin{algorithmic}
-   \STATE {\bfseries Input:} \texttt{data }$D$,
-\texttt{code\_parameters} $(n,k,t)$
-   \STATE Parition the data $D$ into $D_0, .., D_{k-1}$
-   \STATE Set $\mathcal{C} := \mathcal{C} ^{(n,k,t)}$
-  \FOR{$i \leq n$}
-  \STATE \texttt{Data}$[ \tilde \theta_i] :=\emptyset$
-  \FOR{$j \leq k$}
-  \IF{$\mathcal{C}_{i,j} \neq 0 $}
-  \STATE Set \texttt{Data}$[ \tilde \theta_i]:=\texttt{Data}[\tilde \theta_i]\cup D_j$
-  \ENDIF
-  \ENDFOR
-  \ENDFOR
+  \STATE r, s  = circ\_sq\_root(p,q)
+	\STATE t, u  = circ\_neg(r,s)
+	  \IF{l == 1}
+		  \RETURN [(r,s),(t,u)]
+	\ELSIF {l != 0}
+		\STATE left  = circ\_roots\_rational\_form(r,s,l-1)
+		\STATE right = circ\_roots\_rational\_form(t,u,l-1)
+		\RETURN left $\cup$ right
+	\ELSE
+		\RETURN  [(p,q)]
+      \ENDIF
 \end{algorithmic}
 \end{algorithm}
 
 
-\section{Theoretical Analysis}
 
+\begin{algorithm}
+\caption{circ\_sq\_root(p,q)}
+\label{alg:circ_sq_root}
+\begin{algorithmic}
+	\IF{ p\%q == 0}
+		\RETURN  1,1
+	\ELSE
+		\RETURN  p, 2$\cdot$q
+  \ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{circ\_neg(p,q)}
+\label{alg:circ_neg}
+\begin{algorithmic}
+	\IF{ p\%q == 0}
+		\RETURN  1,2
+	\ELSE
+		\RETURN  2$\cdot$p+q, 2$\cdot$q
+  \ENDIF
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+\section{Theoretical Analysis}
+\newpage
 \section{Experimental Results}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{limit_test.png}
+  \caption{Limit test.}
+  \Description{A woman and a girl in white dresses sit in an open car.}
+\end{figure}
+
 
 \section{Conclusion}
 
