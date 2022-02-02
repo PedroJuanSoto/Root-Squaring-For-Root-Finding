@@ -2,7 +2,8 @@ from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision
 import mpmath as mp
 import matplotlib.pyplot as plt
 
-mp.mp.dps = 20
+precision = 15
+mp.mp.dps = 15 
 
 #complex number
 j = mpc(0, 1)
@@ -37,14 +38,15 @@ for k in range(len(P)):
 	rel_res = []
 
 	for i in range(num_x):
+		new_precision = precision
 		abs_res.append([])
 		rel_res.append([])
 		angle = mp.rand()#X[i]
 		x = mul(mp.expjpi(angle*2),r)
 		#for l in range(1,13):
 		for l in L:
-			precision += 2
-			mp.mp.dps = precision
+			new_precision *= 2
+			mp.mp.dps = new_precision
 			abs_res[-1].append([])
 			rel_res[-1].append([])
 			print("l = %s" % l)

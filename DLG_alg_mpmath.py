@@ -1,7 +1,7 @@
 import mpmath as mp
 
-mp.mp.dps = 20
-precision = 30 
+mp.mp.dps = 30 
+precision = 30
 add = lambda x,y : mp.fadd(x, y, exact = True)
 sub = lambda x,y : mp.fsub(x, y, exact = True)
 mul = lambda x,y : mp.fmul(x, y, exact = True)

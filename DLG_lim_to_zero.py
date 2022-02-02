@@ -17,13 +17,24 @@ x = mp.expjpi(angle*2)
 
 #We want to "test" if the limit to 0 makes sense, to do this we check whether
 #the sequence to zero to "cauchy-like" by checking if differences between points
-#in the sequnce get smaller
+# #in the sequnce get smaller
+# new  = mpc(0,0)
+# prev = mpc(0,0)
+# for l in range(l_max):
+#     precision += 2
+#     mp.mp.dps = precision
+#     for e in range(1,20):
+#         new = DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l)
+#         print(l,e,mp.fabs(sub(new,prev)))
+#         prev = new
+
+#similar to the previous test bu now we try to vary epsilon and l at the same
+#time to see if it helps the limit converge
 new  = mpc(0,0)
 prev = mpc(0,0)
-for l in range(l_max):
-    precision += 2
+for e in range(1,20):
+    precision *= 2 
     mp.mp.dps = precision
-    for e in range(1,20):
-        new = DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l)
-        print(l,e,mp.fabs(sub(new,prev)))
-        prev = new
+    new = DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),e)
+    print(e,int(mp.fabs(mp.log(sub(new,prev)))))
+    prev = new
