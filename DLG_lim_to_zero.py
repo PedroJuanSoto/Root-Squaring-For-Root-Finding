@@ -49,6 +49,6 @@ x = mp.expjpi(angle*2)
 for l in range(l_max):
     precision += 2
     mp.mp.dps = precision
-    print(l)
+    print("l=",l)
     for e in range(1,20):
-        print(float(mp.fabs(DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l))))
+        print("e=,", e, "|DLG(2+2^(-e))|=",float(mp.fabs(DLG(p,dp,sub(2,mul(x,mp.power(2,-e))),l))))

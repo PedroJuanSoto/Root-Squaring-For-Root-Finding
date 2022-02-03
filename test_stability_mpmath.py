@@ -41,7 +41,7 @@ for k in range(len(P)):
 		precision = old_precision
 		abs_res.append([])
 		rel_res.append([])
-		angle = mp.rand()#X[i]
+		angle = X[i]#mp.rand()#
 		x = mul(mp.expjpi(angle*2),r)
 		#for l in range(1,13):
 		for l in L:

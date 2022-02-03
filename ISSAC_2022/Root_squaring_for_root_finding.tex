@@ -242,19 +242,19 @@
 
 
 \begin{algorithm}
-   \caption{circ\_roots\_rational\_form(p,q,l)}
+   \caption{circ\_roots\_rational\_form($p,q,l$)}
    \label{alg:circ_roots_rational_form}
 \begin{algorithmic}
-  \STATE r, s  = circ\_sq\_root(p,q)
-	\STATE t, u  = circ\_neg(r,s)
-	  \IF{l == 1}
-		  \RETURN [(r,s),(t,u)]
-	\ELSIF {l != 0}
-		\STATE left  = circ\_roots\_rational\_form(r,s,l-1)
-		\STATE right = circ\_roots\_rational\_form(t,u,l-1)
+  \STATE $r, s$  := angle\_sq\_root($p,q$)
+	\STATE $t, u$  := angle\_neg($r,s$)
+	  \IF{$l$ == 1}
+		  \RETURN [($r,s$),($t,u$)]
+	\ELSIF {$l$ != 0}
+		\STATE left  := circ\_roots\_rational\_form($r,s,l-1$)
+		\STATE right := circ\_roots\_rational\_form($t,u,l-1$)
 		\RETURN left $\cup$ right
 	\ELSE
-		\RETURN  [(p,q)]
+		\RETURN  [($p,q$)]
       \ENDIF
 \end{algorithmic}
 \end{algorithm}
@@ -262,35 +262,68 @@
 
 
 \begin{algorithm}
-\caption{circ\_sq\_root(p,q)}
-\label{alg:circ_sq_root}
+\caption{angle\_sq\_root(p,q)}
+\label{alg:angle_sq_root}
 \begin{algorithmic}
-	\IF{ p\%q == 0}
-		\RETURN  1,1
+	\IF{ $p\%q$ == 0}
+		\RETURN  (1,1)
 	\ELSE
-		\RETURN  p, 2$\cdot$q
+		\RETURN  ($p$,$2q$)
   \ENDIF
 \end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}
-\caption{circ\_neg(p,q)}
-\label{alg:circ_neg}
+\caption{angle\_neg(p,q)}
+\label{alg:angle_neg}
 \begin{algorithmic}
 	\IF{ p\%q == 0}
-		\RETURN  1,2
+		\RETURN  (1,2)
 	\ELSE
-		\RETURN  2$\cdot$p+q, 2$\cdot$q
+		\RETURN  $(2p+q, 2q)$
   \ENDIF
 \end{algorithmic}
 \end{algorithm}
+
+\clearpage
+
+\begin{algorithm}
+\caption{DLG\_rational\_form($p,p^\prime,r,t,u,l$)}
+\label{alg:DLG_rational_form}
+\begin{algorithmic}
+\STATE 	root      := roots($r,t,u,l$)
+\FOR {$r_i \in $ root}
+\STATE 	base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$
+\ENDFOR
+\STATE  diff[0]   := base\_step
+\FOR {$i \leq l$}
+\FOR {$j \leq 2^{l-i-1}$}
+\STATE 			diff[$i+1$][$j$]:=$\frac{1}{2}\frac{\text{diff}[i][2j]-\text{diff}[i][2j+1]}{\text{root}[2j]}$
+\STATE 		root = roots($r,t,u,l-1-i$)
+\ENDFOR
+\ENDFOR
+\RETURN derivs$[l][0]$
+\end{algorithmic}
+\end{algorithm}
+
+% def DLG_rational_form(p,dp,r,t,u,l):
+% 	root       = roots(r,t,u,l)
+% 	base_step  = [dp(r)*np.reciprocal(p(r)) for r in root]
+% 	derivs     = [base_step]
+% 	for i in range(l):
+% 		derivs.append([])
+% 		for j in range(2**(l-i-1)):
+% 			derivs[i+1].append((np.reciprocal(root[2*j])/2)*(derivs[i][2*j] - derivs[i][2*j+1]))
+% 		root = roots(r,t,u,l-1-i)
+% 	return derivs[l][0]
+
 
 
 
 
 \section{Theoretical Analysis}
-\newpage
+% \newpage
 \section{Experimental Results}
 
 \begin{figure}[h]
