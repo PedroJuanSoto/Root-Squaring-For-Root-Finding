@@ -1,4 +1,4 @@
-from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision, mpc, mpf
+from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision, mpc, mpf, pod
 import mpmath as mp
 import matplotlib.pyplot as plt
 
@@ -8,8 +8,8 @@ mp.mp.dps = old_precision
 #complex number
 j = mpc(0, 1)
 # define test polynomials and their derivatives
-P = [lambda x:mul(sub(mp.power(x,2),4),add(mp.power(x,2),4))]#, lambda x:x**2+2]
-dP = [lambda x:mul(4,mul(x,mp.power(x,2)))]#, lambda x: 2*x]
+P = [lambda x:mul(sub(pod(x,2),4),add(pod(x,2),4))]#, lambda x:x**2+2]
+dP = [lambda x:mul(4,mul(x,pod(x,2)))]#, lambda x: 2*x]
 # define number of tests
 N = 50
 

@@ -1,11 +1,12 @@
 import mpmath as mp
 
-mp.mp.dps = 30 
+mp.mp.dps = 30
 precision = 30
 add = lambda x,y : mp.fadd(x, y, exact = True)
 sub = lambda x,y : mp.fsub(x, y, exact = True)
 mul = lambda x,y : mp.fmul(x, y, exact = True)
 div = lambda x,y : mp.fdiv(x, y, dps = precision)
+pod = lambda x,y : mp.power(x, y)
 mpf = lambda x   : mp.mpf( x,    dps = precision)
 mpc = lambda x,y : mp.mpc( mpf(x), mpf(y))
 

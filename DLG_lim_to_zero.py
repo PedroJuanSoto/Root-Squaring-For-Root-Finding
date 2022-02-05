@@ -3,8 +3,13 @@ import mpmath as mp
 
 #p is a black box polynomial and p' is its derivative.
 #x = r*e^{2*pi*i*(t/u)}, and l is the number of derivatives/depth of recursion
-p  = lambda x:(x**2-4)*(x**2+4)
-dp  = lambda x:4*x*(x**2)
+p  = lambda x:mul(sub(mp.power(x,2)-4),add(mp.power(x,2),4))
+dp = lambda x:mul(4,mul(x,mp.power(x,2)))
+
+p_rev  = lambda x:mul(-1,mul(sub(mul(4,mp.power(x,2),1)),mul(add(mul(4,mp.power(x,2),1)))))
+dp_rev = lambda x:mul(-1,mul(64,mul(x,mp.power(x,2))))
+
+d = 4
 
 #l_max is the maximum l we will try and log_epsilon_max is the -log_2 of the
 #smallest epsilon to zero that we will try
@@ -47,7 +52,7 @@ x = mp.expjpi(angle*2)
 
 # #print the absolute values as we approch 0
 for l in range(l_max):
-    precision += 2
+    precision *= 2
     mp.mp.dps = precision
     print("l=",l)
     for e in range(1,20):
