@@ -21,9 +21,9 @@ if __name__ == '__main__':
         L.reverse()
         p_coeffs = [int(l) for l in L]
         #print(p_coeffs)
-        p = lambda x: polyval(p_coeffs, x)
+        p = lambda x: mp.polyval(p_coeffs, x)
         dp_coeffs = [p_coeffs[i]*(deg-i) for i in range(len(p_coeffs)-1)]
         #print(dp_coeffs)
-        dp = lambda x: polyval(dp_coeffs, x)
+        dp = lambda x: mp.polyval(dp_coeffs, x)
     
     #Next: case sri #sparse
