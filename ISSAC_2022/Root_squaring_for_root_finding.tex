@@ -36,7 +36,7 @@
 %%
 %% The first command in your LaTeX source must be the \documentclass command.
 \documentclass[sigconf]{acmart}
-
+\usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 
@@ -53,16 +53,16 @@
 %% the commands and values with those provided to you when you
 %% complete the rights form.
 \setcopyright{acmcopyright}
-\copyrightyear{2018}
-\acmYear{2018}
+\copyrightyear{2022}
+\acmYear{2022}
 \acmDOI{XXXXXXX.XXXXXXX}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
-\acmConference[Conference acronym 'XX]{Make sure to enter the correct
-  conference title from your rights confirmation emai}{June 03--05,
-  2018}{Woodstock, NY}
-\acmPrice{15.00}
-\acmISBN{978-1-4503-XXXX-X/18/06}
+\acmConference[ISSAC '22]{International Symposium on
+Symbolic and Algebraic Computation}{July 04--07,
+  2022}{Lille, France}
+% \acmPrice{15.00}
+% \acmISBN{978-1-4503-XXXX-X/18/06}
 
 
 %%
@@ -91,7 +91,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{Root Squaring for Root Finding}
+\title{Root-Squaring for Root-Finding}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -99,24 +99,25 @@
 %% Of note is the shared affiliation of the first two authors, and the
 %% "authornote" and "authornotemark" commands
 %% used to denote shared contribution to the research.
-% \author{Pedro}
-% \affiliation{%
-%     \institution{CUNY}
-%     \city{NY}
-%     \state{NY}
-%     \country{USA}
-% }
-% % \email{psoto@gradcenter.cuny.edu}
-%
-%
-%
-% \author{Soo}
-% \affiliation{%
-%     \institution{CUNY}
-%     \city{NY}
-%     \state{NY}
-%     \country{USA}
-% }
+\author{Pedro Soto}
+\affiliation{%
+    \institution{The Graduate Center, CUNY}
+    \city{New York}
+    \state{New York}
+    \country{USA}
+}
+\email{psoto@gradcenter.cuny.edu}
+
+
+
+\author{Soo Goo}
+\affiliation{%
+    \institution{The Graduate Center, CUNY}
+    \city{New York}
+    \state{New York}
+    \country{USA}
+}
+\email{sgo@gradcenter.cuny.edu}
 %
 % \author{Victor}
 % \affiliation{%
@@ -173,13 +174,13 @@
 %% other information printed in the page headers. This command allows
 %% the author to define a more concise list
 %% of authors' names for this purpose.
-\renewcommand{\shortauthors}{Trovato and Tobin, et al.}
+\renewcommand{\shortauthors}{Soto and Go, et al.}
 
 %%
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-  We use root squaring to aproximate the root radius of polynomials.
+We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe for polynomials and found new interesting applications to root-finding.
 \end{abstract}
 
 %%
@@ -232,26 +233,42 @@
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.1\linewidth]{rational_root_tree.png}
-  \caption{The steps of circ\_roots\_rational\_form(p,q,l) in Alg.\ref{alg:circ_roots_rational_form}.}
+  \includegraphics[width=\linewidth]{rational_root_tree.png}
+  \caption{The upper tree depicts the steps of \textsc{\textsc{Circle\_Roots\_Rational\_Form}}(p,q,l) in Alg.\ref{alg:circ_roots_rational_form} for $l=2$, $p=1$, and $q=1$. The lower tree depicts the steps of \textsc{Roots}($r,t,u,l$) in Alg.\ref{alg:roots} for $r=2$, $l=2$, $p=1$, and $q=1$}
   \Description{}
 \end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{p_prime.png}
+  \caption{The steps of \textsc{DLG\_Rational\_Rorm}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}
+  \Description{}
+\end{figure}
+
 
 
 \section{Algorithm Design}
 
 
 \begin{algorithm}
-   \caption{circ\_roots\_rational\_form($p,q,l$)}
+   \caption{\textsc{Circle\_Roots\_Rational\_Form}($p,q,l$)}
    \label{alg:circ_roots_rational_form}
 \begin{algorithmic}
-  \STATE $r, s$  := angle\_sq\_root($p,q$)
-	\STATE $t, u$  := angle\_neg($r,s$)
+\IF{ $p\%q$ == 0}
+  \STATE  $r, s$ := (1,1)
+\ELSE
+  \STATE  $r, s$ := ($p$,$2q$)
+\ENDIF
+  \IF{ r\%s == 0}
+    \STATE $t, u$ := (1,2)
+  \ELSE
+    \STATE $t, u$ := $(2r+s, 2s)$
+  \ENDIF
 	  \IF{$l$ == 1}
 		  \RETURN [($r,s$),($t,u$)]
 	\ELSIF {$l$ != 0}
-		\STATE left  := circ\_roots\_rational\_form($r,s,l-1$)
-		\STATE right := circ\_roots\_rational\_form($t,u,l-1$)
+		\STATE left  := \textsc{Circle\_Roots\_Rational\_Form}($r,s,l-1$)
+		\STATE right := \textsc{Circle\_Roots\_Rational\_Form}($t,u,l-1$)
 		\RETURN left $\cup$ right
 	\ELSE
 		\RETURN  [($p,q$)]
@@ -259,40 +276,85 @@
 \end{algorithmic}
 \end{algorithm}
 
-
-
 \begin{algorithm}
-\caption{angle\_sq\_root(p,q)}
-\label{alg:angle_sq_root}
+\caption{\textsc{Roots}($r,t,u,l$)}
+\label{alg:roots}
 \begin{algorithmic}
-	\IF{ $p\%q$ == 0}
-		\RETURN  (1,1)
-	\ELSE
-		\RETURN  ($p$,$2q$)
-  \ENDIF
+\STATE root\_tree = \textsc{Circle\_Roots\_Rational\_Form}($p,q,l$)
+\STATE circ\_root = [$\exp\left(2\cdot\pi\cdot i \cdot \frac{r}{s}\right)$ for $r,s$ in root\_tree]
+% \STATE circ\_root       = circ\_roots($t,u,l$)
+\STATE roots =[$\sqrt[2^l]{r}\cdot$root for root in circ\_root]
 \end{algorithmic}
 \end{algorithm}
 
 
-\begin{algorithm}
-\caption{angle\_neg(p,q)}
-\label{alg:angle_neg}
-\begin{algorithmic}
-	\IF{ p\%q == 0}
-		\RETURN  (1,2)
-	\ELSE
-		\RETURN  $(2p+q, 2q)$
-  \ENDIF
-\end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}
+%    \caption{circ\_roots\_rational\_form($p,q,l$)}
+%    \label{alg:circ_roots_rational_form}
+% \begin{algorithmic}
+%   \STATE $r, s$  := angle\_sq\_root($p,q$)
+% 	\STATE $t, u$  := angle\_neg($r,s$)
+% 	  \IF{$l$ == 1}
+% 		  \RETURN [($r,s$),($t,u$)]
+% 	\ELSIF {$l$ != 0}
+% 		\STATE left  := circ\_roots\_rational\_form($r,s,l-1$)
+% 		\STATE right := circ\_roots\_rational\_form($t,u,l-1$)
+% 		\RETURN left $\cup$ right
+% 	\ELSE
+% 		\RETURN  [($p,q$)]
+%       \ENDIF
+% \end{algorithmic}
+% \end{algorithm}
 
-\clearpage
+
+% \begin{algorithm}
+% \caption{angle\_sq\_root(p,q)}
+% \label{alg:angle_sq_root}
+% \begin{algorithmic}
+% 	\IF{ $p\%q$ == 0}
+% 		\RETURN  (1,1)
+% 	\ELSE
+% 		\RETURN  ($p$,$2q$)
+%   \ENDIF
+% \end{algorithmic}
+% \end{algorithm}
+%
+%
+% \begin{algorithm}
+% \caption{angle\_neg(p,q)}
+% \label{alg:angle_neg}
+% \begin{algorithmic}
+% 	\IF{ p\%q == 0}
+% 		\RETURN  (1,2)
+% 	\ELSE
+% 		\RETURN  $(2p+q, 2q)$
+%   \ENDIF
+% \end{algorithmic}
+% \end{algorithm}
+
+
+
+
+% \begin{algorithm}
+% \caption{circ\_roots($p,q,l$):}
+% \label{alg:circ_roots}
+% \begin{algorithmic}
+% \STATE roots = circ\_roots\_rational\_form($p,q,l$)
+% \RETURN [$\exp\left(2\cdot\pi\cdot i \cdot \frac{r}{s}\right)$ for r,s in roots]
+% \end{algorithmic}
+% \end{algorithm}
+
+
+
+
+
+% \clearpage
 
 \begin{algorithm}
-\caption{DLG\_rational\_form($p,p^\prime,r,t,u,l$)}
+\caption{\textsc{DLG\_Rational\_Form}($p,p^\prime,r,t,u,l$)}
 \label{alg:DLG_rational_form}
 \begin{algorithmic}
-\STATE 	root      := roots($r,t,u,l$)
+\STATE 	root      := \textsc{Roots}($r,t,u,l$)
 \FOR {$r_i \in $ root}
 \STATE 	base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$
 \ENDFOR
@@ -306,6 +368,23 @@
 \RETURN derivs$[l][0]$
 \end{algorithmic}
 \end{algorithm}
+
+
+
+
+
+\begin{algorithm}
+\caption{\textsc{DLG}($p,p^\prime,l,x, \epsilon$)}
+\label{alg:rational_angle_approx}
+\begin{algorithmic}
+\STATE angle     := $\frac{1}{2\pi i} \log (x)$
+\STATE Set $t, u$      := angle\_as\_integer\_ratio(angle, $\epsilon$)
+\STATE $r$      := $|x|$
+\RETURN \textsc{DLG\_Rational\_Rorm}($p,p^\prime,r,t,u,l$)
+\end{algorithmic}
+\end{algorithm}
+
+
 
 % def DLG_rational_form(p,dp,r,t,u,l):
 % 	root       = roots(r,t,u,l)
@@ -324,14 +403,15 @@
 
 \section{Theoretical Analysis}
 % \newpage
+% \clearpage
 \section{Experimental Results}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{limit_test.png}
-  \caption{Limit test.}
-  \Description{A woman and a girl in white dresses sit in an open car.}
-\end{figure}
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=\linewidth]{limit_test.png}
+%   \caption{Limit test.}
+%   \Description{The procedure for taking the limit to zero.}
+% \end{figure}
 
 
 \section{Conclusion}
