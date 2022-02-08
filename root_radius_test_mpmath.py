@@ -1,5 +1,6 @@
 from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision, mpc, mpf, pod
 import mpmath as mp
+import math
 
 #mp.mp.dps = 30
 #p is a black box polynomial and p' is its derivative.
@@ -15,20 +16,21 @@ import mpmath as mp
 
 ##higher degree test
 rt = 9
-d = 32
+d = 2**14
 p = lambda x: sub(pod(x,d),pod(rt,d))
 dp = lambda x: mul(d,pod(x,d-1))
 
 #l_max is the maximum l we will try and log_epsilon_max is the -log_2 of the
 #smallest epsilon to zero that we will try
-l_max           = 10
+l_max           = int(math.log2(d)) + 1
+l_min           = max(1, int(math.log2(d)))
 log_epsilon_max = 10
 
 #x is the point which defines a line to 0 on which we are taking a limit
 angle = mp.rand()
 x = mp.expjpi(angle*2)
 
-for l in range(1, l_max+1):
+for l in range(l_min, l_max+1):
     precision *= 2
     mp.mp.dps = precision
     print("l=",l)
@@ -40,7 +42,7 @@ for l in range(1, l_max+1):
         print("approx=",float(mp.fabs(approx)))
         real = mp.power(rt,mp.power(2,l))
         print("radius=", float(mp.fabs(real)))
-        print("error=", float(mp.fabs(int(mp.fabs(real))-int(mp.fabs(approx)))/int(mp.fabs(real))))
+        print("error=", float(mp.fabs((mp.fabs(real))-(mp.fabs(approx)))/(mp.fabs(real))))
         print("approx_root=",float(mp.root(mp.fabs(approx), mp.power(2,l))))
         print("error_root=", float(sub(mp.root(mp.fabs(approx), mp.power(2,l)), rt)))
 
