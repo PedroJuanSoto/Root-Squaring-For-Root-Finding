@@ -267,7 +267,7 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
 	  \IF{$l$ == 1}
 		  \RETURN [($r,s$),($t,u$)]
 	\ELSIF {$l$ != 0}
-		\STATE left  := \textsc{Circle\_Roots\_Rational\_Form}($r,s,l-1$)
+		\STATE left   := \textsc{Circle\_Roots\_Rational\_Form}($r,s,l-1$)
 		\STATE right := \textsc{Circle\_Roots\_Rational\_Form}($t,u,l-1$)
 		\RETURN left $\cup$ right
 	\ELSE
@@ -378,9 +378,9 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
 \label{alg:rational_angle_approx}
 \begin{algorithmic}
 \STATE angle     := $\frac{1}{2\pi i} \log (x)$
-\STATE Set $t, u$      := angle\_as\_integer\_ratio(angle, $\epsilon$)
+\STATE Set $t, u$      :=\textsc{ Angle\_As\_Integer\_Ratio}(angle, $\epsilon$)
 \STATE $r$      := $|x|$
-\RETURN \textsc{DLG\_Rational\_Rorm}($p,p^\prime,r,t,u,l$)
+\RETURN \textsc{DLG\_Rational\_Form}($p,p^\prime,r,t,u,l$)
 \end{algorithmic}
 \end{algorithm}
 
