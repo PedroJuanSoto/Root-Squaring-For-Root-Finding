@@ -33,7 +33,7 @@ def get_pols(pol_file):
 
     if pol_type[2] == 'i': 
         num_lines = 1
-        num_fcn = lambda x: mp.mpi(x)
+        num_fcn = lambda x: mp.mpf(x)
     elif pol_type[2] == 'f':
         num_lines = 1
         num_fcn = lambda x: mp.mpf(x)
@@ -53,9 +53,6 @@ def get_pols(pol_file):
         p_degs = []
         for i in range(num_terms):
             p_degs.append(int(L.pop(i*(num_lines*num_comps+1)-i)))
-        print(p_degs)
-        print(num_terms)
-            
 
     #L left over is p_coeffs
     p_coeffs = list(map(num_fcn, L))
@@ -82,43 +79,6 @@ def get_pols(pol_file):
         p = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_degs)))
         dp_degs = [d-1 for d in p_degs] 
         dp_coeffs = [p_coeffs[i]*p_degs[i] for i in range(num_terms)]
-
-    #case dri
-    if pol_type == 'dri':
-        L.pop(0) # 0 line.
-        deg = int(L.pop(0))
-
-        L.reverse()
-        p_coeffs = [float(l) for l in L]
-        p_degs = [i for i in range(deg+1)]
-        p_degs.reverse()
-        p = lambda x: mp.polyval(p_coeffs, x)
-        dp_coeffs = [p_coeffs[i]*(deg-i) for i in range(len(p_coeffs)-1)]
-        dp = lambda x: mp.polyval(dp_coeffs, x)
-        dp_degs = [d-1 for d in p_degs]
-        if -1 in dp_degs:
-            loc = dp_degs.index(-1)
-            dp_degs.pop(loc)
-
-    #case sri
-    if pol_type == 'sri':
-        L.pop(0) # 0 line.
-        deg = int(L.pop(0))
-        num_terms = int(L.pop(0))
-        p_degs = list(map(float, L[::2]))
-        p_coeffs = list(map(float, L[1::2]))
-        p = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_degs)))
-        dp_degs = [d-1 for d in p_degs]
-        dp_coeffs = [p_coeffs[i]*p_degs[i] for i in range(len(p_degs))]
-
-        #get rid of the 0-ed out constant term
-        #not strictly required, since the coeff should be 0 for the term that disappears
-        if -1 in dp_degs:
-            loc = dp_degs.index(-1)
-            dp_degs.pop(loc)
-            dp_coeffs.pop(loc)
-        dp = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), dp_coeffs, dp_degs)))
-
 
     #get rev polys
     p_rev_degs = [deg - j for j in p_degs]
