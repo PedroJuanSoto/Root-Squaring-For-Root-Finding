@@ -378,11 +378,18 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
 \label{alg:rational_angle_approx}
 \begin{algorithmic}
 \STATE angle     := $\frac{1}{2\pi i} \log (x)$
-\STATE Set $t, u$      := \textsc{ Angle\_As\_Integer\_Ratio}(angle, $\epsilon$)
+\STATE $u $    := $2^{\epsilon}$
+\STATE$t$      :=  $(\text{angle} \cdot u)\% 1$
 \STATE $r$      := $|x|$
 \RETURN \textsc{DLG\_Rational\_Form}($p,p^\prime,r,t,u,l$)
 \end{algorithmic}
 \end{algorithm}
+
+%
+% u     = pod(2,epsilon)
+% t     = mp.fmod(angle,pod(2,-epsilon))
+% r     = mpf(mp.fabs(x))
+
 
 
 
