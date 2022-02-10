@@ -2,7 +2,7 @@ from random_root_poly_gen import *
 import math
 import time
 
-log_d  =  6
+log_d  =  8
 d      =  2**log_d
 
 p, dp, p_rev, dp_rev, roots = gen_rand_poly(d)
@@ -34,7 +34,7 @@ start = time.time()
 print("before",mp.mp)
 
 extra_precision = int(l/3)
-# mp.mp.dps 		= precision + 2**extra_precision
+# mp.mp.dps 		= precision + 2**extra_precision + 100
 e 				= int((precision + 2**extra_precision)/2)+200
 
 print("after",mp.mp)
