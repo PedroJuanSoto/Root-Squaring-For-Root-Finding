@@ -2,6 +2,10 @@ from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision
 import mpmath as mp
 from copy import deepcopy
 
+mp.mp.dps = 300
+
+
+
 eval 	   = lambda coeffs,x : mp.polyval(coeffs,x)
 eval_deriv = lambda coeffs,x : mp.polyval(coeffs,x,True)[1]
 
@@ -30,7 +34,6 @@ def gen_rand_poly(d):
 	for r in roots:
 		linear_factors.append([1,-r])
 	poly = linear_factors.pop()
-	print(poly)
 	for p in linear_factors:
 		poly = mul_poly_lin_factor(poly,p)
 	coeffs = poly
