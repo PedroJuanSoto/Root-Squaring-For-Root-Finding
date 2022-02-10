@@ -49,12 +49,26 @@ def circ_roots_rational_form(p,q,l):
 	else:
 		return [(p,q)]
 
+circ_roots_rational_form_memo_tree = {(1,1,1):((1,1))}
+
+#A memoization of circ_roots_rational_form
+def circ_roots_rational_form_memo(p,q,l):
+	if (p,q,l) in circ_roots_rational_form_memo_tree:
+		return list(circ_roots_rational_form_memo_tree[(p,q,l)])
+	else:
+		new_roots = circ_roots_rational_form(p,q,l)
+		circ_roots_rational_form_memo_tree[(p,q,l)] = tuple(new_roots)
+		return new_roots
+
+
 #the input to this function is a representation
 #of a complex number x = e^{2*pi*i*(p/q)} and an integer l
 #so that circ_roots(p,q,l) = y_1,...,y_{2^l} where y_i^{2^l} = x
 #with the y_i ordered according to the DLG recursion
 def circ_roots(p,q,l):
-	roots = circ_roots_rational_form(p,q,l)
+	#Uncomment here to turn off memoization
+	#roots = circ_roots_rational_form(p,q,l)
+	roots = circ_roots_rational_form_memo(p,q,l)
 	return [mp.expjpi(mul(2,div(r,s))) for r,s in roots]
 
 #the input to this function is a representation of a complex number
@@ -85,8 +99,9 @@ def DLG_rational_form(p,dp,r,t,u,l):
 #a complex number x, and an integer l
 #so that circ_DLG(p,dp,r,t,u,l) = (1/2z) p'_i(z)/p_i(z) - p'_i(z)/p_i(z) were
 #z = x^(-1/2); i.e., circ_DLG(p,dp,r,t,u,l) = "the l^th difference of p'/p at x"
-def DLG(p,dp,x,l):
-	angle     = mp.arg(x)
-	t, u      = float(angle).as_integer_ratio()
-	r         = mpf(mp.fabs(x))
+def DLG(p,dp,x,l,epsilon):
+	angle = mp.arg(x)
+	u     = pod(2,epsilon)
+	t     = mp.fmod(angle,pod(2,-epsilon))
+	r     = mpf(mp.fabs(x))
 	return DLG_rational_form(p,dp,r,t,u,l)
