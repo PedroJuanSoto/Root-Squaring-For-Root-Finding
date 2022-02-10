@@ -1,12 +1,13 @@
-from random_poly_gen import *
+from random_root_poly_gen import *
 import math
 import time
 
-log_d  =  6
+log_d  =  2
 d      =  2**log_d
 
-p, dp, p_rev, dp_rev, coeffs = gen_rand_poly(d)
-roots = mp.polyroots(coeffs)
+p, dp, p_rev, dp_rev, roots = gen_rand_poly(d)
+# roots = mp.polyroots(coeffs)
+print(list(map(mp.fabs,roots)))
 min = math.inf
 max = -math.inf
 for i in range(len(roots)):
@@ -16,7 +17,7 @@ for i in range(len(roots)):
 		max = i
 
 rt     = roots[min]
-rev_rt = roots[min]
+rev_rt = roots[max]
 
 #l_max is the maximum l we will try and log_epsilon_max is the -log_2 of the
 #smallest epsilon to zero that we will try
@@ -30,8 +31,8 @@ x = mp.expjpi(angle*2)
 start = time.time()
 
 extra_precision = int(l/3)
-mp.mp.dps 		= precision + 2**extra_precision
-e 				= int((precision + extra_precision)/2)
+mp.mp.dps 		= precision + 2**extra_precision+100
+e 				= int((precision + extra_precision)/2)+5
 
 
 		#print(mp.mp)
@@ -49,9 +50,9 @@ print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))
 print("l=%s, e=%s" % (l,e))
 approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l),d)
 print("approx=",mp.fabs(approx))
-real = mp.power(rt,mp.power(2,l))
+real = mp.power(rev_rt,mp.power(2,l))
 print("radius=", mp.fabs(real))
 print("error=", mp.fabs((mp.fabs(real))-(mp.fabs(approx)))/(mp.fabs(real)))
 print("approx_root=",mp.root(mp.fabs(approx), mp.power(2,l)))
-print("radius_root=", mp.fabs(rt))
-print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(rt))))
+print("radius_root=", mp.fabs(rev_rt))
+print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(rev_rt))))
