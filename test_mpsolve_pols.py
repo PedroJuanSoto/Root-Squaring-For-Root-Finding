@@ -1,6 +1,5 @@
 import os
 import sys
-import mpmath as mp
 import shlex
 import subprocess
 import re
@@ -20,6 +19,8 @@ def get_args():
     return args
 
 
+#Should handle the following formats:
+#dri drq drf dci dcq sci sri srf
 def get_pols(pol_file):
     with open(pol_file) as f:
         L = f.read().split('\n')
@@ -27,34 +28,60 @@ def get_pols(pol_file):
     while L[0][0] == '!': L.pop(0)
     L = [l for l in L if l.strip() != ''] 
     pol_type = L.pop(0)
+    L.pop(0) # 0 line. 
+    deg = int(L.pop(0))
 
-    #case dri 
-    if pol_type == 'dri':
-        L.pop(0) # 0 line. 
-        deg = int(L.pop(0))
+    if pol_type[2] == 'i': 
+        num_lines = 1
+        num_fcn = lambda x: mp.mpi(x)
+    elif pol_type[2] == 'f':
+        num_lines = 1
+        num_fcn = lambda x: mp.mpf(x)
+    elif pol_type[2] == 'q':
+        num_lines = 2
+        num_fcn = lambda x: mp.mpf(x)
+
+    if pol_type[1] == 'r':
+        num_comps = 1
+    elif pol_type[1] == 'c':
+        num_comps = 2
+
+    #if pol_type[0] == 'd':
+    #    p_degs = [i for i in range(degs + 1)]
+    if pol_type[0] == 's':
+        num_terms = int(L.pop(0))
+        p_degs = []
+        for i in range(num_terms):
+            p_degs.append(int(L.pop(i*(num_lines*num_comps+1)-i)))
+        print(p_degs)
+        print(num_terms)
+            
+
+    #L left over is p_coeffs
+    p_coeffs = list(map(num_fcn, L))
+    if pol_type[2] == 'q':
+        p_coeffs = [ div(x,y) for (x,y) in zip(p_coeffs[0::2], p_coeffs[1::2])]
     
-        L.reverse()
-        p_coeffs = [float(l) for l in L]
-        p_degs = [i for i in range(deg+1)]
-        p_degs.reverse()
+    if pol_type[1] == 'c':
+        p_coeffs = [ mp.mpc(real=x, imag=y) for (x,y) in zip(p_coeffs[0::2], p_coeffs[1::2])]
+    
+    if pol_type[0] == 'd':
+        p_coeffs.reverse()
+        p_degs = [deg-i for i in range(deg+1)]
         p = lambda x: mp.polyval(p_coeffs, x)
         dp_coeffs = [p_coeffs[i]*(deg-i) for i in range(len(p_coeffs)-1)]
         dp = lambda x: mp.polyval(dp_coeffs, x)
+
+        #not strictly needed but for posterity
         dp_degs = [d-1 for d in p_degs] 
         if -1 in dp_degs: 
             loc = dp_degs.index(-1) 
             dp_degs.pop(loc)
     
-    #case sri
-    if pol_type == 'sri':
-        L.pop(0) # 0 line. 
-        deg = int(L.pop(0))
-        num_terms = int(L.pop(0))
-        p_degs = list(map(float, L[::2]))
-        p_coeffs = list(map(float, L[1::2]))
+    elif pol_type[0] == 's':
         p = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_degs)))
         dp_degs = [d-1 for d in p_degs] 
-        dp_coeffs = [p_coeffs[i]*p_degs[i] for i in range(len(p_degs))]
+        dp_coeffs = [p_coeffs[i]*p_degs[i] for i in range(num_terms)]
 
         #get rid of the 0-ed out constant term
         #not strictly required, since the coeff should be 0 for the term that disappears
@@ -64,10 +91,17 @@ def get_pols(pol_file):
             dp_coeffs.pop(loc)
         dp = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), dp_coeffs, dp_degs)))
 
+
     #get rev polys
     p_rev_degs = [deg - j for j in p_degs]
     p_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_rev_degs)))
     
+    #print(p_coeffs)
+    #print(p_degs)
+    #print(dp_coeffs)
+    #print(dp_degs)
+    #print(p_coeffs)
+    #print(p_rev_degs)
     dp_rev_degs = [d-1 for d in p_rev_degs]
     dp_rev_coeffs = [p_coeffs[i]*p_rev_degs[i] for i in range(len(p_rev_degs))]
 
@@ -77,14 +111,14 @@ def get_pols(pol_file):
         dp_rev_coeffs.pop(loc)
     dp_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), dp_rev_coeffs, dp_rev_degs)))
 
-    #print(p_coeffs)
-    #print(p_degs)
-    #print(dp_coeffs)
-    #print(dp_degs)
-    #print(p_coeffs)
-    #print(p_rev_degs)
-    #print(dp_rev_coeffs)
-    #print(dp_rev_degs)
+    print(p_coeffs)
+    print(p_degs)
+    print(dp_coeffs)
+    print(dp_degs)
+    print(p_coeffs)
+    print(p_rev_degs)
+    print(dp_rev_coeffs)
+    print(dp_rev_degs)
 
     return deg, p, dp, p_rev, dp_rev
 
@@ -120,18 +154,18 @@ def run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max):
     #x is the point which defines a line to 0 on which we are taking a limit
     angle = mp.rand()
     x = mp.expjpi(angle*2)
-    
+
     star_min = time.time()
     print("before",mp.mp)
-    
+
     extra_precision = int(l/3)
-    # mp.mp.dps = precision + 2**extra_precision + 100
-    e = int((precision + 2**extra_precision)/2)+200
-    
+    mp.mp.dps = precision + 2**extra_precision + 300
+    e = int((precision + 2**extra_precision)/2)+600
+
     print("after",mp.mp)
-    
+
     print("l=%s, e=%s" % (l,e))
-    approx = div(deg,DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l))
+    approx = div(deg,DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l,e))
     print("approx=",mp.fabs(approx))
     real = mp.power(r_min,mp.power(2,l))
     print("radius=", mp.fabs(real))
@@ -140,9 +174,9 @@ def run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max):
     print("radius_root=", mp.fabs(r_min))
     print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))))
     print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))),mp.fabs(r_min)))),"%")
-    
+
     print("l=%s, e=%s" % (l,e))
-    approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l),deg)
+    approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l,e),deg)
     print("approx=",mp.fabs(approx))
     real = mp.power(r_max,mp.power(2,l))
     print("radius=", mp.fabs(real))
@@ -151,7 +185,7 @@ def run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max):
     print("radius_root=", mp.fabs(r_max))
     print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_max))))
     print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_max))),mp.fabs(r_max)))),"%")
-    
+
     print("time=",time.time()-star_min)
 
 
@@ -159,6 +193,11 @@ def main():
     args = get_args()
     infile = args.infile
     deg, p, dp, p_rev, dp_rev = get_pols(infile)
+
+    l = int(math.log2(deg))+3
+    extra_precision = int(l/3)
+    mp.mp.dps = precision + 2**extra_precision + 100
+
     roots, r_min, r_max = get_root_radii(infile)
     run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max)
 
