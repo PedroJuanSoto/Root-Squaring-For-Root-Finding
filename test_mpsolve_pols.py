@@ -80,6 +80,12 @@ def get_pols(pol_file):
         dp_degs = [d-1 for d in p_degs] 
         dp_coeffs = [p_coeffs[i]*p_degs[i] for i in range(num_terms)]
 
+        if -1 in dp_degs:
+            loc = dp_degs.index(-1)
+            dp_degs.pop(loc)
+            dp_coeffs.pop(loc)
+        dp = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), dp_coeffs, dp_degs)))
+
     #get rev polys
     p_rev_degs = [deg - j for j in p_degs]
     p_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_rev_degs)))
