@@ -16,9 +16,6 @@ import time
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("infile", type=str, help="polynomial file in mpsolve input format")
-    #parser.add_argument("--random", "-r", action='store_true', help="if specified, a random polynomial is generated. (Default degree = 16)")
-    #parser.add_argument("--degree", "-d", type=str, help="degree of the random polynomial to be generated")
-
     args = parser.parse_args()
     return args
 
@@ -28,7 +25,6 @@ def get_pols(pol_file):
         L = f.read().split('\n')
 
     while L[0][0] == '!': L.pop(0)
-
     L = [l for l in L if l.strip() != ''] 
     pol_type = L.pop(0)
 
@@ -69,7 +65,6 @@ def get_pols(pol_file):
         dp = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), dp_coeffs, dp_degs)))
 
     #get rev polys
-
     p_rev_degs = [deg - j for j in p_degs]
     p_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_rev_degs)))
     
@@ -120,13 +115,7 @@ def get_root_radii(pol_file):
 
 # runs tests using the DLG algorithm
 def run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max):
-    #l_max is the maximum l we will try and log_epsilon_max is the -log_2 of the
-    #smallest epsilon to zero that we will try
     l = int(math.log2(deg))
-    #l_max = int(math.log2(deg)) + 1
-    #l_min = max(1, int(math.log2(deg)))
-    #log_epsilon_max = l_min
-    #log_epsilon_max = l_min +10
 
     #x is the point which defines a line to 0 on which we are taking a limit
     angle = mp.rand()
@@ -173,11 +162,6 @@ def main():
     roots, r_min, r_max = get_root_radii(infile)
     run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max)
 
-    #if args.random:
-    #    deg = args.degree
-    #    p, dp, p_rev, dp_rev = generate_pols(deg)
-    #    #to-do: run mpsolve on the random pol
 
 if __name__ == '__main__':
-    #infile = sys.argv[1]
     main()
