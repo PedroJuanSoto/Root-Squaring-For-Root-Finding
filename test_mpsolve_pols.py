@@ -25,8 +25,8 @@ def get_pols(pol_file):
     with open(pol_file) as f:
         L = f.read().split('\n')
 
-    while L[0][0] == '!': L.pop(0)
     L = [l for l in L if l.strip() != '']
+    while L[0][0] == '!': L.pop(0)
     pol_type = L.pop(0)
     L.pop(0) # 0 line. 
     deg = int(L.pop(0))
