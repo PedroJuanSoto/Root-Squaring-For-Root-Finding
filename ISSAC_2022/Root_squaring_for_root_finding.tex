@@ -670,7 +670,7 @@ The $q \log q$  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon 
 \label{tab:chebyshev}
 \vskip 0.15in
 \begin{center}
-
+\begin{small}
 \begin{sc}
 \begin{tabular}{lccccccc}
 \toprule
@@ -685,7 +685,7 @@ degree  & $\ell$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &ru
 \bottomrule
 \end{tabular}
 \end{sc}
-
+\end{small}
 \end{center}
 \vskip -0.1in
 \end{table*}
@@ -713,7 +713,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \vskip -0.1in
 \end{table*}
 
-%% template
+
 \begin{table*}[t]
 \caption{Experimental Data for Chromatic polynomial deflated: a}
 \label{tab:chrma_d}
@@ -737,7 +737,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \vskip -0.1in
 \end{table*}
 
-%% template
+
 \begin{table*}[t]
 \caption{Experimental Data for Chromatic polynomial (zero root removed) kind c}
 \label{tab:chrmc}
@@ -1216,15 +1216,127 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 &  &  & mpmath & relative  & relative &  & mpsolve \\
 degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
 \midrule
-   31 &  &  &  &  &  &  & $[,]$\\
-   63 &  &  &  &  &  &  & $[,]$\\
- 127 & 6 & 617 & 334 & 0.08 & 0.04 & 8.95 & $[0.373,2.0]$ \\
-  255  &  &  &  &  &  &  & $[,]$\\
-  511 &  &  &  &  &  &  & $[,]$\\
-1023 & 9 & 619 & 338 & 0.35 & 0.14 & 546.54 & $[0.321,2.0]$\\
- 2047 &  &  &  &  &  &  & $[,]$\\
-   &  &  &  &  &  &  & $[,]$\\
-     &  &  &  &  &  &  & $[,]$\\
+     31 & 4 & 616 & 332 & 0.29 & 0.14 & 0.57 & $[0.445, 2.0]$\\
+     63 & 5 & 616 & 332 & 0.12 & 0.08 & 2.01 & $[0.403, 2.0]$\\
+   127 & 6 & 617 & 334 & 0.08 & 0.04 & 8.95 & $[0.373,2.0]$ \\
+   255 & 7 & 617 & 334 & 0.06 & 0.70 & 45.13 & $[0.351, 2.0]$\\
+   511 & 8 & 617 & 334 & 0.02 & 1.62 & 143.01 & $[0.334, 2.0]$\\
+ 1023 & 9 & 619 & 338 & 0.35 & 0.14 & 546.54 & $[0.321,2.0]$\\
+ 2047 &10& 619 & 338 & 1.11 & 0.24 & 2278.95 & $[0.311,2.0]$\\
+ 4095 & 11 & 619 & 338 & 1.68 & - & - & $[0.303,2.0]$\\
+
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table*}
+
+\begin{table*}[t]
+\caption{Experimental Data for Mig1}
+\label{tab:mig1}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mpmath & relative  & relative &  & mpsolve \\
+degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
+\midrule
+   20 & 4 & 616 & 332 & 0.12 & 0.99 & 0.08 & $[0.01, 2.26]$ \\
+   50 & 5 & 616 & 332 & 0.01 & 0.98 & 1.75 & $[0.00999,1.83 \times 10^{3}]$\\
+ 100 & 6 & 617 & 334 & 0.05 & 0.99 & 0.41 & $[0.01,1.15]$\\ %mig1_100
+ 100 & 6 & 617 & 334 & 0.01 & 0.99 & 3.78 & $[0.01,7.92]$\\ %mig1_100_1
+ 200 & 7 & 617 & 334 & 2.65 & 0.99 & 0.84 & $[0.01,1.07]$\\%mig1_200
+ 200 & 7 & 617 & 334 & 2.59 & 0.99 & 7.55 & $[0.01, 2.33]$\\%mig1_200_2
+ 500 & 8 & 617 & 334 & 18.19 & 0.98 & 1.60 & $[0.01, 1.03]$\\ 
+ 500 & 8 & 617 & 334 & 18.01 & 0.98 & 16.16 & $[0.01,1.36]$\\ %_1
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table*}
+
+
+\begin{table*}[t]
+\caption{Experimental Data for Mult}
+\label{tab:mult}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mpmath & relative  & relative &  & mpsolve \\
+degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
+\midrule
+   15 & 3 & 616 & 332 & 0.29 & 0.18 & 0.08 & $[0.869,1.07]$ \\ %mult1
+   68 & 6 & 617 & 334 & 0.05 & 0.05 & 4.41 & $[0.25,2.24]$\\ %mult2
+   22 & 4 & 616 & 332 & 0.21 & 0.10 & 0.24 & $[1.0, 20.0]$\\ %mult3
+   20 & 4 & 616 & 332 & 0.07 & 0.47 & 0.39 & $[0.01, 2.68]$\\ %mult4
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table*}
+
+
+\begin{table*}[t]
+\caption{Experimental Data for $x^n - 1$}
+\label{tab:nroots}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mpmath & relative  & relative &  & mpsolve \\
+degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
+\midrule
+    50 & 5 & 616 & 332 & $4.92 \times 10^{13}$  & 0.99 & 0.09 & $[1.0, 1.0]$ \\
+  100 & 6 & 617 & 334 & $ 7.06 \times 10^{6}$ & 0.99 & 0.21 & $[1.0, 1.0]$ \\% $ \times 10^{}$
+  200 & 7 & 617 & 334 & $ 2.69 \times 10^{3}$ & 0.99 & 0.40 & $[1.0, 1.0]$ \\
+  400 & 8 & 617 & 334 & 50.50 & 0.98 & 0.81 & $[1.0, 1.0]$ \\
+  800 & 9 &  619 & 338 & 6.33 & 0.86 & 1.67 & $[1.0, 1.0]$ \\
+1600 &10& 619 & 338 & 1.70 & 0.63 & 3.29 & $[1.0, 1.0]$ \\
+3200 &11& 619 & 338 & 0.64 & 0.39 & 6.20 & $[1.0, 1.0]$ \\
+6400 &12& 623 & 346 & 0.28 & 0.22 & 13.22 & $[1.0, 1.0]$ \\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table*}
+
+
+
+\begin{table*}[t]
+\caption{Experimental Data for $x^n - i$}
+\label{tab:nrooti}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mpmath & relative  & relative &  & mpsolve \\
+degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
+\midrule
+    50 & 5 & 616 & 332 & $5.03 \times 10^{13}$ & 0.99 & 0.11 & $[1.0, 1.0]$ \\
+  100 & 6 & 617 & 334 & $7.06 \times 10^{6}$ & 0.99 & 0.23 & $[1.0, 1.0]$ \\% $ \times 10^{}$
+  200 & 7 & 617 & 334 & $2.69 \times 10^{3}$ & 0.99 & 0.43 &  $[1.0, 1.0]$ \\
+  400 & 8 & 617 & 334 & 50.50 & 0.98 & 0.82 & $[1.0, 1.0]$ \\
+  800 & 9 &  619 & 338 & 6.33 & 0.86 & 1.82 & $[1.0, 1.0]$ \\
+1600 &10& 619 & 338 & 1.70 & 0.63 & 3.53 & $[1.0, 1.0]$ \\
+3200 &11& 619 & 338 & 0.64 & 0.39 & 6.79 & $[1.0, 1.0]$ \\
+6400 &12& 623 & 346 & 0.28 & 0.22 & 13.82 & $[1.0, 1.0]$ \\
 \bottomrule
 \end{tabular}
 \end{sc}
