@@ -1246,10 +1246,10 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \toprule
 &  &  & mpmath & relative  & relative &  & mpsolve \\
 degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
- 1023 & 9 & 619 & 338 & 0.357 & 0.142 & 569.08 & $[0.321, 2.0]$\\
- 127 & 6 & 617 & 334 & 0.0898 & 0.0488 & 8.58 & $[0.373, 2.0]$\\
 \midrule
-
+ 127 & 6 & 617 & 334 & 0.0898 & 0.0488 & 8.58 & $[0.373, 2.0]$\\
+ 1023 & 9 & 619 & 338 & 0.357 & 0.142 & 569.08 & $[0.321, 2.0]$\\
+ 2047 & 10 & 619 & 338 & 1.12 & 0.241 & 2372.57 & $[0.311, 2.0]$\\
 \bottomrule
 \end{tabular}
 \end{sc}
@@ -1395,26 +1395,30 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \vskip 0.05in
 \end{table*}
 
-%\begin{table*}[t]
-%\caption{Experimental Data for Sparse}
-%\label{tab:sparse}
-%\vskip -0.15in
-%\begin{center}
-%\begin{small}
-%\begin{sc}
-%\begin{tabular}{lccccccc}
-%\toprule
-%&  &  & mpmath & relative  & relative &  & mpsolve \\
-%degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
-%\midrule
-%
-%\bottomrule
-%\end{tabular}
-%\end{sc}
-%\end{small}
-%\end{center}
-%\vskip 0.05in
-%\end{table*}
+\begin{table*}[t]
+\caption{Experimental Data for \texttt{sparse}}
+\label{tab:sparse}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mpmath & relative  & relative &  & mpsolve \\
+degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
+\midrule
+100 & 6 & 617 & 334 & 0.11 & 1.0 & 0.26 & $[0.968, 1.01]$\\
+ 200 & 7 & 617 & 334 & 0.0361 & 0.995 & 1.16 & $[0.969, 1.0]$\\
+ 400 & 8 & 617 & 334 & 0.0211 & 0.929 & 2.19 & $[0.969, 1.0]$\\
+ 800 & 9 & 619 & 338 & 0.0118 & 0.739 & 6.56 & $[0.969, 1.0]$\\
+  6400 & 12 & 623 & 346 & 0.00202 & 0.158 & 72.81 & $[0.969, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table*}
 
 \begin{table*}[t]
 \caption{Experimental Data for \texttt{spiral}} %  Spiral}
