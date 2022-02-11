@@ -40,7 +40,7 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{amsthm}
-
+\newtheorem{remark}{Remark}
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
@@ -180,7 +180,7 @@ Symbolic and Algebraic Computation}{July 04--07,
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe for polynomials and found new interesting applications to root-finding.
+We revisit the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe for polynomials and find new interesting applications to root-finding.
 \end{abstract}
 
 %%
@@ -227,7 +227,7 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
 
 \section{Related Works}
 
-\section{Background}\label{srrapp}
+\section{Background and Motivation}\label{srrapp}
 % %------------------------------------------------------------------------------
 % \subsection{Root radius and root-squaring}\label{srrapp}
 %
@@ -256,91 +256,187 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
 % given
 % a range $[\rho_-,\rho_+]$ for  the $m$th smallest root radius, $r_{d-m+1}$, narrow this range.
 % We already addressed this problem
-%  in Remark \ref{retrhob}, but next we cover alternative  refinement of root radii  approximation, based on the classical technique of recursive root-squaring, which also enables us to relax restriction of Rule 2 of Sec. \ref{ssbdbrf} on softness of exclusion test and to increase isolation of a disc (see, e.g.,  Remark \ref{resmplini}).
-%
-%  First make an input polynomial $p(x)$ monic by scaling it and/or the variable
-%   $x$ and then
-%  apply $k$ DLG (that is, Dandelin's aka
-% Lobachevsky's or Gr{\"a}ffe's) root-squaring iterations
-% (cf. \cite{H59}),
-% \begin{equation}\label{eqdnd}
-%  p_0(x)=\frac{1}{p_d}p(x),~p_{i+1}(x)=(-1)^ dp_i(\sqrt x)
-% p_i(-\sqrt x),~i=0,1,\dots.\ell
-% \end{equation}
-% for a fixed positive integer $\ell$
-% (see Remark \ref{rescdnd} below).
-% The $i$th  iteration squares the roots of $p_i(x)$ and
-% consequently the root radii from the origin, as well as
-% the  isolation of the unit disc $D(0,1)$.  Now approximate
-% the ratio  $\rho_+/\rho_-$ for the polynomial $p_{\ell}(x)$ within a factor of $\gamma$ and then readily recover approximation of this ratio for $p_0(x)$ and
-% $p(x)$ within a factor of
-% $\gamma^{1/2^{\ell}}$.
-%
-% Given the coefficients of
-% $p_i(x)$ , e.g., a deflated factor of $p$,  we can reduce the $i$th root-squaring iteration, that is, the computation of
-% the coefficients of  $p_{i+1}(x)$, to polynomial multiplication and perform it in $O(d\log(d))$ arithmetic operations.
-% Unless the positive integer $\ell$ is small, the absolute values of the coefficients
-% of $p_{\ell}(x)$ vary  dramatically, and realistically one should either stop because of severe problems of numerical stability or apply the stable algorithm by Gregorio Malajovich and Jorge  P. Zubelli \cite{MZ01}, which performs a single root-squaring at  arithmetic cost of order $d^2$.
-%
-% For black box polynomials $p$, however, we apply
-% DLG iterations without computing
-% the coefficients, and the algorithm turns out to be quite efficient:
-%  for $\ell$ iterations  evaluate
-%  $p(x)$ at  $2^{\ell}$ equally spaced points  on a circle and obtain
-%  the values of the polynomial $p_{\ell}(x)=\prod(x-x_j^{2^{\ell}})$
-%  at these $2^{\ell}$ points.
-%
-% Furthermore,  evaluate the ratio
-% $p'(x)/p(x)=p_0'(x)/p_0(x)$
-% at these points by applying
-% the recurrence
-%  \begin{equation}\label{eqdndrt} \frac{p_{i+1}'(x)}{p_{i+1}(x)}=\frac{1}{2\sqrt x}\Big(\frac{p_{i}'(\sqrt x~)}{p_{i}(\sqrt x~)}-\frac{p_{i}'(-\sqrt x~)}{p_{i}(-\sqrt x~)}\Big),~i=0,1,\dots
-% \end{equation}
-% Recurrences (\ref{eqdnd}) and (\ref{eqdndrt}) reduce evaluation  of  $p_{\ell}(c)$ to the evaluation of $p(c)$ at  $q=2^{\ell}$  points
-% $c^{1/q}$ and  for $c\neq 0$ reduce evaluation  of
-%  the ratio
-% $p_{\ell}'(x)/p_{\ell}(x)$ at $x=c$ to the evaluation
-% of the ratio
-% $p'(x)/p(x)$ at the latter $q=2^{\ell}$ points $x=c^{1/q}$.
-% We apply  recurrence (\ref{eqdndrt})
-% to support application of  Cor. \ref{coqudr} (see Remark \ref{resmplini}).
-%
-% For $x=0$ recurrence (\ref{eqdndrt}) can be specialized as follows:
-%  \begin{equation}\label{eqdndrt0} \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Big(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Big)_{x=0}'=\Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(\ell)},~\ell=1,2,\dots
-% \end{equation}
-% Notice an immediate extension:
-% \begin{equation}\label{eqdndrth} \frac{p_{{\ell}}^{(h)}(0)}{p_{\ell}(0)}=\prod_{g=1}^h\Big(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Big)_{x=0}^{(\ell)},~h=1,2,\dots.
-% \end{equation}
-% Equations (\ref{eqdndrt0}) and more generally (\ref{eqdndrth})
-% enable us to  strengthen
-% upper estimates  (\ref{eqrtrdbndsrev1})
-% and more generally (\ref{eqrtrdbnds-+i}) for  root-radii  $r_j(0,p)$   at the origin   because $r_j(0,p_{\ell})=r_j(0,p)^{2^{\ell}}$ for $j=1,\dots,d$ (see  (\ref{eqratio0})); we can  approximate the higher order derivatives
-% $\Big(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Big)^{(\ell)}$
-%  at $x=0$ by following Remark \ref{rehighr}.
-% Besides listed applications of
-% root-squaring, we recall one in Sec. \ref{scorrcch}, for decreasing the softness  of Alg. \ref{algexclrndspr}.
-% One can apply root-squaring $p(x)\rightarrow p_{\ell}(x)$ to improve  the error  bound of Cor. \ref{copwrsm} for the approximation of   the power sums  of the roots of  $p(x)$ in the unit disc $D(0,1)$ by Cauchy sums, but the improvement is about as much and at the same additional cost as by increasing the number $q$ of points of evaluation of the ratio $p'/p$.
-% \begin{remark}\label{rescdnd}
-%  One can approximate the leading coefficient $p_d$  of a black box polynomial $p(x)$ based on equation (\ref{eqpolyrevlc}). This coefficient is not involved in recurrence (\ref{eqdndrt}),
-%  and one can apply  recurrence (\ref{eqdnd}) by using a crude
-%  approximation to  $p_d$
-%  and if needed can scale polynomials
-%  $p_i(x)$ for some $i$.
-% \end{remark}
+%  in Remark \ref{retrhob}, but next
+ % We present the refinement of root radii  approximation, based on the classical technique of recursive root-squaring, which also enables us to relax restriction of Rule 2 of Sec. \ref{ssbdbrf} on softness of exclusion test and to increase isolation of a disc (see, e.g.,  Remark \ref{resmplini}).
+
+ The common procedure for root radii  approximation, based on the classical technique of recursive root-squaring, is to first make an input polynomial $p(x)$ monic by scaling it and/or the variable
+  $x$ and then
+ apply $k$ DLG (that is, Dandelin's aka
+Lobachevsky's or Gr{\"a}ffe's) root-squaring iterations
+(cf. \cite{10.2307/2310626}),
+\begin{equation}\label{eqdnd}
+ p_0(x)=\frac{1}{p_d}p(x),~p_{i+1}(x)=(-1)^ dp_i(\sqrt x)
+p_i(-\sqrt x),~i=0,1,\dots.\ell
+\end{equation}
+for a fixed positive integer $\ell$
+(see Remark \ref{rescdnd} below).
+The $i$th  iteration squares the roots of $p_i(x)$ and
+consequently the root radii from the origin, as well as
+the  isolation of the unit disc $D(0,1)$.
+Then one approximates
+the ratio  $\rho_+/\rho_-$, the new scaled ratio of the root radii, for the polynomial $p_{\ell}(x)$ within a factor of $\gamma$ and readily recovers the approximation of this ratio for $p_0(x)$ and
+$p(x)$ within a factor of
+$\gamma^{1/2^{\ell}}$.
+
+Given the coefficients of
+$p_i(x)$
+we can reduce the $i$th root-squaring iteration, that is, the computation of
+the coefficients of  $p_{i+1}(x)$, to polynomial multiplication and perform it in $O(d\log(d))$ arithmetic operations.
+Unless the positive integer $\ell$ is small, the absolute values of the coefficients
+of $p_{\ell}(x)$ vary  dramatically, and realistically one should either stop because of severe problems of numerical stability or apply the stable algorithm by Gregorio Malajovich and Jorge  P. Zubelli \cite{Malajovich2001OnTG}, which performs a single root-squaring at  arithmetic cost of order $d^2$.
+
+For black box polynomials $p$, however, we apply
+DLG iterations without computing
+the coefficients, and the algorithm turns out to be quite efficient:
+ for $\ell$ iterations  evaluate
+ $p(x)$ at  $2^{\ell}$ equally spaced points  on a circle and obtain
+ the values of the polynomial $p_{\ell}(x)=\prod\left(x-x_j^{2^{\ell}}\right)$
+ at these $2^{\ell}$ points.
+
+Furthermore,  evaluate the ratio
+$p'(x)/p(x)=p_0'(x)/p_0(x)$
+at these points by applying
+the recurrence
+ \begin{equation}\label{eqdndrt} \frac{p_{i+1}'(x)}{p_{i+1}(x)}=\frac{1}{2\sqrt x}\Big(\frac{p_{i}'(\sqrt x~)}{p_{i}(\sqrt x~)}-\frac{p_{i}'(-\sqrt x~)}{p_{i}(-\sqrt x~)}\Big),~i=0,1,\dots
+\end{equation}
+Recurrences (\ref{eqdnd}) and (\ref{eqdndrt}) reduce evaluation  of  $p_{\ell}(c)$ to the evaluation of $p(c)$ at  $q=2^{\ell}$  points
+$c^{1/q}$ and  for $c\neq 0$ reduce evaluation  of
+ the ratio
+$p_{\ell}'(x)/p_{\ell}(x)$ at $x=c$ to the evaluation
+of the ratio
+$p'(x)/p(x)$ at the latter $q=2^{\ell}$ points $x=c^{1/q}$.
+We will see that we can apply  recurrence (\ref{eqdndrt})
+to support fast convergence to the convex hull of the roots.
+
+% Clean
+
+For $x=0$ recurrence (\ref{eqdndrt}) can be specialized as follows:
+ \begin{equation}\label{eqdndrt0} \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Big(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Big)_{x=0}'=\Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(\ell)},~\ell=1,2,\dots
+\end{equation}
+Notice an immediate extension:
+\begin{equation}\label{eqdndrth} \frac{p_{{\ell}}^{(h)}(0)}{p_{\ell}(0)}=\prod_{g=1}^h\Big(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Big)_{x=0}^{(\ell)},~h=1,2,\dots.
+\end{equation}
+Equations (\ref{eqdndrt0}) and more generally (\ref{eqdndrth})
+enable us to  strengthen
+upper estimates in Eq.~\ref{eq:rat_roo_radii_1} \& Eq.~\ref{eq:rat_roo_radii_2}
+and more generally Eq.~\ref{eq:last_appen} for root-radii $r_j(0,p)$   at the origin  because $r_j(0,p_{\ell})=r_j(0,p)^{2^{\ell}}$ for $j=1,\dots,d$ (see  Eq.~\ref{eq:rat_roo_radii_1} \& Eq.~\ref{eq:rat_roo_radii_2}); we can  approximate the higher order derivatives
+$\Big(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Big)^{(\ell)}$
+ at $x=0$ by following Remark.~\ref{rem:fin_diff}.
+Besides the listed applications of
+root-squaring, one can apply DLG to randomized exclusion tests for sparse polynomial.
+One can apply root-squaring $p(x)\mapsto p_{\ell}(x)$ to improve  the error bound for the approximation of the power sums of the roots of  $p(x)$ in the unit disc $D(0,1)$ by Cauchy sums, but the improvement is about as much and at the same additional cost as by increasing the number $q$ of points of evaluation of the ratio $\frac{p'}{p}$.
+\begin{remark}\label{rescdnd}
+ One can approximate the leading coefficient $p_d$  of a black box polynomial $p(x)$. This coefficient is not involved in recurrence (\ref{eqdndrt}),
+ and one can apply  recurrence (\ref{eqdnd}) by using a crude
+ approximation to  $p_d$
+ and if needed can scale polynomials
+ $p_i(x)$ for some $i$.
+\end{remark}
+
+% Part 2 back
+\subsection{Extremal root radii}\label{sec:ext_root_rad}
+
+We cover some known estimates for extremal root radii in Sec.~\ref{subsec:class_est}. The most used estimates (Eq.~\ref{eq:last_appen} for $i=1$ and $c=0)$ readily follow from straightforward algbraic manipluations of $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$:
+\begin{equation}\label{eq:rat_roo_radii_1}
+r_{d}(c, p) \leq d\left|\frac{p(c)}{p^{\prime}(c)}\right|
+\end{equation}
+\text { and }
+\begin{equation}\label{eq:rat_roo_radii_2}
+ r_{1}(c, p) \geq\left|\frac{p_{\mathrm{rev}}^{\prime}(c)}{d p_{\mathrm{rev}}(c)}\right| .
+\end{equation}
+% clean til here
+% TODO: keep cleaning
+We strengthen these estimates in the case of $c=0$ by recalling DLG rootsquaring iterations (??) of Sec. $??$ and equation (??). This immediately implies the following extension of $(11)$ for $c=0$ and all non-negative integers $\ell$ :
+\begin{equation}\label{eq:rat_roo_radii_3}
+r_{d}(0, p)^{2^{\ell}} \leq d /\left|\left(\frac{p^{\prime}(x)}{p(x)}\right)_{x=0}^{(\ell)}\right|
+\end{equation}
+\text { and }
+\begin{equation}\label{eq:rat_roo_radii_4}
+r_{1}(0, p)^{2^{\ell}} \geq 1 /\left|\left(\frac{d p_{\text {rev }}(x)}{p_{\text {rev }}^{\prime}(x)}\right)_{x=0}^{(\ell)}\right|
+\end{equation}
+\begin{remark}\label{rem:fin_diff}
+ Given a complex $c$ and a positive integer $\ell$ one can approximate the values at $x=c$ of $\left(p(x) / p^{\prime}(x)\right)^{(\ell)}$ for a black box polynomial $p(x)$ by using divided differences (cf. Alg. 117), by extending expressions $p^{(i+1)}(c)=\lim _{x \rightarrow c} \frac{p^{(i)}(x)-p^{(i)}(c)}{x-c}$ for $i=0,1, \ldots, \ell-1$ and based on the mean value theorem $[??]$.
+\end{remark}
+
+For $\ell=1$ one can instead apply the algorithm supporting the following elegant theorem and implicit in its constructive proof; the complexity of straightforward recursive extension to $\ell=2,3, \ldots$ increases exponentially in $\ell$.
+
+\begin{theorem}
+Given an algorithm that evaluates a black box polynomial $p(x)$ at a point $x$ over a field $\mathcal{K}$ of constants by using $A$ additions and subtractions, $S$ scalar multiplications (that is, multiplications by elements of the field $\mathcal{K}$ ), and $M$ other multiplications and divisions, one can extend this algorithm to the evaluation at $x$ of both $p(x)$ and $p^{\prime}(x)$ by using $2 A+M$ additions and subtractions, $2 S$ scalar multiplications, and $3 M$ other multiplications and divisions.
+\end{theorem}
+
+\begin{proof}
+[60], [8, Thm. 2] prove the theorem for any function $f\left(x_{1}, \ldots, x_{s}\right)$ that has partial derivative in all its $s$ variables $x_{1}, \ldots, x_{s}$.
+\end{proof}
+
+Next we prove that estimates $??$ and $??$ are extremely poor for worst case inputs.
+
+\begin{theorem}
+The ratios $\left|\frac{p(0)}{p^{\prime}(0)}\right|$ and $\left|\frac{p_{\mathrm{rev}}(0)}{p_{\mathrm{rev}}^{\prime}(0)}\right|$ are infinite for $p(x)=x^{d}-h^{d}$, while $r_{d}(c, p)=r_{1}(c, p)=r_{d}\left(c, p_{\text {rev }}\right)=r_{1}\left(c, p_{\text {rev }}\right)=|h|$.
+Proof. Observe that the roots $x_{j}=h \exp \left(\frac{(j-1) \mathbf{i}}{2 \pi d}\right)$ of $p(x)=x^{d}-h^{d}$ for $j=$ $1,2, \ldots, d$ are the $d$ th roots of unity up to scaling by $h$.
+\end{theorem}
+
+Clearly, the problem persists at the points $x$ where $p^{\prime}(x)$ and $p_{\text {rev }}^{\prime}(x)$ vanish; rotation of the variable $p(x) \leftarrow t(x)=p(a x)$ for $|a|=1$ does not fix it but shifts $p(x) \leftarrow t(x)=p(x-c)$ for $c \neq 0$ can fix it, thus enhancing the power of estimates (??) and (??).
+Furthermore,
+$$
+\frac{1}{r_{d}(c, p)} \leq \frac{1}{d}\left|\frac{p^{\prime}(c)}{p(c)}\right|=\frac{1}{d}\left|\sum_{j=1}^{d} \frac{1}{c-x_{j}}\right|
+$$
+by virtue of $(??)$, and so the approximation to the root radius $r_{d}(c, p)$ is poor if and only if severe cancellation occurs in the summation of the $d$ roots, and similarly for the approximation of $r_{1}(c, p)$. Such a cancellation only occurs for a narrow class of polynomials $p(x)$, with a low probability under random root models, although it occurs for The polynomials $p(x)=x^{d}-h^{d}$ of Thm. 5 and whp for random polynomials of [??].
+
+% Part 3 back
+\subsection{Classical estimates for extremal root radii}\label{subsec:class_est}
+
+Next we recall some non-costly estimates known for the extremal root radii $r_{1}=r_{1}(0, p)$ and $r_{d}=r_{d}(0, p)$ in terms of the coefficients of $p$ (cf. [42, Sec. 6.4], $[69]$, and $[117])$ and the two parameters
+$$
+\tilde{r}_{-}:=\min _{i \geq 1}\left|\frac{p_{0}}{p_{i}}\right|^{\frac{1}{i}}, \tilde{r}_{+}:=\max _{i \geq 1}\left|\frac{p_{d-i}}{p_{d}}\right|^{\frac{1}{i}}
+$$
+These bounds on $r_{1}$ and $r_{d}$ hold in dual pairs since $r_{1}(0, p) r_{d}\left(0, p_{\text {rev }}\right)=1$ (see equation (8) for $j=1$ ).
+$$
+\begin{gathered}
+\frac{1}{d} \tilde{r}_{+} \leq r_{1}<2 \tilde{r}_{+}, \frac{1}{2} \tilde{r}_{-} \leq r_{d} \leq d \tilde{r}_{-}, \\
+\tilde{r}_{+} \sqrt{\frac{2}{d}} \leq r_{1} \leq \frac{1+\sqrt{5}}{2} \tilde{r}_{+}<1.62 \tilde{r}_{+} \text {if } p_{d-1}=0, \\
+0.618 \tilde{r}_{-}<\frac{2}{1+\sqrt{5}} \tilde{r}_{-} \leq r_{d} \leq \sqrt{\frac{d}{2}} \tilde{r}_{-} \text {if } p_{1}=0, \\
+r_{1} \leq 1+\sum_{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|, \frac{1}{r_{d}} \leq 1+\sum_{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right| .
+\end{gathered}
+$$
+$M(p):=\left|p_{d}\right| \max _{j=1}^{d}\left\{1,\left|x_{j}\right|\right\}$ is said to be the Mahler measure of $p$, and so $M\left(p_{\text {rev }}\right):=\left|p_{0}\right| \max _{j=1}^{d}\left\{1, \frac{1}{\left|x_{j}\right|}\right\} .$ It holds that
+$$
+r_{1}^{2} \leq \frac{M(p)^{2}}{\left|p_{d}\right|} \leq \max _{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|^{2}, \frac{1}{r_{d}^{2}} \leq \frac{M\left(p_{\mathrm{rev}}\right)^{2}}{\left|p_{0}\right|^{2}} \leq \max _{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right|^{2}
+$$
+Theorem 167 supports very fast approximation of all root radii of $p$ at the origin at a very low cost, which complements estimates $(170)-(175)$.
+
+% Part 3.2 Background
+
+One can extend all these bounds to the estimates for the root radii $r_{j}(c, p)$ for any fixed complex $c$ and all $j$ by observing that $r_{j}(c, p)=r_{j}(0, t)$ for the polynomial $t(x)=p(x-c)$ and applying Taylor's shift (cf. Sec. 2.5).
+
+Our algorithms of Secs. $6.7$ and $6.2$ closely approximate root radii $r_{j}(c, p)$ for a black box polynomial $p$ and a complex point $c$ at reasonably low cost, but the next well-known upper bounds on $r_{d}$ and lower bounds on $r_{1}$ (cf. [42, Cor. $6.4 \mathrm{~g}],[22],[79$, Remark $6.4],[15$, Thms. $8,9,10,13$, and 14 $]$, and [19, Secs. $3.1$ and 3.2]) are computed at even a lower cost, defined by a single fraction $\frac{p_{0}}{p_{i}}$ or $\frac{p_{d-i}}{p_{d}}$ for any $i$, albeit these bounds are excessively large for the worst case input.
+$r_{d} \leq \rho_{i,-}:=\left(\left(\begin{array}{c}d \\ i\end{array}\right)\left|\frac{p_{0}}{p_{i}}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}:=\left(\left(\begin{array}{l}d \\ i\end{array}\right)\left|\frac{p_{d}}{p_{d-i}}\right|\right)^{\frac{1}{i}}$ for all $i$
+
+% Part 3.3
+
+\begin{equation}\label{eq:last_appen}
+r_{d} \leq \rho_{i,-}=\left(i !\left(\begin{array}{c}
+d \\
+i
+\end{array}\right)\left|\frac{p(0)}{p^{(i)}(0)}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}=\left(i !\left(\begin{array}{c}
+d \\
+i
+\end{array}\right)\left|\frac{p_{\text {rev }}(0)}{p_{\text {rev }}^{(i)}(0)}\right|\right)^{\frac{1}{i}}
+\end{equation}
+for all $i$. For $i=1$ obtain (11).
 
 \section{Motivating Example}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{rational_root_tree.png}
-  \caption{The upper tree depicts the steps of \textsc{\textsc{Circle\_Roots\_Rational\_Form}}($p,q,l$) in Alg.\ref{alg:circ_roots_rational_form} for $l=2$, $p=1$, and $q=1$. The lower tree depicts the steps of \textsc{Roots}($r,t,u,l$) in Alg.\ref{alg:roots} for $r=2$, $l=2$, $p=1$, and $q=1$}
+  \caption{The upper tree depicts the steps of \textsc{\textsc{Circle\_Roots\_Rational\_Form}}($p,q,l$) in Alg.\ref{alg:circ_roots_rational_form} for $l=2$, $p=1$, and $q=1$. The lower tree depicts the steps of \textsc{Roots}($r,t,u,l$) in Alg.\ref{alg:roots} for $r=2$, $l=2$, $p=1$, and $q=1$}\label{fig:rat_roots_tree}
   \Description{}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{p_prime.png}
-  \caption{The steps of \textsc{DLG\_Rational\_Rorm}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}
+  \caption{The steps of \textsc{DLG\_Rational\_Rorm}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}\label{fig:DLG}
   \Description{}
 \end{figure}
 
@@ -348,6 +444,15 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
 
 \section{Algorithm Design}
 
+In this section give the design of the general algorithm for approximating the root radius given by Eq.~\ref{eqdndrt0}.
+There are two main steps: 1) going down the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:circ_roots_rational_form}, and 2) going up the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:DLG_rational_form}.
+The going-down is depicted in Fig.~\ref{fig:rat_roots_tree} and the going-up is depicted in Fig.~\ref{fig:DLG}.
+The other procedures are simple bookkeeping/preprocessing steps in between the two main going-down/going-up steps.
+In particular we
+1) first convert a complex number $x$ into polar coordinates $r,\theta$ where $\theta \approx \frac{p}{q} = \frac{p}{2^\epsilon}$, \emph{i.e.,} perform Alg.~\ref{alg:rational_angle_approx},
+2) we then perform the first going down pass which gives the rational angles for the roots of $x$ in fraction form, \emph{i.e.,} perform Alg.~\ref{alg:circ_roots_rational_form},
+3) we then perform the second pass of the going down algorithm where we compute the values $|x|^{\frac{1}{2^m}} \exp(2 \pi i \frac{p}{q})$ at the $m^\mathrm{th}$ level, and
+4) finally, we then compute the values given by Eq.~\ref{eqdndrt} going back up the rational root tree.
 
 \begin{algorithm}
    \caption{\textsc{Circle\_Roots\_Rational\_Form}($p,q,l$)}
@@ -374,6 +479,31 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
       \ENDIF
 \end{algorithmic}
 \end{algorithm}
+
+The intuition behind Algorithm.~\ref{alg:circ_roots_rational_form} is that the square root operation satisfies
+\begin{equation}\label{eq:rat_sq_imag}
+p \% q \neq  0 \implies   \sqrt{\exp \left(2 \pi i \frac{p}{q}\right)}  = \exp \left(2 \pi i \frac{p}{2q}\right)
+\end{equation}
+and
+\begin{equation}\label{eq:rat_sq_real}
+p \% q = 0 \implies   \sqrt{\exp \left(2 \pi i \frac{1}{1}\right)}  = \exp \left(2 \pi i \frac{1}{1}\right) = 1,
+\end{equation}
+and the negation operation satisfies
+\begin{equation}\label{eq:rat_neg_imag}
+p \% q \neq  0 \implies   -\exp \left(2 \pi i \frac{r}{s}\right)  = \exp \left(2 \pi i \frac{2r+s} {2s}\right)
+\end{equation}
+and
+\begin{equation}\label{eq:rat_neg_real}
+p \% q = 0 \implies   \sqrt{\exp \left(2 \pi i \frac{1}{1}\right)}  = \exp \left(2 \pi i \frac{1}{2}\right) = -1;
+\end{equation}
+thus, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} computes the (angle of the) positive square root, $\sqrt{x}$, of complex number on the unit circle and the next four lines Alg.~\ref{alg:circ_roots_rational_form} computes the (angle of the) negative square root, $-\sqrt{x}$. Therefore, we have:
+\begin{theorem}
+  For a complex number, $x$, with a rational angle, \emph{i.e.,} $x = |x|\exp \left(2 \pi i \frac{p}{q}\right)$, Alg.~\ref{alg:circ_roots_rational_form} correctly computes the roots in Eq.~\ref{eqdndrt}.
+\end{theorem}
+\begin{proof}
+Equation \ref{eq:rat_sq_imag}, \ref{eq:rat_sq_real}, \ref{eq:rat_neg_imag}, and \ref{eq:rat_neg_real} give the base case and the theorem follows by a straightforward induction.
+\end{proof}
+
 
 \begin{algorithm}
 \caption{\textsc{Roots}($r,t,u,l$)}
@@ -527,20 +657,25 @@ We revisited the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe
 %   The condition number for $\frac{p_l'}{p_l}$ using
 % \end{theorem}
 \begin{theorem}
-Algorithm.~\ref{alg:DLG_rational_form} performs $q \log q$ floating point subtractions, divisions, and multiplications and $q \log q$ applications of $\sin$ and $\cos$, where $q = 2^l$; furthermore, Algorithm.~\ref{alg:DLG_rational_form} performs at most $q \log q$  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations.
+Algorithm.~\ref{alg:DLG_rational_form} performs $q \log q$ floating point subtractions, divisions, and multiplications and $q \log q$ applications of $\sin$ and $\cos$, where $q = 2^l$; furthermore, Algorithm.~\ref{alg:DLG_rational_form} performs at most $Cq \log q$  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations, where $C=1,3,2$ respectively.
+\end{theorem}
+
+\begin{theorem}
+The $q \log q$  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Algorithm.~\ref{alg:DLG_rational_form} have negligble overhead; more precisely, integer addtions are always additions of 2 $\epsilon$-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
 \end{theorem}
 \section{Experimental Results}
+
 \begin{table*}[t]
 \caption{Experimental Data for Chebyshev.}
 \label{tab:chebyshev}
 \vskip 0.15in
 \begin{center}
-\begin{small}
+
 \begin{sc}
 \begin{tabular}{lccccccc}
 \toprule
 &  &  & mpmath & relative  & relative &  & mpsolve \\
-degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
+degree  & $\ell$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
 \midrule
  20 & 4 &616 &332 & 0.15&0.09 &0.17 & $[0.00982, 1.0]$ \\
  40 & & & & & & & \\
@@ -550,7 +685,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \bottomrule
 \end{tabular}
 \end{sc}
-\end{small}
+
 \end{center}
 \vskip -0.1in
 \end{table*}
