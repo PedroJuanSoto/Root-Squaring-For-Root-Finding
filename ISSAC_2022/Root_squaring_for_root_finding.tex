@@ -522,6 +522,7 @@ thus, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} comp
 Equation \ref{eq:rat_sq_imag}, \ref{eq:rat_sq_real}, \ref{eq:rat_neg_imag}, and \ref{eq:rat_neg_real} give the base case and the theorem follows by a straightforward induction.
 \end{proof}
 
+Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both striaghtforward; thus, we do not need to explain them in detail and instead explain the intuition behind Alg.~\ref{alg:DLG_rational_form}.
 
 \begin{algorithm}
 \caption{\textsc{Roots}($r,t,u,l$)}
@@ -618,7 +619,7 @@ Equation \ref{eq:rat_sq_imag}, \ref{eq:rat_sq_real}, \ref{eq:rat_neg_imag}, and 
 \end{algorithm}
 Algorithm \ref{alg:DLG_rational_form} is a straightforward dynamic programming on Equation \ref{eqdndrt}; thus, by Thm.~\ref{thm:rat_root_correctness}, we have that Alg.~\ref{alg:DLG_rational_form} correctly computes Eq.~\ref{eqdndrt}.
 To be precise Alg.~\ref{alg:DLG_rational_form} does the following: 1) it computes the last layer of the recursion Eq.~\ref{eqdndrt} (\emph{i.e.,} it computes $\frac{p'(x^{\frac{1}{2^l}})}{p(x^{\frac{1}{2^l}})}$) and then 2) it recursively applies Eq.~\ref{eqdndrt} via dynamic programming until it finally computes $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ which is the desired quantity.
-The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$'' and the latter is given by the line ``diff[$i+1$][$j$]:=$\frac{1}{2}\frac{\text{diff}[i][2j]-\text{diff}[i][2j+1]}{\text{root}[2j]}$'' in Alg.~\ref{alg:DLG_rational_form}.
+The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$'' and the latter is given by the line ``diff[$i+1$][$j$]:=$\frac{1}{2}\frac{\text{diff}[i][2j]-\text{diff}[i][2j+1]}{\text{root}[2j]}$'' in Alg.~\ref{alg:DLG_rational_form}; the desired output (\emph{i.e.,} $\frac{p'(x^{\frac{1}{2^l}})}{p(x^{\frac{1}{2^l}})}$)is given by the line ``diff$[l][0]$''.
 
 
 
@@ -654,17 +655,23 @@ The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i
 % 		root = roots(r,t,u,l-1-i)
 % 	return derivs[l][0]
 
-
-
+The final step in the algorithm is to use Algorithm \ref{alg:rational_angle_approx} to compute root radius approximations $r_d$ and $r_1$.
+The procedure is given by Algorithm.~\ref{alg:DLG_Root_Radius}.
 \begin{algorithm}
-\caption{\textsc{DLG\_Root\_Radius}($p,p^\prime,l,x, \epsilon$)}
+\caption{\textsc{DLG\_Root\_Radius}($p,p^\prime,p_\mathrm{rev},p^\prime_\mathrm{rev},l, \epsilon, \delta $)}
 \label{alg:DLG_Root_Radius}
 \begin{algorithmic}
-\STATE Use DLG to approximate root radius
+\STATE Uniformly Randomly Generate $x $ in the unit circle
+\STATE $d$ := deg($p$)
+\STATE $r_\mathrm{min} $ := $d/$\textsc{DLG}($p,p^\prime ,l,x\cdot 2^{-\delta}, \epsilon $)
+\STATE $r_\mathrm{max} $ := \textsc{DLG}($p_\mathrm{rev},p^\prime _\mathrm{rev},l,x\cdot 2^{-\delta}, \epsilon$)$/d$
 \end{algorithmic}
 \end{algorithm}
-
-
+The rationale for generating a random $x$ is that there may be roots close to 0 and thus by taking the limit in certain directions we avoid these possible poles; in particular, we have that
+\begin{equation}
+  \lim_{ \delta,\epsilon \to \infty }  \textsc{DLG}(p,p^\prime ,l,x\cdot 2^{-\delta}, \epsilon ) = \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Big(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Big)_{x=0}'=\Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(\ell)},
+\end{equation}
+for any $x$, if $p(0) \neq 0$ (see Thm~\ref{thm:lim_correctness}).
 
 % TODO: short discussion on stabilty
 \section{Theoretical Analysis}\label{sec:the_ana}
@@ -689,6 +696,14 @@ Algorithm.~\ref{alg:DLG_rational_form} performs $q \log q$ floating point subtra
 \begin{theorem}
 The $q \log q$  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Algorithm.~\ref{alg:DLG_rational_form} have negligble overhead; more precisely, integer addtions are always additions of 2 $\epsilon$-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
 \end{theorem}
+
+
+\begin{theorem}\label{thm:lim_correctness}
+With probability 1, Algorithm \ref{alg:DLG_Root_Radius} computes the bounds given by Equation \ref{eq:rat_roo_radii_1} and Equation \ref{eq:rat_roo_radii_2}.
+\end{theorem}
+\begin{proof}
+Prove
+\end{proof}
 \section{Experimental Results}\label{sec:exp}
 
 In this section we give the results of our experiments where we use DLG iterations to estimate the extremal root radii of the univariate test polynomials included as part of the MPSolve package. To measure accuracy, we compute the relative error of the estimates in comparison to the extremal roots obtained by MPSolve using the formula
@@ -697,7 +712,7 @@ $$
 $$
 where $r_i$ is the root given by MPSolve and $\tilde{r_i}$ our estimate.
 
-All experiments were run using Python 3.7.7 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.  The entries `-' in the tables indicate the test was terminated before completion. 
+All experiments were run using Python 3.7.7 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.  The entries `-' in the tables indicate the test was terminated before completion.
 
 \begin{table*}[t]
 \caption{Experimental Data for Chebyshev}
