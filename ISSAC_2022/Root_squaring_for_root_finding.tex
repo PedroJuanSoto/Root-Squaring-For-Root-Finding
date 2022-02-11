@@ -706,16 +706,16 @@ Prove
 \end{proof}
 \section{Experimental Results}\label{sec:exp}
 
-In this section we give the results of our experiments where we use DLG iterations to estimate the extremal root radii of the univariate test polynomials included as part of the MPSolve package. To measure accuracy, we compute the relative error of the estimates in comparison to the extremal roots obtained by MPSolve using the formula
+In this section we give the results of our experiments where we use DLG iterations to estimate the extremal root radii of the polynomial test suite included as part of the MPSolve package. To measure accuracy, we compute the relative error of the estimates in comparison to the extremal roots obtained by MPSolve using the formula
 $$
 \text{relative error}_{r_i} = \frac{|\tilde{r_i} - r_i|}{|r_i|},
 $$
-where $r_i$ is the root given by MPSolve and $\tilde{r_i}$ our estimate.
+where $r_i$ is the root radius found using MPSolve and $\tilde{r_i}$ our estimate.
 
 All experiments were run using Python 3.7.7 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.  The entries `-' in the tables indicate the test was terminated before completion.
 
 \begin{table*}[t]
-\caption{Experimental Data for Chebyshev}
+\caption{Experimental Data for \texttt{chebyshev}} % Chebyshev}
 \label{tab:chebyshev}
 \vskip -0.15in
 \begin{center}
@@ -740,7 +740,7 @@ degree  & $\ell$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &ru
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for chromatic polynomial (zero root removed) kind a}
+\caption{Experimental Data for \texttt{chrma}} %  chromatic polynomial (zero root removed) kind a}
 \label{tab:chrma}
 \vskip -0.15in
 \begin{center}
@@ -764,7 +764,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for chromatic polynomial deflated: a}
+\caption{Experimental Data for \texttt{chrma\_d}} % chromatic polynomial deflated: a}
 \label{tab:chrma_d}
 \vskip -0.15in
 \begin{center}
@@ -788,7 +788,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for chromatic polynomial (zero root removed) kind c}
+\caption{Experimental Data for \texttt{chrmc}} %  chromatic polynomial (zero root removed) kind c}
 \label{tab:chrmc}
 \vskip -0.15in
 \begin{center}
@@ -811,7 +811,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for chromatic polynomial deflated, kind c}
+\caption{Experimental Data for \texttt{chrmc\_d}} % chromatic polynomial deflated, kind c}
 \label{tab:chrmc_d}
 \vskip -0.15in
 \begin{center}
@@ -836,7 +836,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Curz}
+\caption{Experimental Data for \texttt{curz}} % Curz}
 \label{tab:curz}
 \vskip -0.15in
 \begin{center}
@@ -861,7 +861,7 @@ degree  & $l$ & $e=-\log(|x|)$ & Precision & error $r_d$ & error $r_1$ & runtime
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Easy}
+\caption{Experimental Data for \texttt{easy}} % Easy}
 \label{tab:easy}
 \vskip -0.15in
 \begin{center}
@@ -887,7 +887,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Exp}
+\caption{Experimental Data for \texttt{exp}} % Exp}
 \label{tab:exp}
 \vskip -0.15in
 \begin{center}
@@ -911,7 +911,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Geom1}
+\caption{Experimental Data for \texttt{geom1}} % Geom1}
 \label{tab:geom1}
 \vskip -0.15in
 \begin{center}
@@ -935,7 +935,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Geom2}
+\caption{Experimental Data for \texttt{geom2}} % Geom2}
 \label{tab:geom2}
 \vskip -0.15in
 \begin{center}
@@ -959,7 +959,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Geom3}
+\caption{Experimental Data for \texttt{geom3}} % Geom3}
 \label{tab:geom3}
 \vskip -0.15in
 \begin{center}
@@ -984,7 +984,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Geom4}
+\caption{Experimental Data for \texttt{geom4}} % Geom4}
 \label{tab:geom4}
 \vskip -0.15in
 \begin{center}
@@ -1008,7 +1008,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Hermite}
+\caption{Experimental Data for \texttt{hermite}} % Hermite}
 \label{tab:hermite}
 \vskip -0.15in
 \begin{center}
@@ -1033,7 +1033,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Kam1}
+\caption{Experimental Data for \texttt{kam1}} % Kam1}
 \label{tab:kam1}
 \vskip -0.15in
 \begin{center}
@@ -1056,7 +1056,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Kam2}
+\caption{Experimental Data for \texttt{kam2}} % Kam2}
 \label{tab:kam2}
 \vskip -0.15in
 \begin{center}
@@ -1079,7 +1079,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Kam3}
+\caption{Experimental Data for \texttt{kam3}} % Kam3}
 \label{tab:kam3}
 \vskip -0.15in
 \begin{center}
@@ -1102,7 +1102,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Kir1}
+\caption{Experimental Data for \texttt{kir1}} % Kir1}
 \label{tab:kir1}
 \vskip -0.15in
 \begin{center}
@@ -1126,7 +1126,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Kir1 mod}
+\caption{Experimental Data for \texttt{kir1\_mod}} % Kir1 mod}
 \label{tab:kir1_mod}
 \vskip -0.15in
 \begin{center}
@@ -1150,7 +1150,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for  Lagurerre }
+\caption{Experimental Data for \texttt{lagurerre}} %  Lagurerre }
 \label{tab:lagurerre}
 \vskip -0.15in
 \begin{center}
@@ -1175,7 +1175,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Lar1}
+\caption{Experimental Data for \texttt{lar1}} % Lar1}
 \label{tab:lar1}
 \vskip -0.15in
 \begin{center}
@@ -1197,7 +1197,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Legendre}
+\caption{Experimental Data for \texttt{legendre}} % Legendre}
 \label{tab:legendre}
 \vskip -0.15in
 \begin{center}
@@ -1222,7 +1222,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for LSR} %polynomial having roots with very large and very small moduli
+\caption{Experimental Data for \texttt{lsr}} % LSR} %polynomial having roots with very large and very small moduli
 \label{tab:lsr}
 \vskip -0.15in
 \begin{center}
@@ -1251,7 +1251,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Mand}
+\caption{Experimental Data for \texttt{mand}} % Mand}
 \label{tab:mand}
 \vskip -0.15in
 \begin{center}
@@ -1274,7 +1274,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Mig1}
+\caption{Experimental Data for \texttt{mig1}} % Mig1}
 \label{tab:mig1}
 \vskip -0.15in
 \begin{center}
@@ -1302,7 +1302,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Mult}
+\caption{Experimental Data for \texttt{mult}} % Mult}
 \label{tab:mult}
 \vskip -0.15in
 \begin{center}
@@ -1327,7 +1327,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for $x^n - 1$}
+\caption{Experimental Data for \texttt{nroots}} % $x^n - 1$}
 \label{tab:nroots}
 \vskip -0.15in
 \begin{center}
@@ -1358,7 +1358,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for $x^n - i$}
+\caption{Experimental Data for \texttt{nrooti}} % $x^n - i$}
 \label{tab:nrooti}
 \vskip -0.15in
 \begin{center}
@@ -1386,7 +1386,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Sendra}
+\caption{Experimental Data for \texttt{sendra}} %  Sendra}
 \label{tab:sendra}
 \vskip -0.15in
 \begin{center}
@@ -1432,7 +1432,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 %\end{table*}
 
 \begin{table*}[t]
-\caption{Experimental Data for Spiral}
+\caption{Experimental Data for \texttt{spiral}} %  Spiral}
 \label{tab:spiral}
 \vskip -0.15in
 \begin{center}
@@ -1460,7 +1460,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Toeplitz}
+\caption{Experimental Data for \texttt{toep}} % Toeplitz}
 \label{tab:toep}
 \vskip -0.15in
 \begin{center}
@@ -1485,7 +1485,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Wilk}
+\caption{Experimental Data for \texttt{wilk}} % Wilk}
 \label{tab:wilk}
 \vskip -0.15in
 \begin{center}
