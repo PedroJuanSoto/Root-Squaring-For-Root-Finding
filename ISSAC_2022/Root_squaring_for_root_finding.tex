@@ -306,7 +306,7 @@ the coefficients, and the algorithm turns out to be quite efficient:
  the values of the polynomial $p_{\ell}(x)=\prod\left(x-x_j^{2^{\ell}}\right)$
  at these $2^{\ell}$ points.
 
-Furthermore,  evaluate the ratio
+Furthermore, we evaluate the ratio
 $p'(x)/p(x)=p_0'(x)/p_0(x)$
 at these points by applying
 the recurrence
@@ -691,7 +691,13 @@ The $q \log q$  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon 
 \end{theorem}
 \section{Experimental Results}\label{sec:exp}
 
-All experiments were run using Python 3.7.7 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.  The names of the polynomials are referencing the names of the test univariate polynomials included as part of the MPSolve package. `-' in the tables indicate the test was terminated before completion.
+In this section we give the results of our experiments where we use DLG iterations to estimate the extremal root radii of the univariate test polynomials included as part of the MPSolve package. To measure accuracy, we compute the relative error of the estimates in comparison to the extremal roots obtained by MPSolve using the formula
+$$
+\text{relative error}_{r_i} = \frac{|\tilde{r_i} - r_i|}{|r_i|},
+$$
+where $r_i$ is the root given by MPSolve and $\tilde{r_i}$ our estimate.
+
+All experiments were run using Python 3.7.7 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.  The entries `-' in the tables indicate the test was terminated before completion. 
 
 \begin{table*}[t]
 \caption{Experimental Data for Chebyshev}
@@ -731,8 +737,8 @@ degree  & $\ell$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &ru
 degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
 \midrule
  21 & 4 & 616 & 332 & 0.215 & 0.139 & 0.22 & $[1.0, 3.17]$\\
- 341 & 8 & 617 & 334 & 0.717 & 0.547 & 105.48 & $[0.884, 3.41]$\\
  85 & 6 & 617 & 334 & 0.0369 & 0.0452 & 5.63 & $[1.0, 3.25]$\\
+ 341 & 8 & 617 & 334 & 0.717 & 0.547 & 105.48 & $[0.884, 3.41]$\\
 \bottomrule
 \end{tabular}
 \end{sc}
@@ -755,8 +761,8 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
 \midrule
 20 & 4 & 616 & 332 & 0.16 & 0.175 & 0.26 & $[1.3, 3.01]$\\
- 340 & 8 & 617 & 334 & 0.658 & 0.699 & 93.82 & $[0.741, 3.11]$\\
  84 & 6 & 617 & 334 & 0.0548 & 0.00507 & 5.53 & $[1.1, 3.06]$\\
+ 340 & 8 & 617 & 334 & 0.658 & 0.699 & 93.82 & $[0.741, 3.11]$\\
 \bottomrule
 \end{tabular}
 \end{sc}
@@ -1230,7 +1236,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 
 
 \begin{table*}[t]
-\caption{Experimental Data for Mandelbrot}
+\caption{Experimental Data for Mand}
 \label{tab:mand}
 \vskip -0.15in
 \begin{center}
@@ -1240,6 +1246,8 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \toprule
 &  &  & mpmath & relative  & relative &  & mpsolve \\
 degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runtime& root radius\\
+ 1023 & 9 & 619 & 338 & 0.357 & 0.142 & 569.08 & $[0.321, 2.0]$\\
+ 127 & 6 & 617 & 334 & 0.0898 & 0.0488 & 8.58 & $[0.373, 2.0]$\\
 \midrule
 
 \bottomrule
