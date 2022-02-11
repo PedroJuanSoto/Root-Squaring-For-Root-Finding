@@ -258,7 +258,7 @@ We revisit the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe f
 % We already addressed this problem
 %  in Remark \ref{retrhob}, but next
  % We present the refinement of root radii  approximation, based on the classical technique of recursive root-squaring, which also enables us to relax restriction of Rule 2 of Sec. \ref{ssbdbrf} on softness of exclusion test and to increase isolation of a disc (see, e.g.,  Remark \ref{resmplini}).
-
+\subsection{Dandelin, Lobachevsky, and Graeffe's Formaulae}\label{subsec:DLG_form}
  The common procedure for root radii  approximation, based on the classical technique of recursive root-squaring, is to first make an input polynomial $p(x)$ monic by scaling it and/or the variable
   $x$ and then
  apply $k$ DLG (that is, Dandelin's aka
@@ -344,18 +344,17 @@ r_{d}(c, p) \leq d\left|\frac{p(c)}{p^{\prime}(c)}\right|
 \begin{equation}\label{eq:rat_roo_radii_2}
  r_{1}(c, p) \geq\left|\frac{p_{\mathrm{rev}}^{\prime}(c)}{d p_{\mathrm{rev}}(c)}\right| .
 \end{equation}
-% clean til here
-% TODO: keep cleaning
-We strengthen these estimates in the case of $c=0$ by recalling DLG rootsquaring iterations (??) of Sec. $??$ and equation (??). This immediately implies the following extension of $(11)$ for $c=0$ and all non-negative integers $\ell$ :
+% clean
+We strengthen these estimates in the case of $c=0$ by recalling DLG rootsquaring iterations Eq.~\ref{eqdndrt} of Sec.~\ref{subsec:DLG_form} and Equation \ref{eqdndrt0}. This immediately implies the following extension of Eq.~\ref{eq:rat_roo_radii_1} \& Eq.~\ref{eq:rat_roo_radii_2} for $c=0$ and all non-negative integers $\ell$ :
 \begin{equation}\label{eq:rat_roo_radii_3}
-r_{d}(0, p)^{2^{\ell}} \leq d /\left|\left(\frac{p^{\prime}(x)}{p(x)}\right)_{x=0}^{(\ell)}\right|
+r_{d}(0, p)^{2^{\ell}} \leq d \left|\left(\frac{p^{\prime}(x)}{p(x)}\right)_{x=0}^{(\ell)}\right|^{-1}
 \end{equation}
 \text { and }
 \begin{equation}\label{eq:rat_roo_radii_4}
-r_{1}(0, p)^{2^{\ell}} \geq 1 /\left|\left(\frac{d p_{\text {rev }}(x)}{p_{\text {rev }}^{\prime}(x)}\right)_{x=0}^{(\ell)}\right|
+r_{1}(0, p)^{2^{\ell}} \geq d^{-1}\left|\left(\frac{ p^{\prime}_{\text {rev }}(x)}{p_{\text {rev }}(x)}\right)_{x=0}^{(\ell)}\right|
 \end{equation}
 \begin{remark}\label{rem:fin_diff}
- Given a complex $c$ and a positive integer $\ell$ one can approximate the values at $x=c$ of $\left(p(x) / p^{\prime}(x)\right)^{(\ell)}$ for a black box polynomial $p(x)$ by using divided differences (cf. Alg. 117), by extending expressions $p^{(i+1)}(c)=\lim _{x \rightarrow c} \frac{p^{(i)}(x)-p^{(i)}(c)}{x-c}$ for $i=0,1, \ldots, \ell-1$ and based on the mean value theorem $[??]$.
+ Given a complex $c$ and a positive integer $\ell$ one can approximate the values at $x=c$ of $\left(p(x) / p^{\prime}(x)\right)^{(\ell)}$ for a black box polynomial $p(x)$ by using divided differences, by extending expressions $p^{(i+1)}(c)=\lim _{x \rightarrow c} \frac{p^{(i)}(x)-p^{(i)}(c)}{x-c}$ for $i=0,1, \ldots, \ell-1$ and based on the mean value theorem \cite{Boor1995DividedD}.
 \end{remark}
 
 For $\ell=1$ one can instead apply the algorithm supporting the following elegant theorem and implicit in its constructive proof; the complexity of straightforward recursive extension to $\ell=2,3, \ldots$ increases exponentially in $\ell$.
@@ -365,54 +364,61 @@ Given an algorithm that evaluates a black box polynomial $p(x)$ at a point $x$ o
 \end{theorem}
 
 \begin{proof}
-[60], [8, Thm. 2] prove the theorem for any function $f\left(x_{1}, \ldots, x_{s}\right)$ that has partial derivative in all its $s$ variables $x_{1}, \ldots, x_{s}$.
+\cite{Linnainmaa1976}, \cite{baur1983complexity} proves the theorem for any function $f\left(x_{1}, \ldots, x_{s}\right)$ that has partial derivatives in all its $s$ variables $x_{1}, \ldots, x_{s}$.
 \end{proof}
 
-Next we prove that estimates $??$ and $??$ are extremely poor for worst case inputs.
+Next we prove that estimates \ref{eq:rat_roo_radii_3} and \ref{eq:rat_roo_radii_4} are extremely poor for worst case inputs.
 
 \begin{theorem}
 The ratios $\left|\frac{p(0)}{p^{\prime}(0)}\right|$ and $\left|\frac{p_{\mathrm{rev}}(0)}{p_{\mathrm{rev}}^{\prime}(0)}\right|$ are infinite for $p(x)=x^{d}-h^{d}$, while $r_{d}(c, p)=r_{1}(c, p)=r_{d}\left(c, p_{\text {rev }}\right)=r_{1}\left(c, p_{\text {rev }}\right)=|h|$.
 Proof. Observe that the roots $x_{j}=h \exp \left(\frac{(j-1) \mathbf{i}}{2 \pi d}\right)$ of $p(x)=x^{d}-h^{d}$ for $j=$ $1,2, \ldots, d$ are the $d$ th roots of unity up to scaling by $h$.
 \end{theorem}
 
-Clearly, the problem persists at the points $x$ where $p^{\prime}(x)$ and $p_{\text {rev }}^{\prime}(x)$ vanish; rotation of the variable $p(x) \leftarrow t(x)=p(a x)$ for $|a|=1$ does not fix it but shifts $p(x) \leftarrow t(x)=p(x-c)$ for $c \neq 0$ can fix it, thus enhancing the power of estimates (??) and (??).
+Clearly, the problem persists at the points $x$ where $p^{\prime}(x)$ and $p_{\text {rev }}^{\prime}(x)$ vanish; rotation of the variable $\mathcal{R}_a :p(x) \mapsto t(x)=p(a x)$ for $|a|=1$ does not fix it but shifts $\mathcal{T}_c : p(x) \mapsto t(x)=p(x-c)$ for $c \neq 0$ can fix it, thus enhancing the power of estimates \ref{eq:rat_roo_radii_3} and \ref{eq:rat_roo_radii_4}.
 Furthermore,
 $$
 \frac{1}{r_{d}(c, p)} \leq \frac{1}{d}\left|\frac{p^{\prime}(c)}{p(c)}\right|=\frac{1}{d}\left|\sum_{j=1}^{d} \frac{1}{c-x_{j}}\right|
 $$
-by virtue of $(??)$, and so the approximation to the root radius $r_{d}(c, p)$ is poor if and only if severe cancellation occurs in the summation of the $d$ roots, and similarly for the approximation of $r_{1}(c, p)$. Such a cancellation only occurs for a narrow class of polynomials $p(x)$, with a low probability under random root models, although it occurs for The polynomials $p(x)=x^{d}-h^{d}$ of Thm. 5 and whp for random polynomials of [??].
+by virtue of \ref{eq:rat_roo_radii_1} \& \ref{eq:rat_roo_radii_2}, and so the approximation to the root radius $r_{d}(c, p)$ is poor if and only if severe cancellation occurs in the summation of the $d$ roots, and similarly for the approximation of $r_{1}(c, p)$. Such cancellations only occur for a narrow class of polynomials $p(x)$, with a low probability under random root models, although it occurs for the polynomials $p(x)=x^{d}-h^{d}$ of Thm. 5 and with high probability for random polynomials of \cite{erdos1950distribution}.
+% clean till here
+% TODO: keep cleaning
 
 % Part 3 back
 \subsection{Classical estimates for extremal root radii}\label{subsec:class_est}
 
-Next we recall some non-costly estimates known for the extremal root radii $r_{1}=r_{1}(0, p)$ and $r_{d}=r_{d}(0, p)$ in terms of the coefficients of $p$ (cf. [42, Sec. 6.4], $[69]$, and $[117])$ and the two parameters
-$$
+Next we recall some non-costly estimates known for the extremal root radii $r_{1}=r_{1}(0, p)$ and $r_{d}=r_{d}(0, p)$ in terms of the coefficients of $p$ (cf. \cite{kerimov1977applied}, \cite{mignotte1999polynomials}, and \cite{yap2000fundamental}) and the two parameters
+\begin{equation}\label{eq:radii_at_origin_1}
 \tilde{r}_{-}:=\min _{i \geq 1}\left|\frac{p_{0}}{p_{i}}\right|^{\frac{1}{i}}, \tilde{r}_{+}:=\max _{i \geq 1}\left|\frac{p_{d-i}}{p_{d}}\right|^{\frac{1}{i}}
-$$
-These bounds on $r_{1}$ and $r_{d}$ hold in dual pairs since $r_{1}(0, p) r_{d}\left(0, p_{\text {rev }}\right)=1$ (see equation (8) for $j=1$ ).
-$$
-\begin{gathered}
-\frac{1}{d} \tilde{r}_{+} \leq r_{1}<2 \tilde{r}_{+}, \frac{1}{2} \tilde{r}_{-} \leq r_{d} \leq d \tilde{r}_{-}, \\
-\tilde{r}_{+} \sqrt{\frac{2}{d}} \leq r_{1} \leq \frac{1+\sqrt{5}}{2} \tilde{r}_{+}<1.62 \tilde{r}_{+} \text {if } p_{d-1}=0, \\
-0.618 \tilde{r}_{-}<\frac{2}{1+\sqrt{5}} \tilde{r}_{-} \leq r_{d} \leq \sqrt{\frac{d}{2}} \tilde{r}_{-} \text {if } p_{1}=0, \\
+\end{equation}
+These bounds on $r_{1}$ and $r_{d}$ hold in dual pairs since $r_{1}(0, p) r_{d}\left(0, p_{\text {rev }}\right)=1$.
+% (see equation (8) for $j=1$ ).
+Furthermore, we have that
+\begin{equation}\label{eq:radii_at_origin_2}
+\frac{1}{d} \tilde{r}_{+} \leq r_{1}<2 \tilde{r}_{+}, \frac{1}{2} \tilde{r}_{-} \leq r_{d} \leq d \tilde{r}_{-},
+\end{equation}
+\begin{equation}\label{eq:radii_at_origin_3}
+\tilde{r}_{+} \sqrt{\frac{2}{d}} \leq r_{1} \leq \frac{1+\sqrt{5}}{2} \tilde{r}_{+}<1.62 \tilde{r}_{+} \text {if } p_{d-1}=0,
+\end{equation}
+\begin{equation}\label{eq:radii_at_origin_4}
+0.618 \tilde{r}_{-}<\frac{2}{1+\sqrt{5}} \tilde{r}_{-} \leq r_{d} \leq \sqrt{\frac{d}{2}} \tilde{r}_{-} \text {if } p_{1}=0,
+\end{equation}
+\begin{equation}\label{eq:radii_at_origin_5}
 r_{1} \leq 1+\sum_{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|, \frac{1}{r_{d}} \leq 1+\sum_{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right| .
-\end{gathered}
-$$
+\end{equation}
 $M(p):=\left|p_{d}\right| \max _{j=1}^{d}\left\{1,\left|x_{j}\right|\right\}$ is said to be the Mahler measure of $p$, and so $M\left(p_{\text {rev }}\right):=\left|p_{0}\right| \max _{j=1}^{d}\left\{1, \frac{1}{\left|x_{j}\right|}\right\} .$ It holds that
-$$
+\begin{equation}\label{eq:radii_at_origin_6}
 r_{1}^{2} \leq \frac{M(p)^{2}}{\left|p_{d}\right|} \leq \max _{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|^{2}, \frac{1}{r_{d}^{2}} \leq \frac{M\left(p_{\mathrm{rev}}\right)^{2}}{\left|p_{0}\right|^{2}} \leq \max _{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right|^{2}
-$$
-Theorem 167 supports very fast approximation of all root radii of $p$ at the origin at a very low cost, which complements estimates $(170)-(175)$.
+\end{equation}
+Theorem 167 supports very fast approximation of all root radii of $p$ at the origin at a very low cost, which complements estimates \ref{eq:radii_at_origin_1}, \ref{eq:radii_at_origin_2} \ref{eq:radii_at_origin_3}, \ref{eq:radii_at_origin_4}, \ref{eq:radii_at_origin_5}, and \ref{eq:radii_at_origin_6}.
 
 % Part 3.2 Background
 
-One can extend all these bounds to the estimates for the root radii $r_{j}(c, p)$ for any fixed complex $c$ and all $j$ by observing that $r_{j}(c, p)=r_{j}(0, t)$ for the polynomial $t(x)=p(x-c)$ and applying Taylor's shift (cf. Sec. 2.5).
+One can extend all these bounds to the estimates for the root radii $r_{j}(c, p)$ for any fixed complex $c$ and all $j$ by observing that $r_{j}(c, p)=r_{j}(0, t)$ for the polynomial $t(x)=p(x-c)$ and applying Taylor's shift; \emph{i.e.,} applying the mapping $\mathcal{S}_{c ,\rho }:p(x) \mapsto p\left( \frac{x - c}{\rho} \right)$.
 
-Our algorithms of Secs. $6.7$ and $6.2$ closely approximate root radii $r_{j}(c, p)$ for a black box polynomial $p$ and a complex point $c$ at reasonably low cost, but the next well-known upper bounds on $r_{d}$ and lower bounds on $r_{1}$ (cf. [42, Cor. $6.4 \mathrm{~g}],[22],[79$, Remark $6.4],[15$, Thms. $8,9,10,13$, and 14 $]$, and [19, Secs. $3.1$ and 3.2]) are computed at even a lower cost, defined by a single fraction $\frac{p_{0}}{p_{i}}$ or $\frac{p_{d-i}}{p_{d}}$ for any $i$, albeit these bounds are excessively large for the worst case input.
-$r_{d} \leq \rho_{i,-}:=\left(\left(\begin{array}{c}d \\ i\end{array}\right)\left|\frac{p_{0}}{p_{i}}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}:=\left(\left(\begin{array}{l}d \\ i\end{array}\right)\left|\frac{p_{d}}{p_{d-i}}\right|\right)^{\frac{1}{i}}$ for all $i$
-
-% Part 3.3
-
+The algorithms in Sec.~\ref{sec:alg_des} closely approximate root radii $r_{j}(c, p)$ for a black box polynomial $p$ and a complex point $c$ at reasonably low cost, but the next well-known upper bounds on $r_{d}$ and lower bounds on $r_{1}$ (cf. \cite{kerimov1977applied},\cite{carstensen1991inclusion},\cite{pan2000approximating},\cite{bini2000design}, and \cite{bini2014solving}) are computed at even a lower cost, defined by a single fraction $\frac{p_{0}}{p_{i}}$ or $\frac{p_{d-i}}{p_{d}}$ for any $i$, albeit these bounds are excessively large for the worst case input.
+Finally, we have that
+$r_{d} \leq \rho_{i,-}:=\left(\left(\begin{array}{c}d \\ i\end{array}\right)\left|\frac{p_{0}}{p_{i}}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}:=\left(\left(\begin{array}{l}d \\ i\end{array}\right)\left|\frac{p_{d}}{p_{d-i}}\right|\right)^{\frac{1}{i}}$
+and therefore, since $p^{(i)}(0)=i ! p_{i} \text { for all } i>0$, that
 \begin{equation}\label{eq:last_appen}
 r_{d} \leq \rho_{i,-}=\left(i !\left(\begin{array}{c}
 d \\
@@ -422,7 +428,7 @@ d \\
 i
 \end{array}\right)\left|\frac{p_{\text {rev }}(0)}{p_{\text {rev }}^{(i)}(0)}\right|\right)^{\frac{1}{i}}
 \end{equation}
-for all $i$. For $i=1$ obtain (11).
+for all $i$; from which we obtain relations \ref{eq:rat_roo_radii_1} and \ref{eq:rat_roo_radii_2} for $i=1$.
 
 \section{Motivating Example}
 
@@ -442,7 +448,7 @@ for all $i$. For $i=1$ obtain (11).
 
 
 
-\section{Algorithm Design}
+\section{Algorithm Design}\label{sec:alg_des}
 
 In this section give the design of the general algorithm for approximating the root radius given by Eq.~\ref{eqdndrt0}.
 There are two main steps: 1) going down the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:circ_roots_rational_form}, and 2) going up the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:DLG_rational_form}.
@@ -1251,7 +1257,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
  100 & 6 & 617 & 334 & 0.01 & 0.99 & 3.78 & $[0.01,7.92]$\\ %mig1_100_1
  200 & 7 & 617 & 334 & 2.65 & 0.99 & 0.84 & $[0.01,1.07]$\\%mig1_200
  200 & 7 & 617 & 334 & 2.59 & 0.99 & 7.55 & $[0.01, 2.33]$\\%mig1_200_2
- 500 & 8 & 617 & 334 & 18.19 & 0.98 & 1.60 & $[0.01, 1.03]$\\ 
+ 500 & 8 & 617 & 334 & 18.19 & 0.98 & 1.60 & $[0.01, 1.03]$\\
  500 & 8 & 617 & 334 & 18.01 & 0.98 & 16.16 & $[0.01,1.36]$\\ %_1
 \bottomrule
 \end{tabular}
