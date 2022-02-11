@@ -1,6 +1,5 @@
 import os
 import sys
-import mpmath as mp
 import shlex
 import subprocess
 import re
@@ -20,44 +19,67 @@ def get_args():
     return args
 
 
+#Should handle the following formats:
+#dri drq drf dci dcq sci sri srf
 def get_pols(pol_file):
     with open(pol_file) as f:
         L = f.read().split('\n')
 
-    while L[0][0] == '!': L.pop(0)
     L = [l for l in L if l.strip() != '']
+    while L[0][0] == '!': L.pop(0)
     pol_type = L.pop(0)
+    L.pop(0) # 0 line. 
+    deg = int(L.pop(0))
 
-    #case dri
-    if pol_type == 'dri':
-        L.pop(0) # 0 line.
-        deg = int(L.pop(0))
+    if pol_type[2] == 'i': 
+        num_lines = 1
+        num_fcn = lambda x: mp.mpf(x)
+    elif pol_type[2] == 'f':
+        num_lines = 1
+        num_fcn = lambda x: mp.mpf(x)
+    elif pol_type[2] == 'q':
+        num_lines = 2
+        num_fcn = lambda x: mp.mpf(x)
 
-        L.reverse()
-        p_coeffs = [float(l) for l in L]
-        p_degs = [i for i in range(deg+1)]
-        p_degs.reverse()
+    if pol_type[1] == 'r':
+        num_comps = 1
+    elif pol_type[1] == 'c':
+        num_comps = 2
+
+    #if pol_type[0] == 'd':
+    #    p_degs = [i for i in range(degs + 1)]
+    if pol_type[0] == 's':
+        num_terms = int(L.pop(0))
+        p_degs = []
+        for i in range(num_terms):
+            p_degs.append(int(L.pop(i*(num_lines*num_comps+1)-i)))
+
+    #L left over is p_coeffs
+    p_coeffs = list(map(num_fcn, L))
+    if pol_type[2] == 'q':
+        p_coeffs = [ div(x,y) for (x,y) in zip(p_coeffs[0::2], p_coeffs[1::2])]
+    
+    if pol_type[1] == 'c':
+        p_coeffs = [ mp.mpc(real=x, imag=y) for (x,y) in zip(p_coeffs[0::2], p_coeffs[1::2])]
+    
+    if pol_type[0] == 'd':
+        p_coeffs.reverse()
+        p_degs = [deg-i for i in range(deg+1)]
         p = lambda x: mp.polyval(p_coeffs, x)
         dp_coeffs = [p_coeffs[i]*(deg-i) for i in range(len(p_coeffs)-1)]
         dp = lambda x: mp.polyval(dp_coeffs, x)
-        dp_degs = [d-1 for d in p_degs]
-        if -1 in dp_degs:
-            loc = dp_degs.index(-1)
+
+        #not strictly needed but for posterity
+        dp_degs = [d-1 for d in p_degs] 
+        if -1 in dp_degs: 
+            loc = dp_degs.index(-1) 
             dp_degs.pop(loc)
-
-    #case sri
-    if pol_type == 'sri':
-        L.pop(0) # 0 line.
-        deg = int(L.pop(0))
-        num_terms = int(L.pop(0))
-        p_degs = list(map(float, L[::2]))
-        p_coeffs = list(map(float, L[1::2]))
+    
+    elif pol_type[0] == 's':
         p = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_degs)))
-        dp_degs = [d-1 for d in p_degs]
-        dp_coeffs = [p_coeffs[i]*p_degs[i] for i in range(len(p_degs))]
+        dp_degs = [d-1 for d in p_degs] 
+        dp_coeffs = [p_coeffs[i]*p_degs[i] for i in range(num_terms)]
 
-        #get rid of the 0-ed out constant term
-        #not strictly required, since the coeff should be 0 for the term that disappears
         if -1 in dp_degs:
             loc = dp_degs.index(-1)
             dp_degs.pop(loc)
@@ -67,6 +89,13 @@ def get_pols(pol_file):
     #get rev polys
     p_rev_degs = [deg - j for j in p_degs]
     p_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_rev_degs)))
+    
+    #print(p_coeffs)
+    #print(p_degs)
+    #print(dp_coeffs)
+    #print(dp_degs)
+    #print(p_coeffs)
+    #print(p_rev_degs)
 
     dp_rev_degs = [d-1 for d in p_rev_degs]
     dp_rev_coeffs = [p_coeffs[i]*p_rev_degs[i] for i in range(len(p_rev_degs))]
