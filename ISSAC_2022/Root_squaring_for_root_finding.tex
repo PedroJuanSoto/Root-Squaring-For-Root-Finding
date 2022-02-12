@@ -244,8 +244,8 @@ This short survey illustrates that the application of the DLG to root-finding, w
 
 \section{Background and Motivation}\label{srrapp}
 
-We set up some basic notation and background: we discuss Dandelin, Lobachevsky, and Graeffe's Formaulae in Sec.~\ref{subsec:DLG_form}, properties of the extremal root radii in Sec.~\ref{sec:ext_root_rad}, and well known estimates for for extremal root radii in Sec.~\ref{subsec:class_est}.
-The reverse of a polynomial $p :=p_0+p_{1}x^1+...+p_dx^d$ is defined as $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$ and for a polynomial $p(x) = \prod_{i \in [d]} (x - \rho_i)$ where $|\rho_d|\geq ... \geq \rho_1$ we define $r_i(c,p) = \rho_i - c$ as the root radii $p$ about $c$. We are particular interested in the case where $c = 0$ since we can always reduce to this case (see Sec.~\ref{sec:ext_root_rad}).
+We set up some basic notation and background: we discuss Dandelin, Lobachevsky, and Gr{\"a}ffe's Formulae in Sec.~\ref{subsec:DLG_form}, properties of the extremal root radii in Sec.~\ref{sec:ext_root_rad}, and well-known estimates for extremal root radii in Sec.~\ref{subsec:class_est}.
+The reverse of a polynomial $p :=p_0+p_{1}x^1+...+p_dx^d$ is defined as $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$ and for a polynomial $p(x) = \prod_{i \in [d]} (x - \rho_i)$ where $|\rho_d|\geq ... \geq |\rho_1|$ we define $r_i(c,p) = |\rho_i - c|$ as the root radii $p$ about $c$. We are particular interested in the case where $c = 0$ since we can always reduce to this case (see Sec.~\ref{sec:ext_root_rad}).
 % %------------------------------------------------------------------------------
 % \subsection{Root radius and root-squaring}\label{srrapp}
 %
@@ -360,7 +360,7 @@ r_{d}(c, p) \leq d\left|\frac{p(c)}{p^{\prime}(c)}\right|
  r_{1}(c, p) \geq\left|\frac{p_{\mathrm{rev}}^{\prime}(c)}{d p_{\mathrm{rev}}(c)}\right| .
 \end{equation}
 % clean
-We strengthen these estimates in the case of $c=0$ by recalling DLG rootsquaring iterations Eq.~\ref{eqdndrt} of Sec.~\ref{subsec:DLG_form} and Equation \ref{eqdndrt0}. This immediately implies the following extension of Eq.~\ref{eq:rat_roo_radii_1} \& Eq.~\ref{eq:rat_roo_radii_2} for $c=0$ and all non-negative integers $\ell$ :
+We strengthen these estimates in the case of $c=0$ by recalling DLG root-squaring iterations Eq.~\ref{eqdndrt} of Sec.~\ref{subsec:DLG_form} and Equation \ref{eqdndrt0}. This immediately implies the following extension of Eq.~\ref{eq:rat_roo_radii_1} \& Eq.~\ref{eq:rat_roo_radii_2} for $c=0$ and all non-negative integers $\ell$ :
 \begin{equation}\label{eq:rat_roo_radii_3}
 r_{d}(0, p)^{2^{\ell}} \leq d \left|\left(\frac{p^{\prime}(x)}{p(x)}\right)_{x=0}^{(\ell)}\right|^{-1}
 \end{equation}
@@ -379,7 +379,7 @@ Given an algorithm that evaluates a black box polynomial $p(x)$ at a point $x$ o
 \end{theorem}
 
 \begin{proof}
-\cite{Linnainmaa1976}, \cite{baur1983complexity} proves the theorem for any function $f\left(x_{1}, \ldots, x_{s}\right)$ that has partial derivatives in all its $s$ variables $x_{1}, \ldots, x_{s}$.
+\cite{Linnainmaa1976} and \cite{baur1983complexity} prove the theorem for any function $f\left(x_{1}, \ldots, x_{s}\right)$ that has partial derivatives in all its $s$ variables $x_{1}, \ldots, x_{s}$.
 \end{proof}
 
 Next we prove that estimates \ref{eq:rat_roo_radii_3} and \ref{eq:rat_roo_radii_4} are extremely poor for worst case inputs.
@@ -394,7 +394,7 @@ Furthermore,
 $$
 \frac{1}{r_{d}(c, p)} \leq \frac{1}{d}\left|\frac{p^{\prime}(c)}{p(c)}\right|=\frac{1}{d}\left|\sum_{j=1}^{d} \frac{1}{c-x_{j}}\right|
 $$
-by virtue of \ref{eq:rat_roo_radii_1} \& \ref{eq:rat_roo_radii_2}, and so the approximation to the root radius $r_{d}(c, p)$ is poor if and only if severe cancellation occurs in the summation of the $d$ roots, and similarly for the approximation of $r_{1}(c, p)$. Such cancellations only occur for a narrow class of polynomials $p(x)$, with a low probability under random root models, although it occurs for the polynomials $p(x)=x^{d}-h^{d}$ of Thm. 5 and with high probability for random polynomials of \cite{erdos1950distribution}.
+by virtue of inequalities \ref{eq:rat_roo_radii_1} \& \ref{eq:rat_roo_radii_2}, and so the approximation to the root radius $r_{d}(c, p)$ is poor if and only if severe cancellation occurs in the summation of the $d$ roots, and similarly for the approximation of $r_{1}(c, p)$. Such cancellations only occur for a narrow class of polynomials $p(x)$, with a low probability under random root models, although it occurs for the polynomials $p(x)=x^{d}-h^{d}$ of Thm. 5 and with high probability for random polynomials of \cite{erdos1950distribution}.
 % clean till here
 % TODO: keep cleaning
 
@@ -412,10 +412,10 @@ Furthermore, we have that
 \frac{1}{d} \tilde{r}_{+} \leq r_{1}<2 \tilde{r}_{+}, \frac{1}{2} \tilde{r}_{-} \leq r_{d} \leq d \tilde{r}_{-},
 \end{equation}
 \begin{equation}\label{eq:radii_at_origin_3}
-\tilde{r}_{+} \sqrt{\frac{2}{d}} \leq r_{1} \leq \frac{1+\sqrt{5}}{2} \tilde{r}_{+}<1.62 \tilde{r}_{+} \text {if } p_{d-1}=0,
+\tilde{r}_{+} \sqrt{\frac{2}{d}} \leq r_{1} \leq \frac{1+\sqrt{5}}{2} \tilde{r}_{+}<1.62 \tilde{r}_{+} \text { if } p_{d-1}=0,
 \end{equation}
 \begin{equation}\label{eq:radii_at_origin_4}
-0.618 \tilde{r}_{-}<\frac{2}{1+\sqrt{5}} \tilde{r}_{-} \leq r_{d} \leq \sqrt{\frac{d}{2}} \tilde{r}_{-} \text {if } p_{1}=0,
+0.618 \tilde{r}_{-}<\frac{2}{1+\sqrt{5}} \tilde{r}_{-} \leq r_{d} \leq \sqrt{\frac{d}{2}} \tilde{r}_{-} \text { if } p_{1}=0,
 \end{equation}
 \begin{equation}\label{eq:radii_at_origin_5}
 r_{1} \leq 1+\sum_{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|, \frac{1}{r_{d}} \leq 1+\sum_{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right| .
@@ -424,7 +424,8 @@ $M(p):=\left|p_{d}\right| \max _{j=1}^{d}\left\{1,\left|x_{j}\right|\right\}$ is
 \begin{equation}\label{eq:radii_at_origin_6}
 r_{1}^{2} \leq \frac{M(p)^{2}}{\left|p_{d}\right|} \leq \max _{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|^{2}, \frac{1}{r_{d}^{2}} \leq \frac{M\left(p_{\mathrm{rev}}\right)^{2}}{\left|p_{0}\right|^{2}} \leq \max _{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right|^{2}
 \end{equation}
-Theorem 167 supports very fast approximation of all root radii of $p$ at the origin at a very low cost, which complements estimates \ref{eq:radii_at_origin_1}, \ref{eq:radii_at_origin_2} \ref{eq:radii_at_origin_3}, \ref{eq:radii_at_origin_4}, \ref{eq:radii_at_origin_5}, and \ref{eq:radii_at_origin_6}.
+%Thm 167 - rel error bound 4d
+It is shown in \cite{imbach2021rootradii} that we can get a very fast approximation of all root radii of $p$ at the origin at a very low cost, which complements the estimates \ref{eq:radii_at_origin_1}, \ref{eq:radii_at_origin_2} \ref{eq:radii_at_origin_3}, \ref{eq:radii_at_origin_4}, \ref{eq:radii_at_origin_5}, and \ref{eq:radii_at_origin_6}.
 
 % Part 3.2 Background
 
@@ -464,15 +465,15 @@ for all $i$; from which we obtain relations \ref{eq:rat_roo_radii_1} and \ref{eq
   \Description{}
 \end{figure}
 
-In this section give the design of the general algorithm for approximating the root radius given by Eq.~\ref{eqdndrt0}.
+In this section we present the design of the general algorithm for approximating the root radius given by Eq.~\ref{eqdndrt0}.
 There are two main steps: 1) going down the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:circ_roots_rational_form}, and 2) going up the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:DLG_rational_form}.
 The going-down is depicted in Fig.~\ref{fig:rat_roots_tree} and the going-up is depicted in Fig.~\ref{fig:DLG}.
 The other procedures are simple bookkeeping/preprocessing steps in between the two main going-down/going-up steps.
 In particular we
 1) first convert a complex number $x$ into polar coordinates $r,\theta$ where $\theta \approx \frac{p}{q} = \frac{p}{2^\epsilon}$, \emph{i.e.,} perform Alg.~\ref{alg:rational_angle_approx},
-2) we then perform the first going-down pass which gives the rational angles for the roots of $x$ in fraction form, \emph{i.e.,} perform Alg.~\ref{alg:circ_roots_rational_form},
-3) we then perform the second pass of the going down algorithm where we compute the values $|x|^{\frac{1}{2^m}} \exp(2 \pi i \frac{p}{q})$ at the $m^\mathrm{th}$ level, and
-4) finally, we then compute the values given by Eq.~\ref{eqdndrt} going back up the rational root tree.
+2) perform the first going-down pass which gives the rational angles for the roots of $x$ in fraction form, \emph{i.e.,} perform Alg.~\ref{alg:circ_roots_rational_form},
+3) perform the second pass of the going-down algorithm where we compute the values $|x|^{\frac{1}{2^m}} \exp(2 \pi i \frac{p}{q})$ at the $m^\mathrm{th}$ level, and
+4) finally compute the values given by Eq.~\ref{eqdndrt} going back up the rational root tree.
 
 \begin{algorithm}
    \caption{\textsc{Circle\_Roots\_Rational\_Form}($p,q,l$)}
@@ -516,7 +517,7 @@ and
 \begin{equation}\label{eq:rat_neg_real}
 p \% q = 0 \implies   \sqrt{\exp \left(2 \pi i \frac{1}{1}\right)}  = \exp \left(2 \pi i \frac{1}{2}\right) = -1;
 \end{equation}
-therefore, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} computes the (angle of the) positive square root, $\sqrt{x}$, of complex number on the unit circle and the next four lines Alg.~\ref{alg:circ_roots_rational_form} computes the (angle of the) negative square root, $-\sqrt{x}$. Therefore, we have:
+therefore, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} compute the (angle of the) positive square root, $\sqrt{x}$, of complex number on the unit circle and the next four lines Alg.~\ref{alg:circ_roots_rational_form} computes the (angle of the) negative square root, $-\sqrt{x}$. Therefore, we have:
 \begin{theorem}\label{thm:rat_root_correctness}
   For a complex number, $x$, with a rational angle, \emph{i.e.,} $x = |x|\exp \left(2 \pi i \frac{p}{q}\right)$, Alg.~\ref{alg:circ_roots_rational_form} correctly computes the roots in Eq.~\ref{eqdndrt}; in particular; for a rational angle in fractional form, it does so with exact precision.
 \end{theorem}
