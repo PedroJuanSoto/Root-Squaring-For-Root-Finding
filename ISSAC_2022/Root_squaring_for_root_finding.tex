@@ -223,6 +223,7 @@ We revisit the classical root-squaring formula of Dandelin-Lobachevsky-Gr{\"a}ff
 \maketitle
 
 \section{Introduction}
+
 %changed simultaneously -> independently since there was a span of 10 years from Dandelin's discovery to Gr{\"a}ffe's
 We revisit the famous method for finding roots that was independently discovered by Dandelin, Lobachevsky, and Gr{\"a}ffe and make further progress by applying this identity to the problem of approximating the root radius of a polynomial. (See \cite{10.2307/2310626} for a history of this problem.)
 This is a key step in many subdivision based root-finding algorithms. 
@@ -242,6 +243,9 @@ This short survey illustrates that the application of the DLG to root-finding, w
 
 
 \section{Background and Motivation}\label{srrapp}
+
+We set up some basic notation and background: we discuss Dandelin, Lobachevsky, and Graeffe's Formaulae in Sec.~\ref{subsec:DLG_form}, properties of the extremal root radii in Sec.~\ref{sec:ext_root_rad}, and well known estimates for for extremal root radii in Sec.~\ref{subsec:class_est}.
+The reverse of a polynomial $p :=p_0+p_{1}x^1+...+p_dx^d$ is defined as $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$ and for a polynomial $p(x) = \prod_{i \in [d]} (x - \rho_i)$ where $|\rho_d|\geq ... \geq \rho_1$ we define $r_i(c,p) = \rho_i - c$ as the root radii $p$ about $c$. We are particular interested in the case where $c = 0$ since we can always reduce to this case (see Sec.~\ref{sec:ext_root_rad}).
 % %------------------------------------------------------------------------------
 % \subsection{Root radius and root-squaring}\label{srrapp}
 %
@@ -347,7 +351,7 @@ One can apply root-squaring $p(x)\mapsto p_{\ell}(x)$ to improve  the error boun
 % Part 2 back
 \subsection{Extremal root radii}\label{sec:ext_root_rad}
 
-We cover some known estimates for extremal root radii in Sec.~\ref{subsec:class_est}. The most used estimates (Eq.~\ref{eq:last_appen} for $i=1$ and $c=0)$ readily follow from straightforward algbraic manipluations of $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$:
+We cover some known estimates for extremal root radii in Sec.~\ref{subsec:class_est}. The most used estimates (Eq.~\ref{eq:last_appen} for $i=1$ and $c=0)$ readily follow from straightforward algebraic manipulations of $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$:
 \begin{equation}\label{eq:rat_roo_radii_1}
 r_{d}(c, p) \leq d\left|\frac{p(c)}{p^{\prime}(c)}\right|
 \end{equation}
@@ -385,7 +389,7 @@ The ratios $\left|\frac{p(0)}{p^{\prime}(0)}\right|$ and $\left|\frac{p_{\mathrm
 Proof. Observe that the roots $x_{j}=h \exp \left(\frac{(j-1) \mathbf{i}}{2 \pi d}\right)$ of $p(x)=x^{d}-h^{d}$ for $j=$ $1,2, \ldots, d$ are the $d$ th roots of unity up to scaling by $h$.
 \end{theorem}
 
-Clearly, the problem persists at the points $x$ where $p^{\prime}(x)$ and $p_{\text {rev }}^{\prime}(x)$ vanish; rotation of the variable $\mathcal{R}_a :p(x) \mapsto t(x)=p(a x)$ for $|a|=1$ does not fix it but shifts $\mathcal{T}_c : p(x) \mapsto t(x)=p(x-c)$ for $c \neq 0$ can fix it, thus enhancing the power of estimates \ref{eq:rat_roo_radii_3} and \ref{eq:rat_roo_radii_4}.
+ Clearly, the problem persists at the points $x$ where $p^{\prime}(x)$ and $p_{\text {rev }}^{\prime}(x)$ vanish; rotation of the variable $\mathcal{R}_a :p(x) \mapsto t(x)=p(a x)$ for $|a|=1$ does not fix it but shifts $\mathcal{T}_c : p(x) \mapsto t(x)=p(x-c)$ for $c \neq 0$ can fix it, thus enhancing the power of estimates \ref{eq:rat_roo_radii_3} and \ref{eq:rat_roo_radii_4}.
 Furthermore,
 $$
 \frac{1}{r_{d}(c, p)} \leq \frac{1}{d}\left|\frac{p^{\prime}(c)}{p(c)}\right|=\frac{1}{d}\left|\sum_{j=1}^{d} \frac{1}{c-x_{j}}\right|
@@ -456,7 +460,7 @@ for all $i$; from which we obtain relations \ref{eq:rat_roo_radii_1} and \ref{eq
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{p_prime.png}
-  \caption{The steps of \textsc{DLG\_Rational\_Rorm}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}\label{fig:DLG}
+  \caption{The steps of \textsc{DLG\_Rational\_Form}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}\label{fig:DLG}
   \Description{}
 \end{figure}
 
@@ -512,7 +516,7 @@ and
 \begin{equation}\label{eq:rat_neg_real}
 p \% q = 0 \implies   \sqrt{\exp \left(2 \pi i \frac{1}{1}\right)}  = \exp \left(2 \pi i \frac{1}{2}\right) = -1;
 \end{equation}
-thus, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} computes the (angle of the) positive square root, $\sqrt{x}$, of complex number on the unit circle and the next four lines Alg.~\ref{alg:circ_roots_rational_form} computes the (angle of the) negative square root, $-\sqrt{x}$. Therefore, we have:
+therefore, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} computes the (angle of the) positive square root, $\sqrt{x}$, of complex number on the unit circle and the next four lines Alg.~\ref{alg:circ_roots_rational_form} computes the (angle of the) negative square root, $-\sqrt{x}$. Therefore, we have:
 \begin{theorem}\label{thm:rat_root_correctness}
   For a complex number, $x$, with a rational angle, \emph{i.e.,} $x = |x|\exp \left(2 \pi i \frac{p}{q}\right)$, Alg.~\ref{alg:circ_roots_rational_form} correctly computes the roots in Eq.~\ref{eqdndrt}; in particular; for a rational angle in fractional form, it does so with exact precision.
 \end{theorem}
@@ -520,7 +524,7 @@ thus, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} comp
 Equation \ref{eq:rat_sq_imag}, \ref{eq:rat_sq_real}, \ref{eq:rat_neg_imag}, and \ref{eq:rat_neg_real} give the base case and the theorem follows by a straightforward induction.
 \end{proof}
 
-Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both striaghtforward; thus, we do not need to explain them in detail and instead explain the intuition behind Alg.~\ref{alg:DLG_rational_form}.
+Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both straightforward; thus, we do not need to explain them in detail and instead explain the intuition behind Alg.~\ref{alg:DLG_rational_form}.
 
 \begin{algorithm}
 \caption{\textsc{Roots}($r,t,u,l$)}
@@ -615,7 +619,7 @@ Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both
 \RETURN diff$[l][0]$
 \end{algorithmic}
 \end{algorithm}
-Algorithm \ref{alg:DLG_rational_form} is a straightforward dynamic programming on Equation \ref{eqdndrt}; thus, by Thm.~\ref{thm:rat_root_correctness}, we have that Alg.~\ref{alg:DLG_rational_form} correctly computes Eq.~\ref{eqdndrt}.
+Algorithm \ref{alg:DLG_rational_form} is a straightforward dynamic programming on Equation \ref{eqdndrt}; therefore, by Thm.~\ref{thm:rat_root_correctness}, we have that Alg.~\ref{alg:DLG_rational_form} correctly computes Eq.~\ref{eqdndrt}.
 To be precise Alg.~\ref{alg:DLG_rational_form} does the following: 1) it computes the last layer of the recursion Eq.~\ref{eqdndrt} (\emph{i.e.,} it computes $\frac{p'(x^{\frac{1}{2^l}})}{p(x^{\frac{1}{2^l}})}$) and then 2) it recursively applies Eq.~\ref{eqdndrt} via dynamic programming until it finally computes $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ which is the desired quantity.
 The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$'' and the latter is given by the line ``diff[$i+1$][$j$]:=$\frac{1}{2}\frac{\text{diff}[i][2j]-\text{diff}[i][2j+1]}{\text{root}[2j]}$'' in Alg.~\ref{alg:DLG_rational_form}; the desired output (\emph{i.e.,} $\frac{p'(x^{\frac{1}{2^l}})}{p(x^{\frac{1}{2^l}})}$)is given by the line ``diff$[l][0]$''.
 
@@ -665,8 +669,8 @@ The procedure is given by Algorithm.~\ref{alg:DLG_Root_Radius}.
 \STATE $r_\mathrm{max} $ := \textsc{DLG}($p_\mathrm{rev},p^\prime _\mathrm{rev},l,x\cdot 2^{-\delta}, \epsilon$)$/d$
 \end{algorithmic}
 \end{algorithm}
-The rationale for generating a random $x$ is that there may be roots close to 0 and thus by taking the limit in certain directions we avoid these possible poles; in particular, we have that
-\begin{equation}
+The rationale for generating a random $x$ is that there may be roots close to 0 and thus, by taking the limit in certain directions, we avoid these possible poles; in particular, we have that
+\begin{equation}\label{eq:lim_DLG}
   \lim_{ \delta,\epsilon \to \infty }  \textsc{DLG}(p,p^\prime ,l,x\cdot 2^{-\delta}, \epsilon ) = \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Big(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Big)_{x=0}'=\Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(\ell)},
 \end{equation}
 for any $x$, if $p(0) \neq 0$ (see Thm~\ref{thm:lim_correctness}).
@@ -687,27 +691,54 @@ for any $x$, if $p(0) \neq 0$ (see Thm~\ref{thm:lim_correctness}).
 % \begin{theorem}
 %   The condition number for $\frac{p_l'}{p_l}$ using
 % \end{theorem}
-We give some theoritical guarentess; Theorem \ref{thm:float_ops} and Theorem \ref{thm:ints} give compputational complexity bounds and Theorem \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
+We give some theoretical guarantees; Theorem \ref{thm:float_ops} and Theorem \ref{thm:ints} give computational complexity bounds and Theorem \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
 \begin{theorem}\label{thm:float_ops}
 Algorithm \ref{alg:DLG_rational_form} performs $q $ floating point subtractions, divisions, and multiplications and $q $ applications of $\sin$ and $\cos$, where $q = 2^l$; furthermore, Algorithm \ref{alg:DLG_rational_form} performs at most $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations, where $C=1,3,2$ respectively.
 \end{theorem}
 \begin{proof}
-Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG} it is straighforward to see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ is equally straighforward inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
+Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG} it is straightforward to see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ is equally straightforward inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
 \end{proof}
 
 \begin{theorem}\label{thm:ints}
-The $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Algorithm.~\ref{alg:DLG_rational_form} have negligble overhead; more precisely, integer addtions are always additions of 2 $\epsilon \log \ell $-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
+The $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Algorithm.~\ref{alg:DLG_rational_form} have negligible overhead; more precisely, integer additions are always additions of 2 $\epsilon \log \ell $-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
 \end{theorem}
+
 \begin{proof}
-  Since Alg.~\ref{alg:rational_angle_approx} always passes in a denominator which is a power of two all of the integer $\%$ and $\cdot$ operations are in fact ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations by a straightforward proof similar to the one in Algorithm.~\ref{alg:DLG_rational_form}. Thus these operation are essentially constant overhead bit shift operations on a computing machine with binary words. Since $p\% r$ always reduces $p \mapsto 1$, we have that whenever an overflow of more than $\log r$-bits happens in Alg.~\ref{alg:circ_roots_rational_form} it gets converted to an $\log r$-bit integer; thus, it suffices to prove that $\log r$ is bounded by  $\epsilon \log \ell $. However, this is once again an easy induction on the binary computation tree; since this tree has depth $\ell$ we see that any denominator is bouonded by $\epsilon \log \ell $ by a simple induction. 
+  Since Alg.~\ref{alg:rational_angle_approx} always passes in a denominator which is a power of two all of the integer $\%$ and $\cdot$ operations are in fact ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations by a straightforward proof similar to the one in Algorithm.~\ref{alg:DLG_rational_form}. Thus these operation are essentially constant overhead bit shift operations on a computing machine with binary words. Since $p\% r$ always reduces $p \mapsto 1$, we have that whenever an overflow of more than $\log r$-bits happens in Alg.~\ref{alg:circ_roots_rational_form} it gets converted to an $\log r$-bit integer; therefore, it suffices to prove that $\log r$ is bounded by  $\epsilon \log \ell $. However, this is once again an easy induction on the binary computation tree; since this tree has depth $\ell$ we see that any denominator is bouonded by $\epsilon \log \ell $ by a simple induction.
 \end{proof}
 
-
+In order to prove Thm.~\ref{thm:lim_correctness} we must first prove Lem.~\ref{lem:lim_correctness}.
+\begin{lemma}\label{lem:lim_correctness}
+   If $p(0) \neq 0$, then the limit $ \lim_{x \to 0}\frac{p_\ell^{\prime}(x)}{p_\ell(x)}$ is always well defined.
+   \end{lemma}
+\begin{proof}
+  A straightforward induction on Equation \ref{eqdnd} gives us that $p_l(0) \neq 0$ if $p(0) \neq 0$; therefore, it suffices to consider the behavior of the numerator in  Eq.~\ref{eqdndrt}. The case $\ell = 1$ is a trivial application of L'Hopital's rule. For $\ell \neq 1$, there are two cases: either $\sqrt x~$ divides the numerator of $\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}$ or it does not. If it does, then we are done since we can once again apply L'Hopital's rule; otherwise, we get that $p_{\ell}'(\sqrt x~) = c_0+c_1\sqrt x~ + ... +c_k(\sqrt x~)^k$ for some $c_i$ where $c_0 \neq 0$. But then we have that $\frac{p_{\ell+1}'(\sqrt x~)}{p_{\ell+1}(\sqrt x~)}= \frac{1}{2\sqrt x}\Big(\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}-\frac{p_{\ell}'(-\sqrt x~)}{p_{\ell}(-\sqrt x~)}\Big) = $
+  $\frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N(\sqrt x) - b_0c_0 - \sqrt x \cdot N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)} $
+  $= \frac{1}{2}\frac{  N(\sqrt x) -  N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}$, where $b_0 = p_{\ell}'(0)$; therefore, since $b_0 = p_{\ell}'(0)$ the limit at zero is once again well defined.
+\end{proof}
 \begin{theorem}\label{thm:lim_correctness}
-With probability 1, Algorithm \ref{alg:DLG_Root_Radius} computes the bounds given by Equation \ref{eq:rat_roo_radii_1} and Equation \ref{eq:rat_roo_radii_2}.
+ If $p(0) \neq 0$, then Algorithm \ref{alg:DLG_Root_Radius} computes the bounds given by Equation \ref{eq:rat_roo_radii_1} and Equation \ref{eq:rat_roo_radii_2} with probability 1.
 \end{theorem}
 \begin{proof}
-Prove
+By Lem.~\ref{lem:lim_correctness} we have that the limit in Eq.~\ref{lem:lim_correctness} is well defined. Since there are at most finitely many roots for $p_\ell$ with a high probability Alg.~\ref{alg:DLG_Root_Radius} computes the correct approximation to the bounds in Eq.~\ref{eq:rat_roo_radii_1} and Eq.~\ref{eq:rat_roo_radii_2}.
+\end{proof}
+\begin{lemma}
+The (relative) condition number operator satisifies the following properties:
+\begin{enumerate}
+  \item $\kappa\{f\} (x) = |x \log'(f(x)) |$
+  \item $\kappa\{f-g\}(x) = |x \frac{ \kappa \{f\}(x)- \kappa \{g\}(x) }{f(x)-g(x)}| $
+  \item $\kappa \left\{\frac{f}{g}\right\} (x)= ||\kappa\{ f\} (x)| - |\kappa\{ g\} (x)||$
+  \item $\kappa \left\{ f \circ g \right\}(x) = \left| |\kappa\{f\} (g(x) )\cdot \kappa\{g\} (x)|\right| $
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+This follows from the definition of the condition number.
+\end{proof}
+\begin{theorem}
+If $p_\ell(0)\neq 0$, then $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is well coditioned at any point sufficiently close to 0.
+\end{theorem}
+\begin{proof}
+  The proof of Lem.~\ref{lem:lim_correctness} gives us that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is a well behaved rational function at any point close to zero and thus the condition number $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ is well defined at this point since the condition number of aritmetic operations of functions are themselves arithmetic operations in those same functions and the conditions number for a polynomial of degree $d \in \mathbb{R}$ is exactly $d$; therefore, $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ has a well defined/bounded condition number in the limit to zero.
 \end{proof}
 \section{Experimental Results}\label{sec:exp}
 
@@ -716,6 +747,7 @@ $$
 \text{relative error}_{r_i} = \frac{|\tilde{r_i} - r_i|}{|r_i|},
 $$
 where $r_i$ is the root radius found using MPSolve and $\tilde{r_i}$ our estimate.
+From the results we can see that experiments match the theory; in particular, we have that the root radii approximations are always good when $p$ has no roots close to zero and only behaves poorly when this is not the case.
 
 All experiments were run using Python 3.7.7 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.  The entries `-' in the tables indicate the test was terminated before completion.
 
@@ -1521,7 +1553,10 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \section{Conclusion}
+We present a novel algorithm that Uses the DLG formulae to approximate the root radii and give many theoritical and experimental guarantees. In partiucular we prove that the algorithm has low time complexity and is well conditioned when there are no roots around 0 (for which we can simply test beforehand). We tested our algorithm against many of the MPSolve benchmarks. For future work we would like to directly implement our algorithm in sub-division rootfinders and test the performance.
 
+\section{Acknowledgments}
+The authors of this paper are sincerly indebted to Dr. Victor Pan who provided us with the background, the problem statement, and guided us throughout the research.
 %%
 %% The acknowledgments section is defined using the "acks" environment
 %% (and NOT an unnumbered section). This ensures the proper
