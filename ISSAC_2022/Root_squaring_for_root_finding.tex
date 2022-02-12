@@ -223,6 +223,7 @@ We revisit the classical root-squaring formula of Dandelin-Lobachevsky-Graeffe f
 \maketitle
 
 \section{Introduction}
+%changed simultaneously -> independently since there was a span of 10 years from Dandelin's discovery to Graeffe's
 We revisit the famous method for finding roots that was independently discovered by Dandelin, Lobachevsky, and Graeffe and make further progress by applying this identity to the problem of approximating the root radius of a polynomial. (See \cite{10.2307/2310626} for a history of this problem.)
 This is a key step in many subdivision based root-finding algorithms. 
 
@@ -231,14 +232,13 @@ One of the novelties of our algorithm is the Rational Root Tree Algorithm (Alg.~
 Another advantage of our algorithm is that it assumes the blackbox polynomial model. That is, our algorithm works under the stronger assumption that one only computes $p(x)$ via some oracle. We give both theoretical guarantees in Sec.~\ref{sec:the_ana} and empirical evidence in Sec.~\ref{sec:exp} that our algorithm performs well.
 
 \section{Related Works}
-The main method for root-finding by root-squaring was simultaneously discovered by Dandelin, Lobachevsky, and Graeffe in the 19$^\mathrm{th}$ century (See \cite{10.2307/2310626}). Two of the first works to consider algorithms based on the formulae for modern computers were \cite{10.1145/321186.321198} and \cite{10.1145/364955.364974}; the later of which gave explicit pseudocode for the a root-finding algorithm that uses Eq.~\ref{eqdnd}.
-The work \cite{Malajovich2001OnTG} also considers root-finding using Eq.~\ref{eqdnd} and further state that the DLG method becomes very unstable for $\ell > 2$; by contrast, as we will see in Sec.~\ref{sec:exp}, our algorithm performs reasonably well for $\ell$ as large as $12$.
-The same authors went on design a variation of the DLG root-finding algorithm that makes use of different renomalizations and other preprocessing tranformations for DLG root finding in \cite{Malajovich2001TangentGI}, the work also proves convergence results for their DLG iterative algorithm.
+The main method for root-finding by root-squaring was independently discovered by Dandelin, Lobachevsky, and Graeffe in the 19$^\mathrm{th}$ century over the course of 10 years (See \cite{10.2307/2310626}). Two of the first works to consider algorithms based on the formulae for modern computers were \cite{10.1145/321186.321198} and \cite{10.1145/364955.364974}; the later of which gave explicit pseudocode for the a root-finding algorithm that uses Eq.~\ref{eqdnd}.
+The work \cite{Malajovich2001OnTG} also considers root-finding using Eq.~\ref{eqdnd} and further state that the DLG method becomes very unstable for $\ell > 2$; by contrast, as we will see in Sec.~\ref{sec:exp}, our algorithm performs reasonably well for $\ell$ as large as $12$. The same authors went on to design a variation of the DLG root-finding algorithm that makes use of different renormalizations and other preprocessing transformations for DLG root finding in \cite{Malajovich2001TangentGI}, and the work also proves convergence results for their DLG iterative algorithm.
+
 The authors of \cite{Bialas2010GeneralizationOV} consider DLG based algorithms for the solutions of fractional-order polynomials, \emph{i.e.,} generalized polynomials that have rational exponents. In \cite{Hoeven2011EfficientRC} the authors use apply the DLG formulae to root counting.
-The authors of \cite{Grenet2015DeterministicRF} apply the DLG formulae to solving polynomials over finite fields. The authors of \cite{Becker2018ANS} apply DLG iterations to the benchmark problem (\emph{i.e.,}, the isolsation of the roots of a polynomials, See Sec. \ref{srrapp}) to improve upon the record bound in \cite{pan2002univariate} which at the time was unborken for 14 years.
-This short survey illustrates that the the application of the DLG to root finding (while more than a centuary old) is still an interesting research topic.
-One of the novelties and improvements of our algorithms is to consider the identies given by Eq.~\ref{eqdndrt}, instead of the usual Eq.\ref{eqdnd}, to approximating the root radius.
-Furthermore, we show that, contrary to intuition, our algorithm is numerical stable and well behaved when taking the limit of Eq.~\ref{eqdndrt} to 0.
+The authors of \cite{Grenet2015DeterministicRF} apply the DLG formulae to solving polynomials over finite fields. The authors of \cite{Becker2018ANS} apply DLG iterations to the benchmark problem (\emph{i.e.}, the isolsation of the roots of a polynomials, See Sec. \ref{srrapp}) to improve upon the record bound in \cite{pan2002univariate} which at the time was unbroken for 14 years.
+
+This short survey illustrates that the application of the DLG to root-finding, while more than a century old, is still an interesting research topic. One of the novelties and improvements of our algorithms is to consider the identities given by Eq.~\ref{eqdndrt}, instead of the usual Eq.\ref{eqdnd}, to approximate the root radius. Furthermore, we show that, contrary to intuition, our algorithm is numerically stable and well-behaved when taking the limit of Eq.~\ref{eqdndrt} to 0.
 
 
 \section{Background and Motivation}\label{srrapp}
