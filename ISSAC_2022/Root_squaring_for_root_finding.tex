@@ -620,7 +620,7 @@ Alg. \ref{alg:roots} and Alg. \ref{alg:rational_angle_approx} are both straightf
 \RETURN diff$[l][0]$
 \end{algorithmic}
 \end{algorithm}
-Alg. \ref{alg:DLG_rational_form} is a straightforward dynamic programming on Equation \ref{eqdndrt}. Therefore, by Thm.~\ref{thm:rat_root_correctness}, we have that Alg.~\ref{alg:DLG_rational_form} correctly computes Eq.~\ref{eqdndrt}.
+Alg. \ref{alg:DLG_rational_form} is a dynamic programming on Equation \ref{eqdndrt}. Therefore, by Thm.~\ref{thm:rat_root_correctness}, we have that Alg.~\ref{alg:DLG_rational_form} correctly computes Eq.~\ref{eqdndrt}.
 Specifically, Alg.~\ref{alg:DLG_rational_form} does the following: 1) it computes the last layer of the recursion Eq.~\ref{eqdndrt} (\emph{i.e.,} it computes $p'(x^{\frac{1}{2^l}})/p(x^{\frac{1}{2^l}})$) and then 2) it recursively applies Eq.~\ref{eqdndrt} via dynamic programming until it finally computes $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ which is the desired quantity.
 The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$'' and the latter is given by the line ``diff[$i+1$][$j$]:=$\frac{1}{2}\frac{\text{diff}[i][2j]-\text{diff}[i][2j+1]}{\text{root}[2j]}$'' in Alg.~\ref{alg:DLG_rational_form}; the desired output (\emph{i.e.,} $p'(x^{\frac{1}{2^l}})/p(x^{\frac{1}{2^l}})$) is given by the line ``diff$[l][0]$''.
 
@@ -674,7 +674,7 @@ The rationale for generating a random $x$ is that there may be roots close to 0 
 \begin{equation}\label{eq:lim_DLG}
   \lim_{ \delta,\epsilon \to \infty }  \textsc{DLG}(p,p^\prime ,l,x\cdot 2^{-\delta}, \epsilon ) = \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Big(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Big)_{x=0}'=\Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(\ell)},
 \end{equation}
-for any $x$, if $p(0) \neq 0$ (see Thm~\ref{thm:lim_correctness}).
+for any $x$, if $p(0) \neq 0$ (See Thm~\ref{thm:lim_correctness}).
 
 % TODO: short discussion on stabilty
 \section{Theoretical Analysis}\label{sec:the_ana}
@@ -692,33 +692,40 @@ for any $x$, if $p(0) \neq 0$ (see Thm~\ref{thm:lim_correctness}).
 % \begin{theorem}
 %   The condition number for $\frac{p_l'}{p_l}$ using
 % \end{theorem}
-We now give some theoretical guarantees: Thm. \ref{thm:float_ops} and Thm. \ref{thm:ints} give computational complexity bounds and Thm. \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
+We now give some theoretical guarantees: Thm. \ref{thm:float_ops} and Thm. \ref{thm:ints} give computational complexity bounds, and Thm. \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
 \begin{theorem}\label{thm:float_ops}
 Alg. \ref{alg:DLG_rational_form} performs $q $ floating point subtractions, divisions, and multiplications and $q $ applications of $\sin$ and $\cos$, where $q = 2^l$; furthermore, Alg. \ref{alg:DLG_rational_form} performs at most $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations, where $C=1,3,2$ respectively.
 \end{theorem}
 \begin{proof}
-Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG}, it is straightforward to see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ is equally straightforward inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
+Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG}, we can see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ follows similarly follows from the inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
 \end{proof}
 
 \begin{theorem}\label{thm:ints}
-The $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Algorithm.~\ref{alg:DLG_rational_form} have negligible overhead; more precisely, integer additions are always additions of 2 $\epsilon \log \ell $-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
+The $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Alg.~\ref{alg:DLG_rational_form} have negligible overhead. More precisely, integer additions are always additions of 2 $\epsilon \log \ell $-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
 \end{theorem}
 
 \begin{proof}
-  Since Alg.~\ref{alg:rational_angle_approx} always passes in a denominator which is a power of two all of the integer $\%$ and $\cdot$ operations are in fact ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations by a straightforward proof similar to the one in Algorithm.~\ref{alg:DLG_rational_form}. Thus these operation are essentially constant overhead bit shift operations on a computing machine with binary words. Since $p\% r$ always reduces $p \mapsto 1$, we have that whenever an overflow of more than $\log r$-bits happens in Alg.~\ref{alg:circ_roots_rational_form} it gets converted to an $\log r$-bit integer; therefore, it suffices to prove that $\log r$ is bounded by  $\epsilon \log \ell $. However, this is once again an easy induction on the binary computation tree; since this tree has depth $\ell$ we see that any denominator is bouonded by $\epsilon \log \ell $ by a simple induction.
+  Since Alg.~\ref{alg:rational_angle_approx} always passes in a denominator which is a power of two all of the integer $\%$ and $\cdot$ operations are in fact ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations by a straightforward proof similar to the one in Alg.~\ref{alg:DLG_rational_form}. Thus these operation are essentially constant overhead bit shift operations on a computing machine with binary words. Since $p\% r$ always reduces $p \mapsto 1$, we have that whenever an overflow of more than $\log r$-bits happens in Alg.~\ref{alg:circ_roots_rational_form} it gets converted to an $\log r$-bit integer; therefore, it suffices to prove that $\log r$ is bounded by  $\epsilon \log \ell $. However, this once again follows by induction on the binary computation tree: since this tree has depth $\ell$ we see that any denominator is bounded by $\epsilon \log \ell $ by a simple induction.
 \end{proof}
 
 In order to prove Thm.~\ref{thm:lim_correctness} we must first prove Lem.~\ref{lem:lim_correctness}.
 \begin{lemma}\label{lem:lim_correctness}
-   If $p(0) \neq 0$, then the limit $ \lim_{x \to 0}\frac{p_\ell^{\prime}(x)}{p_\ell(x)}$ is always well defined.
+   If $p(0) \neq 0$, then the limit $ \lim_{x \to 0}\frac{p_\ell^{\prime}(x)}{p_\ell(x)}$ is always well-defined.
    \end{lemma}
 \begin{proof}
-  A straightforward induction on Equation \ref{eqdnd} gives us that $p_l(0) \neq 0$ if $p(0) \neq 0$; therefore, it suffices to consider the behavior of the numerator in  Eq.~\ref{eqdndrt}. The case $\ell = 1$ is a trivial application of L'Hopital's rule. For $\ell \neq 1$, there are two cases: either $\sqrt x~$ divides the numerator of $\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}$ or it does not. If it does, then we are done since we can once again apply L'Hopital's rule; otherwise, we get that $p_{\ell}'(\sqrt x~) = c_0+c_1\sqrt x~ + ... +c_k(\sqrt x~)^k$ for some $c_i$ where $c_0 \neq 0$. But then we have that $\frac{p_{\ell+1}'(\sqrt x~)}{p_{\ell+1}(\sqrt x~)}= \frac{1}{2\sqrt x}\Big(\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}-\frac{p_{\ell}'(-\sqrt x~)}{p_{\ell}(-\sqrt x~)}\Big) = $
-  $\frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N(\sqrt x) - b_0c_0 - \sqrt x \cdot N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)} $
-  $= \frac{1}{2}\frac{  N(\sqrt x) -  N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}$, where $b_0 = p_{\ell}'(0)$; therefore, since $b_0 = p_{\ell}'(0)$ the limit at zero is once again well defined.
+By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) \neq 0$, and thus it suffices to consider the behavior of the numerator in  Eq.~\ref{eqdndrt}. The case $\ell = 1$ follows from an application of L'Hopital's rule. For $\ell \neq 1$, there are two cases: either $\sqrt x~$ divides the numerator of $\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}$ or it does not. If it does, then we are done since we can once again apply L'Hopital's rule. Otherwise, we get that $p_{\ell}'(\sqrt x~) = c_0+c_1\sqrt x~ + ... +c_k(\sqrt x~)^k$ for some $c_i$ with $c_0 \neq 0$. But then we have 
+\begin{align*}
+\begin{split}
+\frac{p_{\ell+1}'(\sqrt x~)}{p_{\ell+1}(\sqrt x~)} 
+&= \frac{1}{2\sqrt x}\Big(\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}-\frac{p_{\ell}'(-\sqrt x~)}{p_{\ell}(-\sqrt x~)}\Big) \\
+& = \frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N(\sqrt x) - b_0c_0 - \sqrt x \cdot N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}\\
+& = \frac{1}{2}\frac{  N(\sqrt x) -  N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)},
+\end{split}
+\end{align*}
+ where $b_0 = p_{\ell}'(0)$. Therefore the limit at zero is once again well-defined.
 \end{proof}
 \begin{theorem}\label{thm:lim_correctness}
- If $p(0) \neq 0$, then Algorithm \ref{alg:DLG_Root_Radius} computes the bounds given by Equation \ref{eq:rat_roo_radii_1} and Equation \ref{eq:rat_roo_radii_2} with probability 1.
+ If $p(0) \neq 0$, then Alg. \ref{alg:DLG_Root_Radius} computes the bounds given by Equation \ref{eq:rat_roo_radii_1} and Equation \ref{eq:rat_roo_radii_2} with probability 1.
 \end{theorem}
 \begin{proof}
 By Lem.~\ref{lem:lim_correctness} we have that the limit in Eq.~\ref{lem:lim_correctness} is well defined. Since there are at most finitely many roots for $p_\ell$ with a high probability Alg.~\ref{alg:DLG_Root_Radius} computes the correct approximation to the bounds in Eq.~\ref{eq:rat_roo_radii_1} and Eq.~\ref{eq:rat_roo_radii_2}.
