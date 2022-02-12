@@ -501,7 +501,7 @@ In particular we
 \end{algorithmic}
 \end{algorithm}
 
-The intuition behind Algorithm.~\ref{alg:circ_roots_rational_form} is that the square root operation satisfies
+The intuition behind Alg.~\ref{alg:circ_roots_rational_form} is that the square root operation satisfies
 \begin{equation}\label{eq:rat_sq_imag}
 p \% q \neq  0 \implies   \sqrt{\exp \left(2 \pi i \frac{p}{q}\right)}  = \exp \left(2 \pi i \frac{p}{2q}\right)
 \end{equation}
@@ -517,15 +517,15 @@ and
 \begin{equation}\label{eq:rat_neg_real}
 p \% q = 0 \implies   \sqrt{\exp \left(2 \pi i \frac{1}{1}\right)}  = \exp \left(2 \pi i \frac{1}{2}\right) = -1;
 \end{equation}
-therefore, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} compute the (angle of the) positive square root, $\sqrt{x}$, of complex number on the unit circle and the next four lines Alg.~\ref{alg:circ_roots_rational_form} computes the (angle of the) negative square root, $-\sqrt{x}$. Therefore, we have:
+therefore, the first four lines of Alg.~\ref{alg:circ_roots_rational_form} compute the (angle of the) positive square root, $\sqrt{x}$, of complex number on the unit circle and the next four lines Alg.~\ref{alg:circ_roots_rational_form} computes the (angle of the) negative square root, $-\sqrt{x}$. Therefore, we have:
 \begin{theorem}\label{thm:rat_root_correctness}
-  For a complex number, $x$, with a rational angle, \emph{i.e.,} $x = |x|\exp \left(2 \pi i \frac{p}{q}\right)$, Alg.~\ref{alg:circ_roots_rational_form} correctly computes the roots in Eq.~\ref{eqdndrt}; in particular; for a rational angle in fractional form, it does so with exact precision.
+  For a complex number $x$ with a rational angle $\frac{p}{q}$, \emph{i.e.,} $x = |x|\exp \left(2 \pi i \frac{p}{q}\right)$, Alg.~\ref{alg:circ_roots_rational_form} correctly computes the roots in Eq.~\ref{eqdndrt}. In particular, for a rational angle in fractional form, it does so with exact precision.
 \end{theorem}
 \begin{proof}
-Equation \ref{eq:rat_sq_imag}, \ref{eq:rat_sq_real}, \ref{eq:rat_neg_imag}, and \ref{eq:rat_neg_real} give the base case and the theorem follows by a straightforward induction.
+Equations \ref{eq:rat_sq_imag}, \ref{eq:rat_sq_real}, \ref{eq:rat_neg_imag}, and \ref{eq:rat_neg_real} give the base case and the theorem follows by a straightforward induction.
 \end{proof}
 
-Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both straightforward; thus, we do not need to explain them in detail and instead explain the intuition behind Alg.~\ref{alg:DLG_rational_form}.
+Alg. \ref{alg:roots} and Alg. \ref{alg:rational_angle_approx} are both straightforward, so for the rest of this section we focus on the intuition behind Alg.~\ref{alg:DLG_rational_form}.
 
 \begin{algorithm}
 \caption{\textsc{Roots}($r,t,u,l$)}
@@ -620,9 +620,9 @@ Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both
 \RETURN diff$[l][0]$
 \end{algorithmic}
 \end{algorithm}
-Algorithm \ref{alg:DLG_rational_form} is a straightforward dynamic programming on Equation \ref{eqdndrt}; therefore, by Thm.~\ref{thm:rat_root_correctness}, we have that Alg.~\ref{alg:DLG_rational_form} correctly computes Eq.~\ref{eqdndrt}.
-To be precise Alg.~\ref{alg:DLG_rational_form} does the following: 1) it computes the last layer of the recursion Eq.~\ref{eqdndrt} (\emph{i.e.,} it computes $\frac{p'(x^{\frac{1}{2^l}})}{p(x^{\frac{1}{2^l}})}$) and then 2) it recursively applies Eq.~\ref{eqdndrt} via dynamic programming until it finally computes $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ which is the desired quantity.
-The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$'' and the latter is given by the line ``diff[$i+1$][$j$]:=$\frac{1}{2}\frac{\text{diff}[i][2j]-\text{diff}[i][2j+1]}{\text{root}[2j]}$'' in Alg.~\ref{alg:DLG_rational_form}; the desired output (\emph{i.e.,} $\frac{p'(x^{\frac{1}{2^l}})}{p(x^{\frac{1}{2^l}})}$)is given by the line ``diff$[l][0]$''.
+Alg. \ref{alg:DLG_rational_form} is a straightforward dynamic programming on Equation \ref{eqdndrt}. Therefore, by Thm.~\ref{thm:rat_root_correctness}, we have that Alg.~\ref{alg:DLG_rational_form} correctly computes Eq.~\ref{eqdndrt}.
+Specifically, Alg.~\ref{alg:DLG_rational_form} does the following: 1) it computes the last layer of the recursion Eq.~\ref{eqdndrt} (\emph{i.e.,} it computes $p'(x^{\frac{1}{2^l}})/p(x^{\frac{1}{2^l}})$) and then 2) it recursively applies Eq.~\ref{eqdndrt} via dynamic programming until it finally computes $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ which is the desired quantity.
+The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i)}$'' and the latter is given by the line ``diff[$i+1$][$j$]:=$\frac{1}{2}\frac{\text{diff}[i][2j]-\text{diff}[i][2j+1]}{\text{root}[2j]}$'' in Alg.~\ref{alg:DLG_rational_form}; the desired output (\emph{i.e.,} $p'(x^{\frac{1}{2^l}})/p(x^{\frac{1}{2^l}})$) is given by the line ``diff$[l][0]$''.
 
 
 
@@ -658,8 +658,8 @@ The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i
 % 		root = roots(r,t,u,l-1-i)
 % 	return derivs[l][0]
 
-The final step in the algorithm is to use Algorithm \ref{alg:rational_angle_approx} to compute root radius approximations $r_d$ and $r_1$.
-The procedure is given by Algorithm.~\ref{alg:DLG_Root_Radius}.
+The final step in the algorithm is to use Alg. \ref{alg:rational_angle_approx} to compute root radius approximations $r_d$ and $r_1$.
+The procedure is given by Alg.~\ref{alg:DLG_Root_Radius}.
 \begin{algorithm}
 \caption{\textsc{DLG\_Root\_Radius}($p,p^\prime,p_\mathrm{rev},p^\prime_\mathrm{rev},l, \epsilon, \delta $)}
 \label{alg:DLG_Root_Radius}
@@ -692,12 +692,12 @@ for any $x$, if $p(0) \neq 0$ (see Thm~\ref{thm:lim_correctness}).
 % \begin{theorem}
 %   The condition number for $\frac{p_l'}{p_l}$ using
 % \end{theorem}
-We give some theoretical guarantees; Theorem \ref{thm:float_ops} and Theorem \ref{thm:ints} give computational complexity bounds and Theorem \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
+We now give some theoretical guarantees: Thm. \ref{thm:float_ops} and Thm. \ref{thm:ints} give computational complexity bounds and Thm. \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
 \begin{theorem}\label{thm:float_ops}
-Algorithm \ref{alg:DLG_rational_form} performs $q $ floating point subtractions, divisions, and multiplications and $q $ applications of $\sin$ and $\cos$, where $q = 2^l$; furthermore, Algorithm \ref{alg:DLG_rational_form} performs at most $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations, where $C=1,3,2$ respectively.
+Alg. \ref{alg:DLG_rational_form} performs $q $ floating point subtractions, divisions, and multiplications and $q $ applications of $\sin$ and $\cos$, where $q = 2^l$; furthermore, Alg. \ref{alg:DLG_rational_form} performs at most $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations, where $C=1,3,2$ respectively.
 \end{theorem}
 \begin{proof}
-Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG} it is straightforward to see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ is equally straightforward inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
+Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG}, it is straightforward to see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ is equally straightforward inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
 \end{proof}
 
 \begin{theorem}\label{thm:ints}
@@ -1331,6 +1331,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
  200 & 7 & 617 & 334 & 2.66 & 1.0 & 0.8 & $[0.01, 1.07]$\\
  200 & 7 & 617 & 334 & 2.59 & 0.999 & 9.37 & $[0.01, 2.33]$\\
  500 & 8 & 617 & 334 & 18.2 & 0.99 & 1.59 & $[0.01, 1.03]$\\
+ 500 & 8 & 617 & 334 & 18.0 & 0.984 & 15.65 & $[0.01, 1.36]$\\ %mig1_500_1
 \bottomrule
 \end{tabular}
 \end{sc}
