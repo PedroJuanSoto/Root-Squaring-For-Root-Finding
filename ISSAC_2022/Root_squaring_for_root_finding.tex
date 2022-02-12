@@ -718,11 +718,12 @@ By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) 
 \begin{split}
 \frac{p_{\ell+1}'(\sqrt x~)}{p_{\ell+1}(\sqrt x~)} 
 &= \frac{1}{2\sqrt x}\Big(\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}-\frac{p_{\ell}'(-\sqrt x~)}{p_{\ell}(-\sqrt x~)}\Big) \\
-& = \frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N(\sqrt x) - b_0c_0 - \sqrt x \cdot N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}\\
-& = \frac{1}{2}\frac{  N(\sqrt x) -  N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)},
+%& = \frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N(\sqrt x) - b_0c_0 - \sqrt x \cdot N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}\\
+& = \frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N_1(\sqrt x) - b_0c_0 - \sqrt x \cdot N_2(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}\\
+& = \frac{1}{2}\frac{  N_1(\sqrt x) -  N_2(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)},
 \end{split}
 \end{align*}
- where $b_0 = p_{\ell}'(0)$. Therefore the limit at zero is once again well-defined.
+ for some polynomials $N_1$ and $N_2$ with $b_0 = p_{\ell}'(0)$. Therefore the limit at zero is once again well-defined.
 \end{proof}
 \begin{theorem}\label{thm:lim_correctness}
  If $p(0) \neq 0$, then Alg. \ref{alg:DLG_Root_Radius} computes the bounds given by Equation \ref{eq:rat_roo_radii_1} and Equation \ref{eq:rat_roo_radii_2} with probability 1.
@@ -731,7 +732,7 @@ By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) 
 By Lem.~\ref{lem:lim_correctness} we have that the limit in Eq.~\ref{lem:lim_correctness} is well defined. Since there are at most finitely many roots for $p_\ell$ with a high probability Alg.~\ref{alg:DLG_Root_Radius} computes the correct approximation to the bounds in Eq.~\ref{eq:rat_roo_radii_1} and Eq.~\ref{eq:rat_roo_radii_2}.
 \end{proof}
 \begin{lemma}
-The (relative) condition number operator satisifies the following properties:
+The (relative) condition number operator satisfies the following properties:
 \begin{enumerate}
   \item $\kappa\{f\} (x) = |x \log'(f(x)) |$
   \item $\kappa\{f-g\}(x) = |x \frac{ \kappa \{f\}(x)- \kappa \{g\}(x) }{f(x)-g(x)}| $
@@ -743,10 +744,10 @@ The (relative) condition number operator satisifies the following properties:
 This follows from the definition of the condition number.
 \end{proof}
 \begin{theorem}
-If $p_\ell(0)\neq 0$, then $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is well coditioned at any point sufficiently close to 0.
+If $p_\ell(0)\neq 0$, then $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is well-conditioned at any point sufficiently close to 0.
 \end{theorem}
 \begin{proof}
-  The proof of Lem.~\ref{lem:lim_correctness} gives us that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is a well behaved rational function at any point close to zero and thus the condition number $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ is well defined at this point since the condition number of aritmetic operations of functions are themselves arithmetic operations in those same functions and the conditions number for a polynomial of degree $d \in \mathbb{R}$ is exactly $d$; therefore, $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ has a well defined/bounded condition number in the limit to zero.
+  The proof of Lem.~\ref{lem:lim_correctness} gives us that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is a well behaved rational function at any point close to zero and thus the condition number $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ is well defined at this point since the condition number of arithmetic operations of functions are themselves arithmetic operations in those same functions and the conditions number for a polynomial of degree $d \in \mathbb{R}$ is exactly $d$; therefore, $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ has a well defined/bounded condition number in the limit to zero.
 \end{proof}
 \section{Experimental Results}\label{sec:exp}
 
@@ -1562,7 +1563,7 @@ degree  & $l$& $e=-\log(|x|)$& Precision &error $r_d$       & error $r_1$ &runti
 \end{table*}
 
 \section{Conclusion}
-We present a novel algorithm that Uses the DLG formulae to approximate the root radii and give many theoritical and experimental guarantees. In partiucular we prove that the algorithm has low time complexity and is well conditioned when there are no roots around 0 (for which we can simply test beforehand). We tested our algorithm against many of the MPSolve benchmarks. For future work we would like to directly implement our algorithm in sub-division rootfinders and test the performance.
+We present a novel algorithm that uses the DLG formulae to approximate the root radii and give many theoretical and experimental guarantees. In particular, we prove that the algorithm has low time complexity and is well conditioned when there are no roots around 0 (for which we can simply test beforehand). We tested our algorithm against many of the MPSolve benchmarks. For future work we would like to directly implement our algorithm in subdivision root-finders and test the performance.
 
 \section{Acknowledgments}
 The authors of this paper are sincerly indebted to Dr. Victor Pan who provided us with the background, the problem statement, and guided us throughout the research.
