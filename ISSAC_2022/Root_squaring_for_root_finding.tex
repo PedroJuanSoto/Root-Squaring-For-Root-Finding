@@ -226,7 +226,7 @@ We revisit the classical root-squaring formula of Dandelin-Lobachevsky-Gr{\"a}ff
 
 %changed simultaneously -> independently since there was a span of 10 years from Dandelin's discovery to Gr{\"a}ffe's
 We revisit the famous method for finding roots that was independently discovered by Dandelin, Lobachevsky, and Gr{\"a}ffe and make further progress by applying this identity to the problem of approximating the root radius of a polynomial. (See \cite{10.2307/2310626} for a history of this problem.)
-This is a key step in many subdivision based root-finding algorithms. 
+This is a key step in many subdivision based root-finding algorithms.
 
 One of the novelties of our algorithm is the Rational Root Tree Algorithm (Alg.~\ref{alg:circ_roots_rational_form}), which allows one to compute the angles of the iterated $2^\mathrm{nd}$ roots in Eq.~\ref{eqdndrt0} with exact precision over the rationals, thus greatly reducing the numerical stability of Eq.~\ref{eqdndrt0}. This improvement is due to the fact the most numerically unstable steps in Eq.~\ref{eqdndrt0} is the computation of the roots $x^{\frac{1}{2^m}}$, as shown in Sec.~\ref{sec:the_ana} as well as Thm.~\ref{thm:rat_root_correctness}.
 
@@ -296,7 +296,7 @@ the ratio  $\rho_+/\rho_-$, the new scaled ratio of the root radii, for the poly
 $p(x)$ within a factor of
 $\gamma^{1/2^{\ell}}$.
 
-Given the coefficients of 
+Given the coefficients of
 $p_i(x)$
 we can reduce the $i$th root-squaring iteration, that is, the computation of
 the coefficients of  $p_{i+1}(x)$, to polynomial multiplication and perform it in $O(d\log(d))$ arithmetic operations.
@@ -713,10 +713,10 @@ In order to prove Thm.~\ref{thm:lim_correctness} we must first prove Lem.~\ref{l
    If $p(0) \neq 0$, then the limit $ \lim_{x \to 0}\frac{p_\ell^{\prime}(x)}{p_\ell(x)}$ is always well-defined.
    \end{lemma}
 \begin{proof}
-By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) \neq 0$, and thus it suffices to consider the behavior of the numerator in  Eq.~\ref{eqdndrt}. The case $\ell = 1$ follows from an application of L'Hopital's rule. For $\ell \neq 1$, there are two cases: either $\sqrt x~$ divides the numerator of $\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}$ or it does not. If it does, then we are done since we can once again apply L'Hopital's rule. Otherwise, we get that $p_{\ell}'(\sqrt x~) = c_0+c_1\sqrt x~ + ... +c_k(\sqrt x~)^k$ for some $c_i$ with $c_0 \neq 0$. But then we have 
+By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) \neq 0$, and thus it suffices to consider the behavior of the numerator in  Eq.~\ref{eqdndrt}. The case $\ell = 1$ follows from an application of L'Hopital's rule. For $\ell \neq 1$, there are two cases: either $\sqrt x~$ divides the numerator of $\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}$ or it does not. If it does, then we are done since we can once again apply L'Hopital's rule. Otherwise, we get that $p_{\ell}'(\sqrt x~) = c_0+c_1\sqrt x~ + ... +c_k(\sqrt x~)^k$ for some $c_i$ with $c_0 \neq 0$. But then we have
 \begin{align*}
 \begin{split}
-\frac{p_{\ell+1}'(\sqrt x~)}{p_{\ell+1}(\sqrt x~)} 
+\frac{p_{\ell+1}'(\sqrt x~)}{p_{\ell+1}(\sqrt x~)}
 &= \frac{1}{2\sqrt x}\Big(\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}-\frac{p_{\ell}'(-\sqrt x~)}{p_{\ell}(-\sqrt x~)}\Big) \\
 %& = \frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N(\sqrt x) - b_0c_0 - \sqrt x \cdot N'(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}\\
 & = \frac{1}{2\sqrt x}\frac{b_0c_0 + \sqrt x \cdot N_1(\sqrt x) - b_0c_0 - \sqrt x \cdot N_2(\sqrt x)}{p_{\ell}'(\sqrt x~)p_{\ell}'(-\sqrt x~)}\\
@@ -735,20 +735,25 @@ By Lem.~\ref{lem:lim_correctness} we have that the limit in Eq.~\ref{lem:lim_cor
 The (relative) condition number operator satisfies the following properties:
 \begin{enumerate}
   \item $\kappa\{f\} (x) = |x \log'(f(x)) |$
-  \item $\kappa\{f-g\}(x) = |x \frac{ \kappa \{f\}(x)- \kappa \{g\}(x) }{f(x)-g(x)}| $
+  % \item $\kappa\{f-g\}(x) = |x \frac{ \kappa \{f\}(x)- \kappa \{g\}(x) }{f(x)-g(x)}| $
   \item $\kappa \left\{\frac{f}{g}\right\} (x)= ||\kappa\{ f\} (x)| - |\kappa\{ g\} (x)||$
-  \item $\kappa \left\{ f \circ g \right\}(x) = \left| |\kappa\{f\} (g(x) )\cdot \kappa\{g\} (x)|\right| $
+    \item $\kappa \{x^ d \} (x)= d$
+  % \item $\kappa \left\{ f \circ g \right\}(x) = \left| |\kappa\{f\} (g(x) )\cdot \kappa\{g\} (x)|\right| $
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 This follows from the definition of the condition number.
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:stability}
 If $p_\ell(0)\neq 0$, then $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is well-conditioned at any point sufficiently close to 0.
 \end{theorem}
 \begin{proof}
   The proof of Lem.~\ref{lem:lim_correctness} gives us that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is a well behaved rational function at any point close to zero and thus the condition number $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ is well defined at this point since the condition number of arithmetic operations of functions are themselves arithmetic operations in those same functions and the conditions number for a polynomial of degree $d \in \mathbb{R}$ is exactly $d$; therefore, $\kappa\{\frac{p_{\ell}'}{p_{\ell}}\}(x)$ has a well defined/bounded condition number in the limit to zero.
 \end{proof}
+
+\begin{remark}
+Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is highly stable, in practice, computating this function requires the use of trigonometric functions (\emph{i.e.,} the roots in Alg.~\ref{alg:roots}); therefore, our added precision in Alg..~\ref{alg:circ_roots_rational_form} helps with the instability associated with Alg.~\ref{alg:roots}. Intuitively this helps the instability because the trigonometric functions are the only subroutines in the algorithm that have a non constant condition number and thus, special care must be taken with them. 
+\end{remark}
 \section{Experimental Results}\label{sec:exp}
 
 In this section we give the results of our experiments where we use DLG iterations to estimate the extremal root radii of the polynomial test suite included as part of the MPSolve package. To measure accuracy, we compute the relative error of the estimates in comparison to the extremal roots obtained by MPSolve using the formula
