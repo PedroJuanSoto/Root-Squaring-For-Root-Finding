@@ -754,16 +754,29 @@ If $p_\ell(0)\neq 0$, then $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is well-conditione
 \begin{remark}
 Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is highly stable, in practice, computating this function requires the use of trigonometric functions (\emph{i.e.,} the roots in Alg.~\ref{alg:roots}); therefore, our added precision in Alg..~\ref{alg:circ_roots_rational_form} helps with the instability associated with Alg.~\ref{alg:roots}. Intuitively this helps the instability because the trigonometric functions are the only subroutines in the algorithm that have a non constant condition number and thus, special care must be taken with them.
 \end{remark}
+
 \section{Experimental Results}\label{sec:exp}
 
-In this section we give the results of our experiments where we use DLG iterations to estimate the extremal root radii of the polynomial test suite included as part of the MPSolve package. To measure accuracy, we compute the relative error of the estimates in comparison to the extremal roots obtained by MPSolve using the formula
+In this section, we give the results of our experiments where we use DLG iterations to estimate the extremal root radii of the polynomial test suite included as part of the MPSolve package. To measure accuracy, we compute the relative error of the estimates in comparison to the extremal roots obtained by MPSolve using the formula
 $$
 \text{relative error}_{r_i} = \frac{|\tilde{r_i} - r_i|}{|r_i|},
 $$
-where $r_i$ is the root radius found using MPSolve and $\tilde{r_i}$ our estimate.
-From the results we can see that experiments match the theory; in particular, we have that the root radii approximations are always good when $p$ has no roots close to zero and only behaves poorly when this is not the case.
+where $r_i$ is the root radius found using MPSolve and $\tilde{r_i}$ our estimate. The results overall verify our theoretical analysis that our root radii approximations perform well when $p(x)$ has no roots extremely close to zero whereas the estimates are poor otherwise. Remarkably, despite the fact $x^n-a^n$ being the worst family of input, as follows from Sec. 3, our implementation performs well for the \texttt{nroots} and \texttt{nrooti} families of polynomials.
 
-All experiments were run using Python 3.7.7 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.  The entries `-' in the tables indicate the test was terminated before completion.
+%From the results we can see that experiments match the theory; in particular, we have that the root radii approximations are always good when $p$ has no roots close to zero and only behaves poorly when this is not the case.
+
+All experiments were run using Python 3.7.7 and MPSolve 3.2.1 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory. The columns of the tables, in order, are 
+\begin{itemize}
+\item $d =$ degree of the input polynomial
+\item $\ell =$ number of iterations
+\item $e =$ $-\log(|x|)$
+\item mp.dps: the \texttt{mpmath} precision level used
+\item the relative errors for the minimum and maximum root radii
+\item total runtime, 
+\item the extremal root radii as computed by MPsolve for the particular given polynomial.
+\end{itemize}
+
+ The entries `-' in the tables indicate the test was terminated before completion.
 
 \begin{table}[t]
 \caption{Experimental Data for \texttt{chebyshev}} % Chebyshev}
@@ -1313,10 +1326,14 @@ $d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 &  &  & mp.-& relative  & relative & run- & mpsolve \\
 $d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \midrule
+   31 & 4 & 616 & 332 & 0.295 & 0.144 & 0.4 & $[0.445, 2.0]$\\
    63 & 5 & 616 & 332 & 0.127 & 0.0854 & 2.16 & $[0.403, 2.0]$\\
  127 & 6 & 617 & 334 & 0.0898 & 0.0488 & 8.58 & $[0.373, 2.0]$\\
- 1023 & 9 & 619 & 338 & 0.357 & 0.142 & 569.08 & $[0.321, 2.0]$\\
- 2047 & 10 & 619 & 338 & 1.12 & 0.241 & 2372.57 & $[0.311, 2.0]$\\
+ 255 & 7 & 617 & 334 & 0.0609 & 0.701 & 37.41 & $[0.351, 2.0]$\\
+ 511 & 8 & 617 & 334 & 0.0234 & 1.63 & 174.71 & $[0.334, 2.0]$\\
+1023 & 9 & 619 & 338 & 0.357 & 0.142 & 569.08 & $[0.321, 2.0]$\\
+2047 & 10 & 619 & 338 & 1.12 & 0.241 & 2372.57 & $[0.311, 2.0]$\\
+4095 & 11 & 619 & 338 & 1.68 & 0.38 & 9209.19 & $[0.303, 2.0]$\\
 \bottomrule
 \end{tabular}
 \end{sc}
