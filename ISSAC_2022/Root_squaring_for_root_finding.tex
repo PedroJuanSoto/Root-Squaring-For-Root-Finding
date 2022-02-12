@@ -350,7 +350,7 @@ One can apply root-squaring $p(x)\mapsto p_{\ell}(x)$ to improve  the error boun
 % Part 2 back
 \subsection{Extremal root radii}\label{sec:ext_root_rad}
 
-We cover some known estimates for extremal root radii in Sec.~\ref{subsec:class_est}. The most used estimates (Eq.~\ref{eq:last_appen} for $i=1$ and $c=0)$ readily follow from straightforward algbraic manipluations of $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$:
+We cover some known estimates for extremal root radii in Sec.~\ref{subsec:class_est}. The most used estimates (Eq.~\ref{eq:last_appen} for $i=1$ and $c=0)$ readily follow from straightforward algebraic manipulations of $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$:
 \begin{equation}\label{eq:rat_roo_radii_1}
 r_{d}(c, p) \leq d\left|\frac{p(c)}{p^{\prime}(c)}\right|
 \end{equation}
@@ -459,7 +459,7 @@ for all $i$; from which we obtain relations \ref{eq:rat_roo_radii_1} and \ref{eq
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{p_prime.png}
-  \caption{The steps of \textsc{DLG\_Rational\_Rorm}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}\label{fig:DLG}
+  \caption{The steps of \textsc{DLG\_Rational\_Form}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}\label{fig:DLG}
   \Description{}
 \end{figure}
 
@@ -523,7 +523,7 @@ thus, the first four lines of Algorithm.~\ref{alg:circ_roots_rational_form} comp
 Equation \ref{eq:rat_sq_imag}, \ref{eq:rat_sq_real}, \ref{eq:rat_neg_imag}, and \ref{eq:rat_neg_real} give the base case and the theorem follows by a straightforward induction.
 \end{proof}
 
-Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both striaghtforward; thus, we do not need to explain them in detail and instead explain the intuition behind Alg.~\ref{alg:DLG_rational_form}.
+Algorithm \ref{alg:roots} and Algorithm \ref{alg:rational_angle_approx} are both straightforward; thus, we do not need to explain them in detail and instead explain the intuition behind Alg.~\ref{alg:DLG_rational_form}.
 
 \begin{algorithm}
 \caption{\textsc{Roots}($r,t,u,l$)}
@@ -690,19 +690,19 @@ for any $x$, if $p(0) \neq 0$ (see Thm~\ref{thm:lim_correctness}).
 % \begin{theorem}
 %   The condition number for $\frac{p_l'}{p_l}$ using
 % \end{theorem}
-We give some theoritical guarentess; Theorem \ref{thm:float_ops} and Theorem \ref{thm:ints} give compputational complexity bounds and Theorem \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
+We give some theoretical guarantees; Theorem \ref{thm:float_ops} and Theorem \ref{thm:ints} give computational complexity bounds and Theorem \ref{thm:lim_correctness} proves the correctness of Alg.~\ref{alg:DLG_Root_Radius}.
 \begin{theorem}\label{thm:float_ops}
 Algorithm \ref{alg:DLG_rational_form} performs $q $ floating point subtractions, divisions, and multiplications and $q $ applications of $\sin$ and $\cos$, where $q = 2^l$; furthermore, Algorithm \ref{alg:DLG_rational_form} performs at most $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations, where $C=1,3,2$ respectively.
 \end{theorem}
 \begin{proof}
-Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG} it is straighforward to see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ is equally straighforward inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
+Looking at Fig.~\ref{fig:rat_roots_tree} and Fig.~\ref{fig:DLG} it is straightforward to see that the computational tree for the Alg.~\ref{alg:DLG_rational_form} is a binary tree with $2^l = q$ nodes; the proof for the constants $C=1,3,2$ is equally straightforward inspection of the operations performed in Alg.~\ref{alg:circ_roots_rational_form}.
 \end{proof}
 
 \begin{theorem}\label{thm:ints}
-The $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Algorithm.~\ref{alg:DLG_rational_form} have negligble overhead; more precisely, integer addtions are always additions of 2 $\epsilon \log \ell $-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
+The $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations in Algorithm.~\ref{alg:DLG_rational_form} have negligible overhead; more precisely, integer additions are always additions of 2 $\epsilon \log \ell $-bit integers and ``multiplications-by-2'' and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations have constant time overhead.
 \end{theorem}
 \begin{proof}
-  Since Alg.~\ref{alg:rational_angle_approx} always passes in a denominator which is a power of two all of the integer $\%$ and $\cdot$ operations are in fact ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations by a straightforward proof similar to the one in Algorithm.~\ref{alg:DLG_rational_form}. Thus these operation are essentially constant overhead bit shift operations on a computing machine with binary words. Since $p\% r$ always reduces $p \mapsto 1$, we have that whenever an overflow of more than $\log r$-bits happens in Alg.~\ref{alg:circ_roots_rational_form} it gets converted to an $\log r$-bit integer; thus, it suffices to prove that $\log r$ is bounded by  $\epsilon \log \ell $. However, this is once again an easy induction on the binary computation tree; since this tree has depth $\ell$ we see that any denominator is bouonded by $\epsilon \log \ell $ by a simple induction. 
+  Since Alg.~\ref{alg:rational_angle_approx} always passes in a denominator which is a power of two all of the integer $\%$ and $\cdot$ operations are in fact ``multiplications-by-2'', and $ \%2^\epsilon $ (\emph{i.e.,} mod $ 2^\epsilon $) operations by a straightforward proof similar to the one in Algorithm.~\ref{alg:DLG_rational_form}. Thus these operation are essentially constant overhead bit shift operations on a computing machine with binary words. Since $p\% r$ always reduces $p \mapsto 1$, we have that whenever an overflow of more than $\log r$-bits happens in Alg.~\ref{alg:circ_roots_rational_form} it gets converted to an $\log r$-bit integer; thus, it suffices to prove that $\log r$ is bounded by  $\epsilon \log \ell $. However, this is once again an easy induction on the binary computation tree; since this tree has depth $\ell$ we see that any denominator is bounded by $\epsilon \log \ell $ by a simple induction. 
 \end{proof}
 
 
