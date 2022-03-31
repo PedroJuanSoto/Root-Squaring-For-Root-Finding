@@ -1,4 +1,4 @@
-import newton_iters_alg as ni
+import newton_ids_alg as ni
 import mpmath as mp
 
 def get_test_pols(coeffs):
@@ -40,7 +40,7 @@ S = [3, 0.25, 0.5625, 0.015625] #1-3 Cauchy sums
 #    coeffs.insert(0, cur_coeff)
 C = [1, -0.25, -0.25, 0.0625]
 print("correct output:\n%s" % C[1:])
-coeffs = ni.get_coeffs_via_newton_iters(S)
+coeffs = ni.get_coeffs_via_newton_ids(S)
 print("test output:")
 print(coeffs)
 
@@ -52,7 +52,7 @@ d = 3
 C = [1, -0.25, -0.25, 0.0625]
 S = [3, 0.25, 0.5625, 0.015625] #0-3 Cauchy sums
 dp = lambda x: 3*x**2 - 0.5*x - 0.25
-aC = ni.get_coeffs_via_newton_iters(S)
+aC = ni.get_coeffs_via_newton_ids(S)
 print("\ncoeffs:\n%s" % C)
 print("test output: %s" % aC)
 
@@ -62,7 +62,7 @@ print("\n========================================================\n")
 #print("Test 2: roots on the unit circle")
 #p = lambda x: x**3 + x**2 + x + 1
 #dp = lambda x: 3*x**2 + 2*x + 1
-#print(ni.get_coeffs_via_newton_iters(p, dp, 4)) #use q=l+1?
+#print(ni.get_coeffs_via_newton_ids(p, dp, 4)) #use q=l+1?
 
 print("Test 3: cauchy sums")
 p = lambda x: x**3 - 0.25*x**2 - 0.25*x + 0.0625 #roots = 0.5, -0.5, 0.25
@@ -82,7 +82,7 @@ d = 3
 C = [1, -0.25, -0.25, 0.0625]
 dp = lambda x: 3*x**2 - 0.5*x - 0.25
 S = ni.get_cauchy_sums(p, dp, d+1)
-aC = ni.get_coeffs_via_newton_iters(S)
+aC = ni.get_coeffs_via_newton_ids(S)
 print("expected output:\n%s" % C)
 print("test output:")
 pretty_print(aC)
@@ -100,7 +100,7 @@ C = [1, -0.25, -0.25, 0.0625]
 d = len(C)-1
 l = d+1
 p, dp, p_rev, dp_rev = get_test_pols(C)
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l+1])
@@ -121,7 +121,7 @@ d = len(C)-1
 l = d+1
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("expected output:\n%s" % C)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l+1])
@@ -144,7 +144,7 @@ d = len(C)-1
 l = d+1
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l+1])
 print("test output:")
@@ -158,7 +158,7 @@ d = len(C)-1
 l = d+1
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l+1])
 print("test output:")
@@ -172,7 +172,7 @@ d = len(C)-1
 l = d+1
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l+1])
 print("test output:")
@@ -186,7 +186,7 @@ d = len(C)-1
 l = d+1
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l])
 print("test output:")
@@ -200,7 +200,7 @@ d = len(C)-1
 l = d-1
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l])
 print("test output:")
@@ -214,7 +214,7 @@ d = len(C)-1
 l = 5
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l])
 print("test output:")
@@ -228,7 +228,7 @@ d = len(C)-1
 l = d+1 #3
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l])
 print("test output:")
@@ -245,7 +245,7 @@ d = len(C)-1
 l = 5
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 #print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l+1])
 print("test output:")
@@ -256,13 +256,40 @@ pretty_print(aC)
 
 print("\n========================================================\n")
 
+print("Test 14:  roots of p both inside and outside unit circle: 0.5, 1.5, -1.5")
+C = [1, -0.5, -2.25, 1.125]
+d = len(C)-1
+l = 10
+p, dp, p_rev, dp_rev = get_test_pols(C)
+
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
+#print("Should see %d trailing coeffs:" % l)
+print("expected output:\n%s" % C[::-1][:l+1])
+print("test output:")
+pretty_print(aC)
+
+print("\n========================================================\n")
+
+print("Test 15:  roots of p outside unit circle: 1.5, -1.5")
+C = [1, 0, -2.25]
+d = len(C)-1
+l = 10
+p, dp, p_rev, dp_rev = get_test_pols(C)
+
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
+#print("Should see %d trailing coeffs:" % l)
+print("expected output:\n%s" % C[::-1][:l+1])
+print("test output:")
+pretty_print(aC)
+
+print("\n========================================================\n")
 print("Test N: roots of p: ")
 C = [1]
 d = len(C)-1
 l = 3
 p, dp, p_rev, dp_rev = get_test_pols(C)
 
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, l)
+aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
 print("Should see %d trailing coeffs:" % l)
 print("expected output:\n%s" % C[::-1][:l+1])
 print("test output:")
