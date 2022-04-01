@@ -112,7 +112,7 @@ class Polynomial:
         #this needs more work - change the deg/coeff pair to dict?
         #    return [(self.coeffs[i] if i in D.keys() else 0) for i in range(N-1,-1,-1) ]
 
-        return [(self.coeffs[i] if i in self.coeffs.keys() else 0) for i in range(N-1,-1,-1) ] 
+        return [(self.coeffs[i] if i in self.coeffs.keys() else 0) for i in range(N,-1,-1) ] 
         #this might waste some space, but we expect N to be quite small, ~12 at most
             
 
