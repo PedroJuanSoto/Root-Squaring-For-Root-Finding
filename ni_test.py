@@ -309,19 +309,19 @@ print("expected output:\n%s" % C)
 print("test output:")
 pretty_print(tcs)
 
-print("\n========================================================\n")
-print("Test N: roots of p: ")
-C = [1]
-d = len(C)-1
-l = 3
-p, dp, p_rev, dp_rev = get_test_pols(C)
-
-aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
-print("Should see %d trailing coeffs:" % l)
-print("expected output:\n%s" % C[::-1][:l+1])
-print("test output:")
-pretty_print(aC)
-print("R values:")
-pretty_print(R)
-print("(p'/p)^(%d) = %s" % (l, mp.nstr(D,3)))
-
+#print("\n========================================================\n")
+#print("Test N: roots of p: ")
+#C = [1]
+#d = len(C)-1
+#l = 3
+#p, dp, p_rev, dp_rev = get_test_pols(C)
+#
+#aC, R, D = ni.alg(p, dp, p_rev, dp_rev, d, l)
+#print("Should see %d trailing coeffs:" % l)
+#print("expected output:\n%s" % C[::-1][:l+1])
+#print("test output:")
+#pretty_print(aC)
+#print("R values:")
+#pretty_print(R)
+#print("(p'/p)^(%d) = %s" % (l, mp.nstr(D,3)))
+#

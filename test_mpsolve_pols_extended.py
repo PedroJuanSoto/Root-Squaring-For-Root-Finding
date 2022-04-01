@@ -94,7 +94,7 @@ class Polynomial:
         self.type = pol_type[0] #'d' for dense or 's' for sparse
         self.deg = deg
         self.p = p
-        self.dp = p_rev
+        self.dp = dp
         self.p_rev = p_rev
         self.dp_rev = dp_rev
         #print("degs: %s" % p_degs)
@@ -204,7 +204,7 @@ def main():
     #deg, p, dp, p_rev, dp_rev = get_pols(infile)
     poly = Polynomial(infile)
 
-    l = int(math.log2(deg))+3
+    l = int(math.log2(poly.deg))+3
     extra_precision = int(l/3)
     mp.mp.dps = precision + 2**extra_precision + 100
 
