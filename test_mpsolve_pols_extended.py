@@ -142,7 +142,14 @@ def get_root_radii(pol_file):
 
 
 # runs tests using the DLG algorithm
-def run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max):
+#def run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max):
+def run_tests(poly, roots, r_min, r_max):
+    deg = poly.deg
+    p = poly.p
+    dp = poly.dp
+    p_rev = poly.p_rev
+    dp_rev = poly.dp_rev
+
     l = int(math.log2(deg))
 
     #x is the point which defines a line to 0 on which we are taking a limit
@@ -194,14 +201,16 @@ def get_args():
 def main():
     args = get_args()
     infile = args.infile
-    deg, p, dp, p_rev, dp_rev = get_pols(infile)
+    #deg, p, dp, p_rev, dp_rev = get_pols(infile)
+    poly = Polynomial(infile)
 
     l = int(math.log2(deg))+3
     extra_precision = int(l/3)
     mp.mp.dps = precision + 2**extra_precision + 100
 
     roots, r_min, r_max = get_root_radii(infile)
-    run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max)
+    #run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max)
+    run_tests(poly, roots, r_min, r_max)
 
 
 if __name__ == '__main__':
