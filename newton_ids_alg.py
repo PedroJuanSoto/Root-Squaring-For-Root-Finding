@@ -38,7 +38,7 @@ def get_cauchy_sums_rev(p, dp, q):
 #based on eqs 38
 # returns coeffs p_{d-1}, ...., p_{d-q}
 # in our program, we expect p to be a reverse polynomial
-def get_coeffs_via_newton_iters(S):
+def get_coeffs_via_newton_ids(S):
 #assumes monic poly
     #S is the list of cauchy sums s_0, ..., s_q
     coeffs = []
@@ -72,19 +72,23 @@ def eval_lth_deriv(R, l):
 # based on Alg 4
 # computes the q trailing coeffs of p
 
-def alg(p, dp, p_rev, dp_rev, l):
+def alg(p, dp, p_rev, dp_rev, d, l):
     #get the q-1 nearly-trailing coeffs via Cauchy sums + Newton Iterations
 
     #get the trailing term by evaluating p at 0:
     tc = mp.mpc(p(0))
 
-    #S = get_cauchy_sums(lambda x:div(p_rev(x), tc), lambda x: div(dp_rev(x), tc), l+2)
     S = get_cauchy_sums(lambda x:div(p_rev(x), tc), lambda x: div(dp_rev(x), tc), l+2)
-    coeffs = get_coeffs_via_newton_iters(S)
+    #S = get_cauchy_sums(p_rev,dp_rev, l+2)
+    #tc = S[0]
+
+    coeffs = get_coeffs_via_newton_ids(S)
     #assumes monic poly
 
     #coeffs[i]=p_i
     coeffs = [tc]+[mul(tc, c) for c in coeffs]
+    #coeffs = [tc]+coeffs
+    
 
     #place holder return statement
     if l > 3: return coeffs[:l], None, None
