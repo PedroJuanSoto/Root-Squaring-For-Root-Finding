@@ -5,6 +5,7 @@ import subprocess
 import re
 import argparse
 from DLG_alg_mpmath import DLG_rational_form, DLG, add, sub, mul, div, precision, mpc, mpf, pod
+import newton_ids_alg as ni
 import mpmath as mp
 import math
 import time
@@ -14,7 +15,51 @@ import newton_ids_alg as ni
 #mp.precision = 30
 
 class Polynomial:
-    def __init__(self, pol_file):
+    def __init__(self, coeff_data):
+        if type(coeff_data) == list:
+            self.fromList(coeff_data)
+        else:
+            self.fromFile(coeff_data)
+    
+    def fromList(self, p_coeffs):
+    # coeffs are in dense format in the order of [lc -> tc]
+    # this is in the reverse order of the mpsolve input format
+    # but in line with the numpy poly format
+        deg = len(p_coeffs)-1
+        p = lambda x: mp.polyval(p_coeffs, x)
+        p_degs = [deg-i for i in range(deg+1)]
+        p = lambda x: mp.polyval(p_coeffs, x)
+        dp_coeffs = [p_coeffs[i]*(deg-i) for i in range(len(p_coeffs)-1)]
+        dp = lambda x: mp.polyval(dp_coeffs, x)
+
+        #not strictly needed but for posterity
+        dp_degs = [d-1 for d in p_degs] 
+        if -1 in dp_degs: 
+            loc = dp_degs.index(-1) 
+            dp_degs.pop(loc)
+    
+        #get rev polys
+        p_rev_degs = [deg - j for j in p_degs]
+        p_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), p_coeffs, p_rev_degs)))
+        dp_rev_degs = [d-1 for d in p_rev_degs]
+        dp_rev_coeffs = [p_coeffs[i]*p_rev_degs[i] for i in range(len(p_rev_degs))]
+
+        if -1 in dp_rev_degs:
+            loc = dp_rev_degs.index(-1)
+            dp_rev_degs.pop(loc)
+            dp_rev_coeffs.pop(loc)
+        dp_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), dp_rev_coeffs, dp_rev_degs)))
+
+        self.deg = deg
+        self.p = p
+        self.dp = dp
+        self.p_rev = p_rev
+        self.dp_rev = dp_rev
+        #print("degs: %s" % p_degs)
+        #print("coeffs: %s" % p_coeffs)
+        self.coeffs = {p_degs[i]: p_coeffs[i] for i in range(len(p_degs))}
+
+    def fromFile(self, pol_file):
         # Should handle the following formats:
         # dri drq drf dci dcq sci sri srf
         with open(pol_file) as f:
@@ -91,7 +136,6 @@ class Polynomial:
             dp_rev_coeffs.pop(loc)
         dp_rev = lambda x: mp.fsum(list(map( lambda y,z: mp.fmul(y, mp.power(x,z)), dp_rev_coeffs, dp_rev_degs)))
     
-        self.type = pol_type[0] #'d' for dense or 's' for sparse
         self.deg = deg
         self.p = p
         self.dp = dp
@@ -103,19 +147,16 @@ class Polynomial:
         #self.coeffs = p_coeffs
         #self.degs = p_degs
     
-    def get_trailing_coeffs(self, N):
-    # returns the coefficients of N+1 trailing coefficients p_N, ..,  p_0
-        #if self.type == 'd':
-        #    return self.degs[-N-1:]
-
-        #else: #self.type == 's':
-        #this needs more work - change the deg/coeff pair to dict?
-        #    return [(self.coeffs[i] if i in D.keys() else 0) for i in range(N-1,-1,-1) ]
-
-        return [(self.coeffs[i] if i in self.coeffs.keys() else 0) for i in range(N,-1,-1) ] 
-        #this might waste some space, but we expect N to be quite small, ~12 at most
+    def get_trailing_coeffs(self, N, rev=False):
+    # returns the coefficients of N+1 trailing coefficients p_0, ..,  p_N
+        if rev == False:
+            tcs =  [(self.coeffs[i] if i in self.coeffs.keys() else 0) for i in range(min(N+1, self.deg+1))] + [0 for i in range(self.deg+1, N+1)]
+            return tcs
+        #reverse poly
+        #print("deg = %d, N = %d" % (self.deg, N))
+        tcs =  [(self.coeffs[self.deg-i] if (self.deg-i) in self.coeffs.keys() else 0) for i in range(min(N+1, self.deg+1))] + [0 for i in range(self.deg+1, N+1)]
+        return tcs
             
-
 
 # runs mpsolve on the given input file and finds roots and max/min root radii
 # returns the roots and the extremal root radii
@@ -141,7 +182,7 @@ def get_root_radii(pol_file):
     return roots, r_min, r_max
 
 
-# runs tests using the DLG algorithm
+# runs tests using the DLG algorithm via recurrence and tcs algorithms
 #def run_tests(deg, p, dp, p_rev, dp_rev, roots, r_min, r_max):
 def run_tests(poly, roots, r_min, r_max):
     deg = poly.deg
@@ -150,8 +191,8 @@ def run_tests(poly, roots, r_min, r_max):
     p_rev = poly.p_rev
     dp_rev = poly.dp_rev
 
-    l = int(math.log2(deg))
-
+    #l = int(math.log2(deg))
+    l = int(math.log2(math.log2(deg)))
     #x is the point which defines a line to 0 on which we are taking a limit
     angle = mp.rand()
     x = mp.expjpi(angle*2)
@@ -166,29 +207,59 @@ def run_tests(poly, roots, r_min, r_max):
     print("after",mp.mp)
 
     print("l=%s, e=%s" % (l,e))
-    approx = div(deg,DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l,e))
-    print("approx=",mp.fabs(approx))
-    real = mp.power(r_min,mp.power(2,l))
-    print("radius=", mp.fabs(real))
-    print("error=", mp.fabs(div(sub(real,approx),(mp.fabs(real)))))
-    print("approx_root=",mp.root(mp.fabs(approx), mp.power(2,l)))
-    print("radius_root=", mp.fabs(r_min))
-    print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))))
-    print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))),mp.fabs(r_min)))),"%")
+    #approx = div(deg,DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l,e))
+    rd = ni.get_root_radii_via_Ris(poly, l)
+    print("rd = ", rd)
+    if rd == 0:
+        #l = l+1
+        #print("trying again with l=%d due to 0" % l)
+        #rd = ni.get_root_radii_via_Ris(poly, l)
+        #print("rd = ", rd)
+        rd = 0
+        print("(p'/p)^(\ell) = 0. Skipping analysis")
+        min_rel_err = "inf"
+    else:
+        approx = div(deg, rd)
+        #approx = div(deg, ni.get_root_radii_via_Ris(poly, l))
+        print("approx=",mp.fabs(approx))
+        real = mp.power(r_min,mp.power(2,l))
+        print("radius=", mp.fabs(real))
+        print("error=", mp.fabs(div(sub(real,approx),(mp.fabs(real)))))
+        print("approx_root=",mp.root(mp.fabs(approx), mp.power(2,l)))
+        print("radius_root=", mp.fabs(r_min))
+        print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))))
+        print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))),mp.fabs(r_min)))),"%")
+        min_rel_err = mp.nstr(div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))),mp.fabs(r_min)),3)
 
-    print("l=%s, e=%s" % (l,e))
-    approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l,e),deg)
+    l_max = int(math.log2(math.log2(deg)))
+    print("l_max=%s, e=%s" % (l_max,e))
+    #approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l,e),deg)
+    rd = ni.get_root_radii_via_Ris(poly, l_max, rev=True)
+    print("rd = ", rd)
+    if rd == 0:
+        print("(p_rev'/p_rev)^(\ell) = 0.")
+        #max_rel_err = "-"
+        #l_max += 1
+        #print("trying again with l=%d due to 0" % l_max)
+        #rd = ni.get_root_radii_via_Ris(poly, l_max, rev=True)
+        #print("rd = ", rd)
+    #else:
+    approx = div(rd, deg)
+    #approx = div(ni.get_root_radii_via_Ris(poly, l, rev=True), deg)
     print("approx=",mp.fabs(approx))
-    real = mp.power(r_max,mp.power(2,l))
+    real = mp.power(r_max,mp.power(2,l_max))
     print("radius=", mp.fabs(real))
     print("error=", mp.fabs((mp.fabs(real))-(mp.fabs(approx)))/(mp.fabs(real)))
-    print("approx_root=",mp.root(mp.fabs(approx), mp.power(2,l)))
+    print("approx_root=",mp.root(mp.fabs(approx), mp.power(2,l_max)))
     print("radius_root=", mp.fabs(r_max))
-    print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_max))))
+    print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l_max))), mp.fabs(r_max))))
     print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_max))),mp.fabs(r_max)))),"%")
-
+    max_rel_err = mp.nstr(div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l_max))), mp.fabs(r_max))),mp.fabs(r_max)),3)
+    
+    duration = time.time()-star_min
     print("time=",time.time()-star_min)
-
+    
+    print("%s & %s & %s & %s & %s & %s & %s & $[%s, %s]$\\\\" % (deg, l, mp.mp.dps, min_rel_err, l_max, max_rel_err, round(duration,2), mp.nstr(r_min,3), mp.nstr(r_max,3) ))
 
 # reads in given arguments
 def get_args():

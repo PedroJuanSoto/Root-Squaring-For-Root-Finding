@@ -290,10 +290,11 @@ print("Test 16: input file test: dense")
 
 P = ts.Polynomial("../test_pols/chebyshev20.pol")
 #chebyshev 20 coeffs
+# note that C[i] = p_i per mpsolve input format
 C = [1, 0, -200, 0, 6600, 0, -84480, 0, 549120, 0, -2050048, 0, 4659200, 0, -6553600, 0, 5570560, 0, -2621440, 0, 524288]
 N = 10
 tcs = P.get_trailing_coeffs(N)
-print("expected output:\n%s" % C[:N+1][::-1])
+print("expected output:\n%s" % C[:N+1])
 print("test output:")
 pretty_print(tcs)
 
@@ -303,13 +304,54 @@ print("Test 17: input file test: sparse")
 P = ts.Polynomial("../test_pols/kir1_20.pol")
 C = {0: -17626570956801, 8: -947428403886210560, 12: 95997158355731169280, 16: -6911153168471496130560, 20: 375931794881970935169024, 24: -16038265915694612515651584, 28: 549832294277433090197422080, 32: -15393873200469425036030115840, 36: 355736441058167833075415777280, 40: -6829504668478678587441535778816, 44: 109261914698248556477361418141696, 48: -1456690062677843407408776850964480, 52: 16134143217737051761322600788131840, 56: -147498447216213728441335387395194880, 60: 1101219301431275611150985571298443264, 64: -6606701181888932299640001500276588544, 68: 31087466142071580858231009754176552960, 72: -110522928999596165272398266482588385280, 76: 279189840125316599983095153558720348160, 80: -446662175392119146634315708974074167296, 84: 340282366920938463463374607431768211456, 4:5921977682886976}
 N = 10
-C = [C[i] if i in C.keys() else 0 for i in range(N,-1,-1) ]
+C = [C[i] if i in C.keys() else 0 for i in range(N+1)]
 tcs = P.get_trailing_coeffs(N)
 print("expected output:\n%s" % C)
 print("test output:")
 pretty_print(tcs)
 
-#print("\n========================================================\n")
+print("\n========================================================\n")
+print("Test 18: init from coeff list test")
+d = 30
+C = [i for i in range(d+1)]
+#C = {i:1 for i in range(d+1)}
+P = ts.Polynomial(C)
+N = 10
+tcs = P.get_trailing_coeffs(N)
+print("expected output:\n%s" % C[-N-1:][::-1])
+print("test output:")
+print(tcs)
+#pretty_print(tcs)
+
+print("\n========================================================\n")
+print("Test 19: Ri test: x^3 + x^2 + x + 1")
+d = 3
+C = [1 for i in range(d+1)]
+#C = {i:1 for i in range(d+1)}
+P = ts.Polynomial(C)
+N = 3
+tcs = P.get_trailing_coeffs(N)
+R = ni.get_Ris(tcs, 3)
+print("expected output:\n%s" % [1, 2, 6])
+print("test output:")
+pretty_print(R[1:])
+
+print("\n========================================================\n")
+print("Test 20: deriv test")
+d = 3
+C = [1 for i in range(d+1)]
+#C = {i:1 for i in range(d+1)}
+P = ts.Polynomial(C)
+l = 3
+tcs = P.get_trailing_coeffs(l+1)
+R = ni.get_Ris(tcs, l+1)
+#D = ni.eval_lth_deriv(R, l)
+D = [ni.eval_lth_deriv(R, i) for i in range(1,l+1)]
+print("expected output:\n%s" % [1, 2, -18])
+print("test output:")
+pretty_print(D)
+
+print("\n========================================================\n")
 #print("Test N: roots of p: ")
 #C = [1]
 #d = len(C)-1
