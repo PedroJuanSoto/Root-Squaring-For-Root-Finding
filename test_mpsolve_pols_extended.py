@@ -191,8 +191,8 @@ def run_tests(poly, roots, r_min, r_max):
     p_rev = poly.p_rev
     dp_rev = poly.dp_rev
 
-    #l = int(math.log2(deg))
-    l = int(math.log2(math.log2(deg)))
+    l = int(math.log2(deg))
+    #l = int(math.log2(math.log2(deg)))
     #x is the point which defines a line to 0 on which we are taking a limit
     angle = mp.rand()
     x = mp.expjpi(angle*2)
@@ -208,9 +208,9 @@ def run_tests(poly, roots, r_min, r_max):
 
     print("l=%s, e=%s" % (l,e))
     #approx = div(deg,DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l,e))
-    rd = ni.get_root_radii_via_Ris(poly, l)
-    print("rd = ", rd)
-    if rd == 0:
+    rat = ni.get_root_radii_via_Ris(poly, l)
+    print("rat = ", rat)
+    if rat == 0:
         #l = l+1
         #print("trying again with l=%d due to 0" % l)
         #rd = ni.get_root_radii_via_Ris(poly, l)
@@ -219,7 +219,8 @@ def run_tests(poly, roots, r_min, r_max):
         print("(p'/p)^(\ell) = 0. Skipping analysis")
         min_rel_err = "inf"
     else:
-        approx = div(deg, rd)
+        approx = div(deg, rat)
+        rd = mp.root(mp.fabs(approx), mp.power(2,l))
         #approx = div(deg, ni.get_root_radii_via_Ris(poly, l))
         print("approx=",mp.fabs(approx))
         real = mp.power(r_min,mp.power(2,l))
@@ -231,12 +232,11 @@ def run_tests(poly, roots, r_min, r_max):
         print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))),mp.fabs(r_min)))),"%")
         min_rel_err = mp.nstr(div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_min))),mp.fabs(r_min)),3)
 
-    l_max = int(math.log2(math.log2(deg)))
-    print("l_max=%s, e=%s" % (l_max,e))
+    #l_max = int(math.log2(math.log2(deg)))
     #approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l,e),deg)
-    rd = ni.get_root_radii_via_Ris(poly, l_max, rev=True)
-    print("rd = ", rd)
-    if rd == 0:
+    rat = ni.get_root_radii_via_Ris(poly, l, rev=True)
+    print("rat_rev = ", rat)
+    if rat == 0:
         print("(p_rev'/p_rev)^(\ell) = 0.")
         #max_rel_err = "-"
         #l_max += 1
@@ -244,22 +244,23 @@ def run_tests(poly, roots, r_min, r_max):
         #rd = ni.get_root_radii_via_Ris(poly, l_max, rev=True)
         #print("rd = ", rd)
     #else:
-    approx = div(rd, deg)
+    approx = mp.fabs(div(rat, deg))
+    r1 = mp.root(mp.fabs(approx), mp.power(2,l))
     #approx = div(ni.get_root_radii_via_Ris(poly, l, rev=True), deg)
     print("approx=",mp.fabs(approx))
-    real = mp.power(r_max,mp.power(2,l_max))
+    real = mp.power(r_max,mp.power(2,l))
     print("radius=", mp.fabs(real))
     print("error=", mp.fabs((mp.fabs(real))-(mp.fabs(approx)))/(mp.fabs(real)))
-    print("approx_root=",mp.root(mp.fabs(approx), mp.power(2,l_max)))
+    print("approx_root=",mp.root(mp.fabs(approx), mp.power(2,l)))
     print("radius_root=", mp.fabs(r_max))
-    print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l_max))), mp.fabs(r_max))))
+    print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_max))))
     print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_max))),mp.fabs(r_max)))),"%")
-    max_rel_err = mp.nstr(div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l_max))), mp.fabs(r_max))),mp.fabs(r_max)),3)
+    max_rel_err = mp.nstr(div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(r_max))),mp.fabs(r_max)),3)
     
     duration = time.time()-star_min
     print("time=",time.time()-star_min)
     
-    print("%s & %s & %s & %s & %s & %s & %s & $[%s, %s]$\\\\" % (deg, l, mp.mp.dps, min_rel_err, l_max, max_rel_err, round(duration,2), mp.nstr(r_min,3), mp.nstr(r_max,3) ))
+    print("%s & %s & %s & %s & %s & %s & %s & %s & $[%s, %s]$\\\\" % (deg, l, mp.mp.dps, mp.nstr(rd,3), min_rel_err, mp.nstr(r1,3), max_rel_err, round(duration,2), mp.nstr(r_min,3), mp.nstr(r_max,3) ))
 
 # reads in given arguments
 def get_args():
