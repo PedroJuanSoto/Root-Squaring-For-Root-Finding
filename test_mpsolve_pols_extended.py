@@ -191,8 +191,8 @@ def run_tests(poly, roots, r_min, r_max):
     p_rev = poly.p_rev
     dp_rev = poly.dp_rev
 
-    l = int(math.log2(deg))
-    #l = int(math.log2(math.log2(deg)))
+    #l = int(math.log2(deg))
+    l = int(math.log2(math.log2(deg)))
     #x is the point which defines a line to 0 on which we are taking a limit
     angle = mp.rand()
     x = mp.expjpi(angle*2)
@@ -215,7 +215,7 @@ def run_tests(poly, roots, r_min, r_max):
         #print("trying again with l=%d due to 0" % l)
         #rd = ni.get_root_radii_via_Ris(poly, l)
         #print("rd = ", rd)
-        rd = 0
+        rd = "inf"
         print("(p'/p)^(\ell) = 0. Skipping analysis")
         min_rel_err = "inf"
     else:
