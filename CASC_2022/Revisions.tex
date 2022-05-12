@@ -622,6 +622,810 @@ Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x
 \section{Experimental Results}
 \subsection{Setup}
 \subsection{Tables}
+
+\begin{table}
+\caption{Experimental Data for \texttt{chebyshev}} % Chebyshev}
+\label{tab:chebyshev}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 0.155 & 0.0939 & 0.27 & $[0.0785, 0.997]$\\
+ 40 & 5 & 616 & 332 & 0.0981 & 0.0589 & 1.13 & $[0.0393, 0.999]$\\
+ 80 & 6 & 617 & 334 & 0.0593 & 0.0353 & 5.26 & $[0.0196, 1.0]$\\
+ 160 & 7 & 617 & 334 & 2.71 & 0.0205 & 20.88 & $[0.00982, 1.0]$\\
+ 320 & 8 & 617 & 334 & 37.6 & 0.465 & 88.4 & $[0.00491, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{chrma}} %  chromatic polynomial (zero root removed) kind a}
+\label{tab:chrma}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 21 & 4 & 616 & 332 & 0.215 & 0.139 & 0.22 & $[1.0, 3.17]$\\
+ 85 & 6 & 617 & 334 & 0.0369 & 0.0452 & 5.63 & $[1.0, 3.25]$\\
+ 341 & 8 & 617 & 334 & 0.717 & 0.547 & 105.48 & $[0.884, 3.41]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{chrma\_d}} % chromatic polynomial deflated: a}
+\label{tab:chrma_d}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+20 & 4 & 616 & 332 & 0.16 & 0.175 & 0.26 & $[1.3, 3.01]$\\
+ 84 & 6 & 617 & 334 & 0.0548 & 0.00507 & 5.53 & $[1.1, 3.06]$\\
+ 340 & 8 & 617 & 334 & 0.658 & 0.699 & 93.82 & $[0.741, 3.11]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{chrmc}} %  chromatic polynomial (zero root removed) kind c}
+\label{tab:chrmc}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 22 & 4 & 616 & 332 & 0.211 & 0.138 & 0.3 & $[1.0, 3.03]$\\
+ 342 & 8 & 617 & 334 & 0.718 & 0.279 & 94.64 & $[0.897, 4.13]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{chrmc\_d}} % chromatic polynomial deflated, kind c}
+\label{tab:chrmc_d}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+11 & 3 & 616 & 332 & 0.251 & 0.242 & 0.05 & $[1.27, 2.8]$\\
+ 43 & 5 & 616 & 332 & 0.101 & 0.0996 & 1.23 & $[1.02, 2.97]$\\
+ 171 & 7 & 617 & 334 & 0.268 & 1.13 & 22.05 & $[0.715, 3.07]$\\
+ 683 & 9 & 619 & 338 & 0.164 & 0.257 & 374.69 & $[0.519, 3.1]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{curz}} % Curz}
+\label{tab:curz}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+             &  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 0.156 & 0.854 & 0.21 & $[0.452, 1.15]$\\
+ 40 & 5 & 616 & 332 & 0.199 & 0.776 & 1.13 & $[0.379, 1.26]$\\
+ 80 & 6 & 617 & 334 & 0.086 & 0.227 & 5.49 & $[0.318, 1.34]$\\
+ 160 & 7 & 617 & 334 & 0.0385 & 0.509 & 20.79 & $[0.271, 1.38]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{easy}} % Easy}
+\label{tab:easy}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 100 & 6 & 617 & 334 & 0.12 & 0.0809 & 6.35 & $[0.949, 0.98]$\\
+ 200 & 7 & 617 & 334 & 0.068 & 0.047 & 25.57 & $[0.971, 0.99]$\\
+ 400 & 8 & 617 & 334 & 0.0381 & 0.0265 & 104.47 & $[0.983, 0.995]$\\
+ 1600 &10& 619 & 338 & 0.01 & 0.00 & 2228.22 & $[0.995, 0.999]$\\ %old nonmemo version data
+  3200 &11& 619 & 338 & 0.00 & - & - & $[0.997, 0.999]$\\ %did not finish
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{exp}} % Exp}
+\label{tab:exp}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 50 & 5 & 616 & 332 & 3.76 & 0.126 & 1.48 & $[14.9, 39.4]$\\
+100 & 6 & 617 & 334 & 0.367 & 0.0598 & 7.37 & $[28.9, 83.9]$\\
+ 200 & 7 & 617 & 334 & 0.714 & 0.839 & 28.22 & $[56.8, 176.0]$\\
+ 400 & 8 & 617 & 334 & 0.965 & 0.985 & 107.96 & $[113.0, 365.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{geom1}} % Geom1}
+\label{tab:geom1}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 10 & 3 & 616 & 332 & 0.334 & 0.25 & 0.05 & $[1.0, 1.0\text{e+}18]$\\
+ 15 & 3 & 616 & 332 & 0.403 & 1.0 & 0.08 & $[1.0, 1.0\text{e+}28]$\\
+ 20 & 4 & 616 & 332 & 0.206 & 1.0 & 0.28 & $[1.0, 1.0\text{e+}38]$\\
+ 40 & 5 & 616 & 332 & 0.122 & 1.0 & 1.18 & $[1.0, 1.0\text{e+}78]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{geom2}} % Geom2}
+\label{tab:geom2}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 10 & 3 & 616 & 332 & 0.334 & 0.25 & 0.06 & $[1.0\text{e-}18, 1.0]$\\
+ 15 & 3 & 616 & 332 & 8.09e+4 & 0.287 & 0.06 & $[1.0\text{e-}28, 1.0]$\\
+ 20 & 4 & 616 & 332 & 2.63e+26 & 0.171 & 0.23 & $[1.0\text{e-}38, 1.0]$\\
+ 40 & 5 & 616 & 332 & 1.61e+72 & 0.109 & 1.14 & $[1.0\text{e-}78, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{geom3}} % Geom3}
+\label{tab:geom3}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 10 & 3 & 616 & 332 & 0.334 & 0.25 & 0.05 & $[9.54\text{e-}7, 0.25]$\\
+ 20 & 4 & 616 & 332 & 2.41 & 0.171 & 0.24 & $[9.09\text{e-}13, 0.25]$\\
+ 40 & 5 & 616 & 332 & 1.95e+18 & 0.109 & 1.15 & $[8.27\text{e-}25, 0.25]$\\
+ 80 & 6 & 617 & 334 & 1.83e+45 & 0.0662 & 5.73 & $[6.84\text{e-}49, 0.25]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{geom4}} % Geom4}
+\label{tab:geom4}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 10 & 3 & 616 & 332 & 0.334 & 0.25 & 0.05 & $[4.0, 1.05\text{e+}6]$\\
+ 20 & 4 & 616 & 332 & 0.206 & 0.707 & 0.27 & $[4.0, 1.1\text{e+}12]$\\
+ 40 & 5 & 616 & 332 & 0.122 & 1.0 & 1.15 & $[4.0, 1.21\text{e+}24]$\\
+ 80 & 6 & 617 & 334 & 0.0709 & 1.0 & 5.28 & $[4.0, 1.46\text{e+}48]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{hermite}} % Hermite}
+\label{tab:hermite}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 0.155 & 0.129 & 0.28 & $[0.245, 5.39]$\\
+ 40 & 5 & 616 & 332 & 0.0981 & 0.0876 & 1.31 & $[0.175, 8.1]$\\
+ 80 & 6 & 617 & 334 & 0.0593 & 0.0555 & 5.97 & $[0.124, 11.9]$\\
+ 160 & 7 & 617 & 334 & 0.0348 & 0.0335 & 23.56 & $[0.0877, 17.2]$\\
+ 320 & 8 & 617 & 334 & 2.08 & 0.785 & 88.88 & $[0.062, 24.7]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{kam1}} % Kam1}
+\label{tab:kam1}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 7 & 2 & 615 & 331 & 0.368 & 1.0 & 0.01 & $[3.0\text{e-}12, 15.8]$\\
+ 7 & 2 & 615 & 331 & 0.368 & 1.0 & 0.01 & $[3.0\text{e-}40, 1.0\text{e+}4]$\\
+ 7 & 2 & 615 & 331 & 2.37e+93 & 1.0 & 0.01 & $[3.0\text{e-}140, 1.0\text{e+}14]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{kam2}} % Kam2}
+\label{tab:kam2}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}6, 251.0]$\\
+ 9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}20, 1.0\text{e+}8]$\\
+ 9 & 3 & 616 & 332 & 4.23e+46 & 1.0 & 0.03 & $[1.73\text{e-}70, 1.0\text{e+}28]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{kam3}} % Kam3}
+\label{tab:kam3}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}6, 251.0]$\\
+ 9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}20, 1.0\text{e+}8]$\\
+ 9 & 3 & 616 & 332 & 4.23e+46 & 1.0 & 0.03 & $[1.73\text{e-}70, 1.0\text{e+}28]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{kir1}} % Kir1}
+\label{tab:kir1}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 44 & 5 & 616 & 332 & 4.41e-5 & 0.000443 & 1.28 & $[0.5, 0.5]$\\
+  84 & 6 & 617 & 334 & 2.29e-5 & 0.000464 & 2.9 & $[0.5, 0.5]$\\
+ 164 & 7 & 617 & 334 & 1.16e-5 & 0.000476 & 9.79 & $[0.5, 0.5]$\\
+ 8 & 3 & 616 & 332 & 0.000244 & 0.000244 & 0.02 & $[0.5, 0.5]$\\ %symb
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{kir1\_mod}} % Kir1 mod}
+\label{tab:kir1_mod}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 44 & 5 & 616 & 332 & 0.000983 & 0.00095 & 1.26 & $[0.5, 0.5]$\\
+ 84 & 6 & 617 & 334 & 0.00364 & 0.00364 & 2.99 & $[0.498, 0.502]$\\
+ 164 & 7 & 617 & 334 & 0.00734 & 0.00749 & 10.35 & $[0.496, 0.504]$\\ %_mod
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{lagurerre}} %  Lagurerre }
+\label{tab:lagurerre}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 0.206 & 0.167 & 0.22 & $[0.0705, 66.5]$\\
+ 40 & 5 & 616 & 332 & 0.122 & 0.108 & 1.28 & $[0.0357, 142.0]$\\
+ 80 & 6 & 617 & 334 & 0.0709 & 0.0659 & 5.63 & $[0.018, 297.0]$\\
+ 160 & 7 & 617 & 334 & 3.09 & 0.954 & 22.21 & $[0.00901, 610.0]$\\
+ 320 & 8 & 617 & 334 & 41.4 & 0.996 & 89.64 & $[0.00451, 1.24\text{e+}3]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{lar1}} % Lar1}
+\label{tab:lar1}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 7.06e+9 & 1.0 & 0.1 & $[3.73\text{e-}22, 1.0\text{e+}50]$\\
+ 200 & 7 & 617 & 334 & 9.69e+19 & 0.311 & 0.83 & $[3.73\text{e-}22, 41.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{legendre}} % Legendre}
+\label{tab:legendre}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 0.155 & 0.0969 & 0.25 & $[0.0765, 0.993]$\\
+ 40 & 5 & 616 & 332 & 0.0981 & 0.0604 & 1.15 & $[0.0388, 0.998]$\\
+ 80 & 6 & 617 & 334 & 0.0593 & 0.0359 & 6.08 & $[0.0195, 1.0]$\\
+  160 & 7 & 617 & 334 & 2.72 & 0.0637 & 19.97 & $[0.00979, 1.0]$\\
+ 320 & 8 & 617 & 334 & 37.7 & 0.456 & 81.12 & $[0.0049, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{lsr}} % LSR} %polynomial having roots with very large and very small moduli
+\label{tab:lsr}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 24 & 4 & 616 & 332 & 2.88e+8 & 1.0 & 0.29 & $[1.0\text{e-}20, 1.0\text{e+}20]$\\
+ 52 & 5 & 616 & 332 & 1.81e+14 & 1.0 & 0.25 & $[1.0\text{e-}20, 1.0\text{e+}10]$\\ %lsr4_1
+ 52 & 5 & 616 & 332 & 1.81e+34 & 1.0 & 0.22 & $[1.0\text{e-}40, 1.0\text{e+}20]$\\ %lsr4_2
+ 52 & 5 & 616 & 332 & 1.81e+74 & 1.0 & 0.2 & $[1.0\text{e-}80, 1.0\text{e+}40]$\\ %lsr4_3
+ 224 & 7 & 617 & 334 & 3.62e+18 & 1.0 & 9.8 & $[1.0\text{e-}20, 1.0\text{e+}20]$\\
+ 500 & 8 & 617 & 334 & 1.92e+3 & 1.0 & 6.79 & $[0.0001, 2.0\text{e+}4]$\\
+ 500 & 8 & 617 & 334 & 5.77e+3 & 0.995 & 3.27 & $[3.33\text{e-}5, 1.0\text{e+}3]$\\
+ 500 & 8 & 617 & 334 & 1.05 & 1.0 & 3.05 & $[0.0916, 1.0\text{e+}200]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{mand}} % Mand}
+\label{tab:mand}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+   31 & 4 & 616 & 332 & 0.295 & 0.144 & 0.4 & $[0.445, 2.0]$\\
+   63 & 5 & 616 & 332 & 0.127 & 0.0854 & 2.16 & $[0.403, 2.0]$\\
+ 127 & 6 & 617 & 334 & 0.0898 & 0.0488 & 8.58 & $[0.373, 2.0]$\\
+ 255 & 7 & 617 & 334 & 0.0609 & 0.701 & 37.41 & $[0.351, 2.0]$\\
+ 511 & 8 & 617 & 334 & 0.0234 & 1.63 & 174.71 & $[0.334, 2.0]$\\
+1023 & 9 & 619 & 338 & 0.357 & 0.142 & 569.08 & $[0.321, 2.0]$\\
+2047 & 10 & 619 & 338 & 1.12 & 0.241 & 2372.57 & $[0.311, 2.0]$\\
+4095 & 11 & 619 & 338 & 1.68 & 0.38 & 9209.19 & $[0.303, 2.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{mig1}} % Mig1}
+\label{tab:mig1}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 0.126 & 1.0 & 0.08 & $[0.01, 2.26]$\\
+  50 & 5 & 616 & 332 & 0.0157 & 0.987 & 1.8 & $[0.00999, 1.83\text{e+}3]$\\
+ 100 & 6 & 617 & 334 & 0.0563 & 1.0 & 0.5 & $[0.01, 1.15]$\\
+ 100 & 6 & 617 & 334 & 0.0183 & 1.0 & 4.05 & $[0.01, 7.92]$\\
+ 200 & 7 & 617 & 334 & 2.66 & 1.0 & 0.8 & $[0.01, 1.07]$\\
+ 200 & 7 & 617 & 334 & 2.59 & 0.999 & 9.37 & $[0.01, 2.33]$\\
+ 500 & 8 & 617 & 334 & 18.2 & 0.99 & 1.59 & $[0.01, 1.03]$\\
+ 500 & 8 & 617 & 334 & 18.0 & 0.984 & 15.65 & $[0.01, 1.36]$\\ %mig1_500_1
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{mult}} % Mult}
+\label{tab:mult}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 15 & 3 & 616 & 332 & 0.29 & 0.189 & 0.12 & $[0.869, 1.07]$\\
+ 20 & 4 & 616 & 332 & 0.0782 & 0.475 & 0.24 & $[0.01, 2.68]$\\
+ 22 & 4 & 616 & 332 & 0.213 & 0.105 & 0.24 & $[1.0, 20.0]$\\
+  68 & 6 & 617 & 334 & 0.0566 & 0.0556 & 4.59 & $[0.25, 2.24]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{nroots}} % $x^n - 1$}
+\label{tab:nroots}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 50 & 5 & 616 & 332 & 5.18e+13 & 1.0 & 0.12 & $[1.0, 1.0]$\\
+ 100 & 6 & 617 & 334 & 7.06e+6 & 1.0 & 0.19 & $[1.0, 1.0]$\\
+ 200 & 7 & 617 & 334 & 2.69e+3 & 1.0 & 0.39 & $[1.0, 1.0]$\\
+ 400 & 8 & 617 & 334 & 50.5 & 0.981 & 0.79 & $[1.0, 1.0]$\\
+ 800 & 9 & 619 & 338 & 6.34 & 0.864 & 1.73 & $[1.0, 1.0]$\\
+ 1600 & 10 & 619 & 338 & 1.71 & 0.631 & 3.19 & $[1.0, 1.0]$\\
+ 3200 & 11 & 619 & 338 & 0.645 & 0.392 & 6.79 & $[1.0, 1.0]$\\
+ 6400 & 12 & 623 & 346 & 0.289 & 0.224 & 14.55 & $[1.0, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{nrooti}} % $x^n - i$}
+\label{tab:nrooti}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 50 & 5 & 616 & 332 & 4.94e+13 & 1.0 & 0.1 & $[1.0, 1.0]$\\
+ 100 & 6 & 617 & 334 & 7.07e+6 & 1.0 & 0.32 & $[1.0, 1.0]$\\
+  200 & 7 & 617 & 334 & 2.69e+3 & 1.0 & 0.46 & $[1.0, 1.0]$\\
+ 400 & 8 & 617 & 334 & 50.5 & 0.981 & 0.85 & $[1.0, 1.0]$\\
+ 800 & 9 & 619 & 338 & 6.34 & 0.864 & 1.85 & $[1.0, 1.0]$\\
+ 1600 & 10 & 619 & 338 & 1.71 & 0.631 & 3.23 & $[1.0, 1.0]$\\
+ 3200 & 11 & 619 & 338 & 0.645 & 0.392 & 7.02 & $[1.0, 1.0]$\\
+ 6400 & 12 & 623 & 346 & 0.289 & 0.224 & 13.31 & $[1.0, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{sendra}} %  Sendra}
+\label{tab:sendra}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 160 & 7 & 617 & 334 & 0.658 & 2.14 & 24.34 & $[0.987, 2.01]$\\
+ 20 & 4 & 616 & 332 & 0.283 & 0.158 & 0.25 & $[0.9, 2.05]$\\
+ 320 & 8 & 617 & 334 & 0.809 & 1.64 & 88.08 & $[0.994, 2.0]$\\
+ 40 & 5 & 616 & 332 & 0.159 & 0.101 & 1.25 & $[0.95, 2.02]$\\
+ 80 & 6 & 617 & 334 & 0.287 & 0.573 & 5.2 & $[0.975, 2.01]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{sparse}}
+\label{tab:sparse}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+100 & 6 & 617 & 334 & 0.11 & 1.0 & 0.26 & $[0.968, 1.01]$\\
+ 200 & 7 & 617 & 334 & 0.0361 & 0.995 & 1.16 & $[0.969, 1.0]$\\
+ 400 & 8 & 617 & 334 & 0.0211 & 0.929 & 2.19 & $[0.969, 1.0]$\\
+ 800 & 9 & 619 & 338 & 0.0118 & 0.739 & 6.56 & $[0.969, 1.0]$\\
+  6400 & 12 & 623 & 346 & 0.00202 & 0.158 & 72.81 & $[0.969, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+\begin{table}
+\caption{Experimental Data for \texttt{spiral}} %  Spiral}
+\label{tab:spiral}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 10 & 3 & 616 & 332 & 5.1e-7 & 1.21e-6 & 0.05 & $[1.0, 1.0]$\\
+ 15 & 3 & 616 & 332 & 3.49e-7 & 1.15e-6 & 0.07 & $[1.0, 1.0]$\\
+ 20 & 4 & 616 & 332 & 4.55e-7 & 1.3e-6 & 0.23 & $[1.0, 1.0]$\\
+ 25 & 4 & 616 & 332 & 3.67e-7 & 1.25e-6 & 0.29 & $[1.0, 1.0]$\\
+ 30 & 4 & 616 & 332 & 3.08e-7 & 1.21e-6 & 0.41 & $[1.0, 1.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{toep}} % Toeplitz}
+\label{tab:toep}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 128 & 7 & 617 & 334 & 0.0386 & 0.562 & 18.71 & $[1.31, 64.4]$\\
+ 256 & 8 & 617 & 334 & 0.0219 & 0.918 & 73.35 & $[1.34, 64.4]$\\
+ 128 & 7 & 617 & 334 & 0.0386 & 0.0272 & 17.68 & $[0.4, 13.2]$\\
+ 256 & 8 & 617 & 334 & 0.0225 & 0.599 & 72.66 & $[0.383, 13.2]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
+
+
+\begin{table}
+\caption{Experimental Data for \texttt{wilk}} % Wilk}
+\label{tab:wilk}
+\vskip -0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{lccccccc}
+\toprule
+&  &  & mp.-& relative  & relative & run- & mpsolve \\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+\midrule
+ 20 & 4 & 616 & 332 & 0.206 & 0.141 & 0.22 & $[1.0, 20.0]$\\
+ 30 & 4 & 616 & 332 & 0.237 & 0.0859 & 0.33 & $[1.0, 319.0]$\\
+ 40 & 5 & 616 & 332 & 0.122 & 0.0927 & 1.27 & $[1.0, 40.0]$\\
+ 80 & 6 & 617 & 334 & 0.0709 & 0.121 & 5.59 & $[1.0, 80.0]$\\
+ 160 & 7 & 617 & 334 & 0.0404 & 0.824 & 21.82 & $[1.0, 160.0]$\\
+ 320 & 8 & 617 & 334 & 0.0228 & 0.983 & 89.77 & $[1.0, 320.0]$\\
+\bottomrule
+\end{tabular}
+\end{sc}
+\end{small}
+\end{center}
+\vskip 0.05in
+\end{table}
 \subsection{Observations}
 \section{Conclusion}
 
@@ -650,94 +1454,4 @@ Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x
 
 
 \end{document}
-
-
-
-\section{Approximation of all roots}\label{sall}
-The latter algorithms only approximate the absolutely smallest 
-root. By applying them  to the reverse polynomial we can approximate the absolutely largest 
-root. For the approximation of the roots $x_j$, say, for $j$ near $d/2$ where $d$ is  large, however, all these
- algorithms involve some coefficients 
- $p_i^{(k)}$ of $p_k(x)$ for 
- $i$ near $d/2$ and large $2^k$.
- Consequently the computations are prone to severe  problems of  numerical stability.
-
-Recursive deflation can be a way out. Having approximated the absolutely
-smallest root $x_d$ of  $f_0(x):=p(x)$, we can apply the same  algorithm to the  polynomial 
-$f_0(x):=p(x)/(x-x_d)$ of degree $d-1$  and then repeat this recipe recursively, that is,  approximate
-the absolutely
-smallest roots of  polynomials
-$f_j(x)$ of degrees $d-j$, for 
-$j=1,\dots,d-1$, finally approximating all the $d$ roots. 
-
-
-It is well known that recursive deflation destroys sparsity of $p(x)$ and generally blows up the overall  coefficient length (e.g., let $p(x)=x^d+1$), but  we avoid these problems by applying deflation as well as  DLG or FG root-finders to  the polynomials $f_j(x)$ implicitly, handling them as black box polynomials without
-computing their coefficients.
-This increases the overall number
- of black box evaluation points by a factor of $d$ and add divisions by the values $\prod_{j=0}^k(x-x_{d-j})$
- for $k=0,1,\dots,d-1$ for selected
- points $x$. If the complexity 
-  of the evaluation of 
- $p(x)$ dominates that of such a product, then implicit deflation increases the overall complexity 
- of root-finding  by at most a factor of $3d$.	 
-
-\section{Estimation of extremal root radii}\label{sestextrrtrd}
-
-
-If we do not know whether assumptions (\ref{eqnndcrs}) and (\ref{eqsprn}) hold, we cannot apply  Eq. (\ref{eqrtrt}) and
-Thm. \ref{thgmn}, but we  can apply
- the following
-well-known bounds on the extremal root radii:
-
- \begin{equation}\label{eqrtrdbndsrev1} 
-|x_d|\le d~\Big |\frac{p(0)}{p'(0)}\Big |~{\rm and}~|x_1|\ge \Big |\frac{p'_{\rm rev}(0)}{d~p_{\rm rev}(0)}\Big|.
-\end{equation}
-
-We can deduce these bounds 
-from the well-known expression
-\begin{equation}\label{eqratio}
-\frac{p'(x)}{p(x)}=
-\sum_{j=1}^d\frac{1}{x-x_j},
-\end{equation} 
-which we can obtain by differentiating the equation
-$p(x)=p_d\prod_{j=1}^d(x-x_j)$.
-
-By extending these bounds to
-the polynomial $p_k(x)$ of Eq. (\ref{eqdnd}) we obtain that
-
- \begin{equation}\label{eqratio0} 
- |x_d|^{2^k}\le d/ 
-\Big| \Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(k)}\Big|~{\rm and}~|x_1|^{2^k}\ge \frac{1}{d}\Big| \Big(\frac{p'_{\rm rev}(x)}{p_{\rm rev}(x)}\Big)_{x=0}^{(k)}\Big|.
-\end{equation}
-
-Under the 
-assumptions (\ref{eqnndcrs}) for $i=2$ for $p(x)$ and for $p_{\rm rev}(x)$, respectively,  the latter two bounds 
- become sharp as $k$ increases, by virtue of (\ref{eqrtrdbndsrev1}), and next we  argue informally that it tends to be sharp with a high probability under  random root models.
-Indeed, 
-\begin{equation}\label{eqratiorcp}
-\frac{1}{|x_d|}\le \frac{1}{d}\Big|\frac{p'(c)}{p(c)}\Big|=\frac{1}{d}\Big|\sum_{j=1}^d \frac{1}{c-x_j}\Big|
-\end{equation}  
-by  virtue of 
-(\ref{eqrtrdbndsrev1}), and so the
- approximation  
-to the root radius $|x_d|$ is poor if and only if severe cancellation occurs in the summation of the $d$ roots, and similarly for the approximation
-of  $r_1(c,p)$. Such a cancellation only occurs for a narrow class of polynomials $p(x)$, with a low  probability if we assume a random root model.
- 
- Next we prove, however,  that estimates (\ref{eqrtrdbndsrev1}) and (\ref{eqratio0}) are extremely poor for  worst case inputs.
-\begin{theorem}\label{thrtr}
-The ratios $|\frac{p(0)}{p'(0)}|$ 
-and $|\frac{p_{\rm rev}(0)}{p_{\rm rev}'(0)}|$ are infinite for  $p(x)=x^d-h^d$ and $h\neq 0$, while  $|x_d|)=|x_1|=|h|$.
- \end{theorem}
- \begin{proof}
-% \begin{example}\label{exrtr} 
- Observe that 
- the roots $x_j=h\exp(\frac{(j-1){\bf i}}{2\pi d})$ of $p(x)=x^d-h^d$
-  for $j=1,2,\dots,d$   are the $d$th roots  of unity up to scaling by $h$.
- \end{proof}
-%Such poor approximations only occur for a %narrow input class.  
-
-Clearly, the problem persists for the root radius $r_d(w,p)$  where  $p'(w)$ and  $p'_{\rm rev}(w)$ vanish;  
- rotation of the variable  $p(x)\leftarrow t(x)=p(ax)$
-for $|a|=1$ does not  fix it but  shifts $p(x)\leftarrow t(x)=p(x-c)$
-for $c\neq 0$ can fix it, thus {\em enhancing the power of  estimates (\ref{eqrtrdbndsrev1}) and (\ref{eqratio0}).} 
 
