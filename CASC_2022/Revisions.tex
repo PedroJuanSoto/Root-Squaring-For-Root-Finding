@@ -272,7 +272,7 @@ enable us to  strengthen
 upper estimates in Eq.~\ref{eqrtrdbndsrev1}
 and more generally Eq.~\ref{eq:last_appen} for root radii $r_j(0,p)$   at the origin  because $r_j(0,p_{\ell})=r_j(0,p)^{2^{\ell}}$ for $j=1,\dots,d$ (see  Eq.~\ref{eqrtrdbndsrev1}); we can  approximate the higher order derivatives
 $\Big(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Big)^{(\ell)}$
- at $x=0$ by following Remark.~\ref{rem:fin_diff}.
+ at $x=0$ by using a divided difference (See Alg. 5 of [companion papper]). %following Remark.~\ref{rem:fin_diff}.
 Besides the listed applications of
 root-squaring, one can apply DLG iterations to randomized exclusion tests for sparse polynomials.
 One can apply root-squaring $p(x)\mapsto p_{\ell}(x)$ to improve  the error bound for the approximation of the power sums of the roots of  $p(x)$ in the unit disc $D(0,1)$ by Cauchy sums, but the improvement is about as much as the additional cost incurred by increasing the number $q$ of points of evaluation of the ratio $\frac{p'}{p}$.
@@ -556,7 +556,7 @@ We now give some theoretical guarantees: Thm. \ref{thm:lim_correctness} proves t
  If $p(0) \neq 0$, then Alg. \ref{alg:DLG_Root_Radius} computes the bounds given by Eq.~\ref{eqrtrdbndsrev1}  with probability 1.
 \end{theorem}
 \begin{proof}
-By Lem.~\ref{lem:lim_correctness} we have that the limit in Eq.~\ref{lem:lim_correctness} is well defined. Since there are at most finitely many roots for $p_\ell$ with a high probability Alg.~\ref{alg:DLG_Root_Radius} computes the correct approximation to the bounds in Eq.~\ref{eqrtrdbndsrev1} and Eq.~\ref{eq:rat_roo_radii_2}.
+By Lem.~\ref{lem:lim_correctness} we have that the limit in Eq.~\ref{lem:lim_correctness} is well defined. Since there are at most finitely many roots for $p_\ell$ with a high probability Alg.~\ref{alg:DLG_Root_Radius} computes the correct approximation to the bounds in Eq.~\ref{eqrtrdbndsrev1}.
 \end{proof}
 
 \subsection{Complexity}
