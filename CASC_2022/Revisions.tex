@@ -624,20 +624,27 @@ Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x
 %what are the polynomials used? 
 We now present the results of our experiments in which we compute the bounds on the extremal root radii $|x_1|$ and $|x_d|$ given by \ref{eqrtrdbndsrev1} for the polynomials in the test suite of MPSolve. The test suite covers a number of univariate polynomial families over a range of degrees. (A fuller description of the test suite can be found in \texttt{https://numpi.dm.unipi.it/mpsolve-2.2/mpsolve.pdf}.) 
 
-Given a polynomial $p(x)$ of degree $d$, we use an implementation of DLG iterations that incorporates our algorithm from Section \ref{sec:alg_des} for computing $(p'(x)/p(x))^{(\ell)}$ and in turn compute bounds, or estimates for root radii, $r_1$ and $r_d$ given by \ref{eqrtrdbndsrev1} on extremal root radii $|x_1|$ and $|x_d|$, respectively. The performance of these bounds are evaluated on the \emph{relative error} in comparison to the corresponding root radius computed by MPSolve. That is,
+Given a polynomial $p(x)$ of degree $d$, we use an implementation of DLG iterations that incorporates our algorithm from Section \ref{sec:alg_des} for computing $(p'(x)/p(x))^{(\ell)}$ and in turn compute bounds, or estimates, for root radii, $r_1 = r_{\text{max}}$ and $r_d = r_{\text{min}}$ given by (\ref{eqrtrdbndsrev1}) on extremal root radii $|x_1|$ and $|x_d|$, respectively. The performance of these bounds are evaluated on the \emph{relative error} in comparison to the corresponding root radius computed by MPSolve. That is,
 $$
 \text{relative error}(r_i) = \frac{\big|r_i - |x_i|\big|}{|x_i|},~i = 1, d,
 $$
-where $|x_i|$ is the root radius found using MPSolve and $r_i$ is our estimate for the root radii.
+where $|x_i|$ is the minimal or maximal root radius found using MPSolve and $r_i$ is the corresponding estimate for the root radii we compute.
 
+%explain the choices for l and e
+For the parameters, we use $\ell = \lfloor \log_2 d \rfloor$ and 
 
-All experiments were run using Python 3.7.7 and MPSolve 3.2.1 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory. 
+[TODO: elaborate on the choice of $e$]. 
+
+By choosing $O(\log d)$ iterations, we keep the number of iterations relatively small even when the degree of the polynomial increases. For instance, $\ell = 6$ for $d = \deg(p(x)) = 100$, and when $d$ grows to 6400, we still have $\ell = 12$.
+
+[TODO: elaborate on the increasing precision mp.dps].
+
+All experiments were performed using Python 3.7.7 and MPSolve 3.2.1 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory. 
 % How challenging are these polyomials?
 
 \subsection{Tables}
 The columns of the tables, in order, are
-% TODO: clean this up and give how the fields are decided
-\begin{itemize}
+\begin{itemize} 
 \item $d =$ degree of the input polynomial
 \item $\ell =$ number of iterations
 \item $e =$ $-\log(|x|)$
@@ -1049,10 +1056,10 @@ $d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 &  &  & mp.-& relative  & relative & run- & mpsolve \\
 $d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \midrule
+ 8 & 3 & 616 & 332 & 0.000244 & 0.000244 & 0.02 & $[0.5, 0.5]$\\ %symb
  44 & 5 & 616 & 332 & 4.41e-5 & 0.000443 & 1.28 & $[0.5, 0.5]$\\
   84 & 6 & 617 & 334 & 2.29e-5 & 0.000464 & 2.9 & $[0.5, 0.5]$\\
  164 & 7 & 617 & 334 & 1.16e-5 & 0.000476 & 9.79 & $[0.5, 0.5]$\\
- 8 & 3 & 616 & 332 & 0.000244 & 0.000244 & 0.02 & $[0.5, 0.5]$\\ %symb
 \bottomrule
 \end{tabular}
 \end{sc}
