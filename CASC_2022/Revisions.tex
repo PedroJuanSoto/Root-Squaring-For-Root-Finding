@@ -73,7 +73,7 @@ We revisit the classical root-squaring formula of Dandelin-Lobachevsky-Gr{\"a}ff
 We revisit the famous method for finding roots that was independently discovered by Dandelin, Lobachevsky, and Gr{\"a}ffe and make further progress by applying this identity to the problem of approximating the root radius of a polynomial. (See \cite{10.2307/2310626} for a history of this problem.)
 This is a key step in many subdivision based root-finding algorithms.
 
-One of the novelties of our algorithm is the Rational Root Tree Algorithm (Alg.~\ref{alg:circ_roots_rational_form}), which given a polynomial $p(x)$, allows one to compute the angles of the iterated $2^\mathrm{nd}$ roots in 
+One of the novelties of our algorithm is the Rational Root Tree Algorithm (Alg.~\ref{alg:circ_roots_rational_form}), which given a polynomial $p(x)$, allows one to compute the angles of the iterated $2^\mathrm{nd}$ roots in
 \begin{equation*}
  \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Bigg(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Bigg)_{x=0}'=\Bigg(\frac{p'(x)}{p(x)}\Bigg)_{x=0}^{(\ell)}
 \end{equation*}
@@ -97,10 +97,10 @@ This short survey illustrates that the application of the DLG to root-finding, w
 
 
 We set up some basic notation and background: we discuss Dandelin, Lobachevsky, and Gr{\"a}ffe's Formulae in Sec.~\ref{subsec:DLG_form}, properties of the extremal root radii in Sec.~\ref{sestextrrtrd}, and well-known estimates for extremal root radii in Sec.~\ref{subsec:class_est}.
-The reverse of a polynomial $p :=p_0+p_{1}x^1+...+p_dx^d$ is defined as $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$ and for a polynomial $p(x) = \prod_{i \in [d]} (x - x_i)$ where 
-\begin{equation}\label{eqnndcrs} 
+The reverse of a polynomial $p :=p_0+p_{1}x^1+...+p_dx^d$ is defined as $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$ and for a polynomial $p(x) = \prod_{i \in [d]} (x - x_i)$ where
+\begin{equation}\label{eqnndcrs}
  |x_1|\ge|x_2|\ge\cdots\ge |x_{d}|.
- \end{equation} 
+ \end{equation}
 we define $r_i(c,p) = |x_i - c|$ as the root radii $p$ about $c$. We are particular interested in the case where $c = 0$ since we can always reduce to this case (see Sec.~\ref{sestextrrtrd}).
 % %------------------------------------------------------------------------------
 % \subsection{Root radius and root-squaring}\label{srrapp}
@@ -182,7 +182,7 @@ to support fast convergence to the convex hull of the roots.
 % Clean
 
 For $x=0$, the recurrence (\ref{eqdndrt}) can be specialized as follows:
- \begin{equation}\label{eqdndrt0} 
+ \begin{equation}\label{eqdndrt0}
  \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Bigg(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Bigg)_{x=0}'=\Bigg(\frac{p'(x)}{p(x)}\Bigg)_{x=0}^{(\ell)},~\ell=1,2,\dots
 \end{equation}
 Notice an immediate extension:
@@ -225,17 +225,17 @@ Given an algorithm that evaluates a black box polynomial $p(x)$ at a point $x$ o
 %Let $p(x)$ be a polynomial with \emph{roots} $x_1, ..., x_d \in \mathbb{C}$ so that
 %\begin{equation}\label{eqpoly}
 %p(x) = \sum_{i=0}^{d} p_i x^i = p_d \prod_{i=1}^d (x-x_i), \; p_d \neq 0
-%\end{equation} 
+%\end{equation}
 %%with $|x_d| > |x_{d-1}| > \cdots > |x_1|$.
 %
 %
-%The reverse polynomial $p_{\rm rev}$ of $p(x)$ is defined as 
+%The reverse polynomial $p_{\rm rev}$ of $p(x)$ is defined as
 % \begin{equation}\label{eqpolyrev}
 %p_{\rm rev}(x):=x^dp\Big(\frac{1}{x}\Big)=\sum_{i=0}^dp_ix^{d-i},~
 %p_{\rm rev}(x)=p_0\prod_{j=1}^d\Big(x-\frac{1}{x_j}\Big)~{\rm if}~p_0\neq 0.
-%\end{equation} 
+%\end{equation}
 %
-%%We describe some ways to gain insight into the roots $x_1, ..., x_d$ of $p(x)$, by computing the roots themselves and by %establishing the bounds on the extremal root-radii. 
+%%We describe some ways to gain insight into the roots $x_1, ..., x_d$ of $p(x)$, by computing the roots themselves and by %establishing the bounds on the extremal root-radii.
 %
 %%\subsection{ Estimation of extremal root radii}
 %%[from the other paper]
@@ -250,9 +250,9 @@ Given an algorithm that evaluates a black box polynomial $p(x)$ at a point $x$ o
 %
 %
 %Let the  roots of equation $p(x)=0$ satisfy
-%\begin{equation}\label{eqnndcrs} 
+%\begin{equation}\label{eqnndcrs}
 % |x_1|\ge|x_2|\ge\cdots\ge |x_{d-i+1}|>\max_{j>d-i+1}|x_j|.
-% \end{equation} 
+% \end{equation}
 %
 %We use the fact
 % \begin{equation}\label{eqdndrt0}\frac{p_{k}'(0)}{p_{k}(0)}=\Big(\frac{p_{k-1}'(x)}{p_{k-1}(x)}\Big)'_{x=0}=\Big(\frac{p'(x)}{p(x)}\Big)^{(k)}_{x=0},~k=1,2,\dots
@@ -686,6 +686,12 @@ By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) 
  for some polynomials $N_1$ and $N_2$ with $b_0 = p_{\ell}'(0)$. Therefore the limit at zero is once again well-defined.
 \end{proof}
 \subsection{Stability}
+
+\begin{definition}
+If $\tilde f$is an algorithm for computing $f$ we let $\delta f(x) = f(x) - \tilde f (x)$ then the condition number of $\tilde \{ f\} (x)$ at $x$,  $\kappa \{\tilde f\} (x)$ , is given by
+$$ \kappa  \{\tilde f\} (x) = \lim _{\varepsilon \rightarrow 0}\,\sup _{\|\delta x\|\,\leq \,\varepsilon }{\frac {\|\delta f(x)\|}{\|\delta x\|}}
+$$
+\end{definition}
 
 \begin{lemma}
 The (relative) condition number operator $\kappa$ satisfies the following properties:
