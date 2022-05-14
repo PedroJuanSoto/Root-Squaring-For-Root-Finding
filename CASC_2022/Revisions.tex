@@ -642,16 +642,26 @@ By choosing $O(\log d)$ iterations, we keep the number of iterations relatively 
 All experiments were performed using Python 3.7.7 and MPSolve 3.2.1 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory. 
 % How challenging are these polyomials?
 
+\subsection{Observations}
+% how good are these results?
+The overall results support our claims that our root radii approximations perform well when $p(x)$ has no roots extremely close to zero whereas the estimates are poor otherwise. The test results for the \texttt{chebyshev} family of polynomials in Table \ref{tab:chebyshev} demonstrate this trend quite clearly.
+
+In general, the relative errors for the minimal root radius $|x_d|$ is 1.0 or less for roots away from the origin by more than 0.01, with some notable exceptions such as $p(x)  = x^d - h^d$. That is, the difference between the minimal root radius bound we compute and the absolute value of the smallest root $x_d$ tends to be less than $|x_d|$, i.e., $|r_d - |x_d|| \leq |x_d|$. Combined with the bound given in (\ref{eqratio0}) gives us a rough heuristic expectation that $|x_d| \leq r_d \leq 2|x_d|$ if $|x_d| > 0.01$.
+
+The relative errors for the maximal root radius $|x_1|$ for the lower bound $r_1$ reflects a similar trend: The errors are close to 1 when $|x_1|$ is large, showing that in relation to the root radius, our estimate is close to 0, the worst lower bound possible. Since $1/x_1$ the smallest root of $p_{\text{rev}}$, this is essentially the same situation as the root $x_d$ of $p(x)$ being near 0.
+
+Finally, our results demonstrate the consequence of Thm. \ref{eqratiorcp} in Table \ref{tab:nroots} showing the figures for polynomial family \texttt{nroots} of the form $p(x)  = x^d - 1$. The ratio of $|p(0)/p'(0)|$ is infinite, so our algorithm estimates the minimal root radius to be much larger than the actual root radius. On the other hand, the algorithm estimates the maximal root radius to be close to 0 since $|p_{\text{rev}}(0)/p_{\text{rev}}'(0)|$. 
+
 \subsection{Tables}
 The columns of the tables, in order, are
-\begin{itemize} 
+\begin{itemize}
 \item $d$: degree of the input polynomial
-\item $\ell$: number of iterations ($\lfloor \log_2 d \rfloor$)
+\item $\ell$: number of iterations
 \item $e$: $-\log(|x|)$
 \item mp.dps: the \texttt{mpmath} precision level used
 \item the relative errors for the minimum and maximum root radii
 \item total runtime,
-\item the extremal root radii as computed by MPsolve for the particular given polynomial.
+\item the extremal root radii as computed by MPSolve for the particular given polynomial.
 \end{itemize}
 
  The entries `-' in the tables indicate the test was terminated before completion.
@@ -985,7 +995,7 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \begin{tabular}{rccccccc}
 \toprule
 &  &  & mp.-& relative  & relative & run- & mpsolve \\
-$d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \midrule
  7 & 2 & 615 & 331 & 0.368 & 1.0 & 0.01 & $[3.0\text{e-}12, 15.8]$\\
  7 & 2 & 615 & 331 & 0.368 & 1.0 & 0.01 & $[3.0\text{e-}40, 1.0\text{e+}4]$\\
@@ -1008,7 +1018,7 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \begin{tabular}{rccccccc}
 \toprule
 &  &  & mp.-& relative  & relative & run- & mpsolve \\
-$d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \midrule
  9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}6, 251.0]$\\
  9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}20, 1.0\text{e+}8]$\\
@@ -1031,7 +1041,7 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \begin{tabular}{rccccccc}
 \toprule
 &  &  & mp.-& relative  & relative & run- & mpsolve \\
-$d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
+$d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \midrule
  9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}6, 251.0]$\\
  9 & 3 & 616 & 332 & 0.107 & 1.0 & 0.03 & $[1.73\text{e-}20, 1.0\text{e+}8]$\\
@@ -1460,16 +1470,6 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{center}
 \vskip 0.05in
 \end{table}
-\subsection{Observations}
-% how good are these results?
-The overall results support our claims that our root radii approximations perform well when $p(x)$ has no roots extremely close to zero whereas the estimates are poor otherwise. The test results for the \texttt{chebyshev} family of polynomials in Table \ref{tab:chebyshev} demonstrate this trend quite clearly.
-
-In general, the relative errors for the minimal root radius $|x_d|$ is 1.0 or less for roots away from the origin by more than 0.01. That is, the difference between the minimal root radius bound we compute and the absolute value of the smallest root $x_d$ tends to be less than $|x_d|$, i.e., $|r_d - |x_d|| \leq |x_d|$. From this we establish a rough heuristic expectation that $r_d \leq 2|x_d|$ if $|x_d| > 0.01$.
-
-
-%Remarkably, despite the fact $x^n-a^n$ being the worst family of input, as follows from Sec. 3, our implementation performs well for the \texttt{nroots} and \texttt{nrooti} families of polynomials.
-
-
 
 \section{Conclusion}
 
