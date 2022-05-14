@@ -577,7 +577,7 @@ The $Cq $  integer additions, ``multiplications-by-2'', and $ \%2^\epsilon $ (\e
 
 In order to prove Thm.~\ref{thm:lim_correctness} we must first prove Lem.~\ref{lem:lim_correctness}.
 \begin{lemma}\label{lem:lim_correctness}
-   If $p(0) \neq 0$, then the limit $ \lim_{x \to 0}\frac{p_\ell^{\prime}(x)}{p_\ell(x)}$ is always well-defined.
+   If $p(0) \neq 0$, then the limit $   \lim_{ x \to 0 }  \textsc{DLG}(p,p^\prime ,l,x )$ is always well-defined.
    \end{lemma}
 \begin{proof}
 By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) \neq 0$, and thus it suffices to consider the behavior of the numerator in  Eq.~\ref{eqdndrt}. The case $\ell = 1$ follows from an application of L'Hopital's rule. For $\ell \neq 1$, there are two cases: either $\sqrt x~$ divides the numerator of $\frac{p_{\ell}'(\sqrt x~)}{p_{\ell}(\sqrt x~)}$ or it does not. If it does, then we are done since we can once again apply L'Hopital's rule. Otherwise, we get that $p_{\ell}'(\sqrt x~) = c_0+c_1\sqrt x~ + ... +c_k(\sqrt x~)^k$ for some $c_i$ with $c_0 \neq 0$. But then we have
@@ -615,7 +615,7 @@ If $p_\ell(0)\neq 0$, then $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is well-conditione
 \end{proof}
 
 \begin{remark}
-Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is highly stable, in practice, computating this function requires the use of trigonometric functions (\emph{i.e.,} the roots in Alg.~\ref{alg:roots}); therefore, our added precision in Alg..~\ref{alg:circ_roots_rational_form} helps with the instability associated with Alg.~\ref{alg:roots}. Intuitively this helps the instability because the trigonometric functions are the only subroutines in the algorithm that have a non constant condition number and thus, special care must be taken with them; in particular, our algorithm gives a precise value (up to user specified precision) of the angle arguements to these trigonometric functions. 
+Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x)}$ is highly stable, in practice, computating this function requires the use of trigonometric functions (\emph{i.e.,} the roots in Alg.~\ref{alg:roots}); therefore, our added precision in Alg..~\ref{alg:circ_roots_rational_form} helps with the instability associated with Alg.~\ref{alg:roots}. Intuitively this helps the instability because the trigonometric functions are the only subroutines in the algorithm that have a non constant condition number and thus, special care must be taken with them; in particular, our algorithm gives a precise value (up to user specified precision) of the angle arguements to these trigonometric functions.
 \end{remark}
 
 
