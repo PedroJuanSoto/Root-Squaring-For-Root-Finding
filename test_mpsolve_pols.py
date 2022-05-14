@@ -12,6 +12,7 @@ import time
 #mp.precision = 30
 
 # reads in given arguments
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("infile", type=str, help="polynomial file in mpsolve input format")

@@ -192,7 +192,7 @@ def run_tests(poly, roots, r_min, r_max):
     dp_rev = poly.dp_rev
 
     #l = int(math.log2(deg))
-    l = int(math.log2(math.log2(deg)))
+    l = int(math.log2(math.log2(deg))) +1
     #x is the point which defines a line to 0 on which we are taking a limit
     angle = mp.rand()
     x = mp.expjpi(angle*2)
