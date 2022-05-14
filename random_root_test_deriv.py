@@ -1,4 +1,4 @@
-from random_root_poly_gen import *
+from random_root_poly_gen_deriv import *
 import math
 import time
 
@@ -40,7 +40,7 @@ e 				= int((precision + 2**extra_precision)/2)+200
 print("after",mp.mp)
 
 print("l=%s, e=%s" % (l,e))
-approx = div(d,DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l,e))
+approx = div(d,DLG(p,dp,sub(0,mul(x,mp.power(2,-e))),l,e, mp.power(2,-e)))
 print("approx=",mp.fabs(approx))
 real = mp.power(rt,mp.power(2,l))
 print("radius=", mp.fabs(real))
@@ -51,7 +51,7 @@ print("error_root=", mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))
 print("rel_error_root=", int(mul(100,div(mp.fabs(sub(mp.fabs(mp.root(mp.fabs(approx), mp.power(2,l))), mp.fabs(rt))),mp.fabs(rt)))),"%")
 
 print("l=%s, e=%s" % (l,e))
-approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l,e),d)
+approx = div(DLG(p_rev,dp_rev,sub(0,mul(x,mp.power(2,-e))),l,e, mp.power(2,-e)),d)
 print("approx=",mp.fabs(approx))
 real = mp.power(rev_rt,mp.power(2,l))
 print("radius=", mp.fabs(real))
