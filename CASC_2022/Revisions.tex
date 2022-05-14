@@ -70,17 +70,17 @@ New York, NY, USA
 Let $p(x)$ be a polynomial with \emph{roots} $x_1, ..., x_d \in \mathbb{C}$ so that
 \begin{equation}\label{eqpoly}
 p(x) = \sum_{i=0}^{d} p_i x^i = p_d \prod_{i=1}^d (x-x_i), \; p_d \neq 0
-\end{equation} 
+\end{equation}
 %with $|x_d| > |x_{d-1}| > \cdots > |x_1|$.
 
 
-The reverse polynomial $p_{\rm rev}$ of $p(x)$ is defined as 
+The reverse polynomial $p_{\rm rev}$ of $p(x)$ is defined as
  \begin{equation}\label{eqpolyrev}
 p_{\rm rev}(x):=x^dp\Big(\frac{1}{x}\Big)=\sum_{i=0}^dp_ix^{d-i},~
 p_{\rm rev}(x)=p_0\prod_{j=1}^d\Big(x-\frac{1}{x_j}\Big)~{\rm if}~p_0\neq 0.
-\end{equation} 
+\end{equation}
 
-%We describe some ways to gain insight into the roots $x_1, ..., x_d$ of $p(x)$, by computing the roots themselves and by establishing the bounds on the extremal root-radii. 
+%We describe some ways to gain insight into the roots $x_1, ..., x_d$ of $p(x)$, by computing the roots themselves and by establishing the bounds on the extremal root-radii.
 
 %\subsection{ Estimation of extremal root radii}
 %[from the other paper]
@@ -95,9 +95,9 @@ for a fixed positive integer $\ell$.
 TODO: description of the DLG root-finder, including the following key expressions:
 
 Let the  roots of equation $p(x)=0$ satisfy
-\begin{equation}\label{eqnndcrs} 
+\begin{equation}\label{eqnndcrs}
  |x_1|\ge|x_2|\ge\cdots\ge |x_{d-i+1}|>\max_{j>d-i+1}|x_j|.
- \end{equation} 
+ \end{equation}
 
 We use the fact
  \begin{equation}\label{eqdndrt0}\frac{p_{k}'(0)}{p_{k}(0)}=\Big(\frac{p_{k-1}'(x)}{p_{k-1}(x)}\Big)'_{x=0}=\Big(\frac{p'(x)}{p(x)}\Big)^{(k)}_{x=0},~k=1,2,\dots
@@ -111,12 +111,12 @@ FG iterations fixes a polynomial $q(x)$ and computes
 q_0(x)=q(x),~q_{i+1}(x^2)= ...
 \end{equation}
 
-TODO: description of the FG root-finder, including the following root radius assumption 
+TODO: description of the FG root-finder, including the following root radius assumption
 
 \begin{equation}\label{eqsprn}
 |x_1|>|x_2|>\cdots>|x_d|.
 \end{equation}
- 
+
 
 The companion paper [] presents the root-finders in more detail.
 
@@ -125,7 +125,7 @@ The companion paper [] presents the root-finders in more detail.
 Given the coefficients of
 $p_i(x)$
 we can reduce the $i$th root-squaring iteration, that is, the computation of
-the coefficients of  $p_{i+1}(x)$, to polynomial multiplication and perform it in $O(d\log(d))$ arithmetic operations.
+the coefficients of  $p_{i+1}(x)$, to polynomial multiplication and perform it in $\mathcal{O}(d\log(d))$ arithmetic operations.
 Unless the positive integer $\ell$ is small, the absolute values of the coefficients
 of $p_{\ell}(x)$ vary  dramatically, and realistically one should either stop because of severe problems of numerical stability or apply the stable algorithm by Gregorio Malajovich and Jorge  P. Zubelli \cite{Malajovich2001OnTG}, which performs a single root-squaring at  arithmetic cost of order $d^2$.
 
@@ -147,57 +147,57 @@ For a black box polynomial $p(x)$, however, we apply DLG iterations without comp
 If we do not know whether assumptions (\ref{eqnndcrs}) and (\ref{eqsprn}) hold, we can apply
  the following well-known bounds on the extremal root radii:
 
- \begin{equation}\label{eqrtrdbndsrev1} 
+ \begin{equation}\label{eqrtrdbndsrev1}
 |x_d|\le d~\Big |\frac{p(0)}{p'(0)}\Big |~{\rm and}~|x_1|\ge \Big |\frac{p'_{\rm rev}(0)}{d~p_{\rm rev}(0)}\Big|.
 \end{equation}
 
-We can deduce these bounds 
+We can deduce these bounds
 from the well-known expression
 \begin{equation}\label{eqratio}
 \frac{p'(x)}{p(x)}=
 \sum_{j=1}^d\frac{1}{x-x_j},
-\end{equation} 
+\end{equation}
 which we can obtain by differentiating the equation
 $p(x)=p_d\prod_{j=1}^d(x-x_j)$.
 
 By extending these bounds to
 the polynomial $p_k(x)$ of Eq. (\ref{eqdnd}) we obtain that
 
- \begin{equation}\label{eqratio0} 
- |x_d|^{2^k}\le d/ 
+ \begin{equation}\label{eqratio0}
+ |x_d|^{2^k}\le d/
 \Big| \Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(k)}\Big|~{\rm and}~|x_1|^{2^k}\ge \frac{1}{d}\Big| \Big(\frac{p'_{\rm rev}(x)}{p_{\rm rev}(x)}\Big)_{x=0}^{(k)}\Big|.
 \end{equation}
 
-Under the 
-assumptions (\ref{eqnndcrs}) for $i=2$ for $p(x)$ and for $p_{\rm rev}(x)$, respectively,  the latter two bounds 
+Under the
+assumptions (\ref{eqnndcrs}) for $i=2$ for $p(x)$ and for $p_{\rm rev}(x)$, respectively,  the latter two bounds
  become sharp as $k$ increases, by virtue of (\ref{eqrtrdbndsrev1}), and next we  argue informally that it tends to be sharp with a high probability under  random root models.
-Indeed, 
+Indeed,
 \begin{equation}\label{eqratiorcp}
 \frac{1}{|x_d|}\le \frac{1}{d}\Big|\frac{p'(c)}{p(c)}\Big|=\frac{1}{d}\Big|\sum_{j=1}^d \frac{1}{c-x_j}\Big|
-\end{equation}  
-by  virtue of 
+\end{equation}
+by  virtue of
 (\ref{eqrtrdbndsrev1}), and so the
- approximation  
+ approximation
 to the root radius $|x_d|$ is poor if and only if severe cancellation occurs in the summation of the $d$ roots, and similarly for the approximation
 of  $r_1(c,p)$. Such a cancellation only occurs for a narrow class of polynomials $p(x)$, with a low  probability if we assume a random root model.
- 
+
  Next we prove, however,  that estimates (\ref{eqrtrdbndsrev1}) and (\ref{eqratio0}) are extremely poor for  worst case inputs.
 \begin{theorem}\label{thrtr}
-The ratios $|\frac{p(0)}{p'(0)}|$ 
+The ratios $|\frac{p(0)}{p'(0)}|$
 and $|\frac{p_{\rm rev}(0)}{p_{\rm rev}'(0)}|$ are infinite for  $p(x)=x^d-h^d$ and $h\neq 0$, while  $|x_d|)=|x_1|=|h|$.
  \end{theorem}
  \begin{proof}
-% \begin{example}\label{exrtr} 
- Observe that 
+% \begin{example}\label{exrtr}
+ Observe that
  the roots $x_j=h\exp(\frac{(j-1){\bf i}}{2\pi d})$ of $p(x)=x^d-h^d$
   for $j=1,2,\dots,d$   are the $d$th roots  of unity up to scaling by $h$.
  \end{proof}
-%Such poor approximations only occur for a %narrow input class.  
+%Such poor approximations only occur for a %narrow input class.
 
-The problem persists for the root radius $r_d(w,p)$  where  $p'(w)$ and  $p'_{\rm rev}(w)$ vanish;  
+The problem persists for the root radius $r_d(w,p)$  where  $p'(w)$ and  $p'_{\rm rev}(w)$ vanish;
  rotation of the variable  $p(x)\leftarrow t(x)=p(ax)$
 for $|a|=1$ does not  fix it but  shifts $p(x)\leftarrow t(x)=p(x-c)$
-for $c\neq 0$ can fix it, thus {\em enhancing the power of  estimates (\ref{eqrtrdbndsrev1}) and (\ref{eqratio0}).} 
+for $c\neq 0$ can fix it, thus {\em enhancing the power of  estimates (\ref{eqrtrdbndsrev1}) and (\ref{eqratio0}).}
 
 \subsection{Classical estimates for extremal root radii}\label{subsec:class_est}
 
@@ -319,7 +319,7 @@ Given an algorithm that evaluates a black box polynomial $p(x)$ at a point $x$ o
 \end{figure}
 
 In this section we present the design of the general algorithm for approximating the root radius given by Eq.~\ref{eqdndrt0}.
-There are two main steps: 1) going down the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:circ_roots_rational_form}, and 2) going up the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:DLG_rational_form}. 
+There are two main steps: 1) going down the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:circ_roots_rational_form}, and 2) going up the rational root tree, \emph{i.e.,} performing Alg.~\ref{alg:DLG_rational_form}.
 The going-down is depicted in Fig.~\ref{fig:rat_roots_tree} and the going-up is depicted in Fig.~\ref{fig:DLG}.
 The other procedures are simple bookkeeping/preprocessing steps in between the two main going-down/going-up steps.
 In particular we
@@ -514,18 +514,18 @@ The former is given by the line ``base\_step[$i$] := $\frac{p^\prime(r_i)}{p(r_i
 The final step in the algorithm is to use Alg. \ref{alg:rational_angle_approx} to compute root radius approximations $r_d$ and $r_1$.
 The procedure is given by Alg.~\ref{alg:DLG_Root_Radius}.
 \begin{algorithm}
-\caption{\textsc{DLG\_Root\_Radius}($p,p^\prime,p_\mathrm{rev},p^\prime_\mathrm{rev},l, \epsilon, \delta $)}
+\caption{\textsc{DLG\_Root\_Radius}($p,p^\prime,p_\mathrm{rev},p^\prime_\mathrm{rev},l, \epsilon, \epsilon' $)}
 \label{alg:DLG_Root_Radius}
 \begin{algorithmic}
 \STATE Uniformly Randomly Generate $x $ in the unit circle
 \STATE $d$ := deg($p$)
-\STATE $r_\mathrm{min} $ := $d/$\textsc{DLG}($p,p^\prime ,l,x\cdot 2^{-\delta}, \epsilon $)
-\STATE $r_\mathrm{max} $ := \textsc{DLG}($p_\mathrm{rev},p^\prime _\mathrm{rev},l,x\cdot 2^{-\delta}, \epsilon$)$/d$
+\STATE $r_\mathrm{min} $ := $d/$\textsc{DLG}($p,p^\prime ,l,x\cdot 2^{-\epsilon}, \epsilon'$)
+\STATE $r_\mathrm{max} $ := \textsc{DLG}($p_\mathrm{rev},p^\prime _\mathrm{rev},l,x\cdot 2^{-\epsilon}, \epsilon'$)$/d$
 \end{algorithmic}
 \end{algorithm}
 The rationale for generating a random $x$ is that there may be roots close to 0 and thus, by taking the limit in certain directions, we avoid these possible poles; in particular, we have that
 \begin{equation}\label{eq:lim_DLG}
-  \lim_{ \delta,\epsilon \to \infty }  \textsc{DLG}(p,p^\prime ,l,x\cdot 2^{-\delta}, \epsilon ) = \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Big(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Big)_{x=0}'=\Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(\ell)},
+  \lim_{ \epsilon',\epsilon \to \infty }  \textsc{DLG}(p,p^\prime ,l,x\cdot 2^{-\epsilon'}, \epsilon ) = \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Big(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Big)_{x=0}'=\Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(\ell)},
 \end{equation}
 for any $x$, if $p(0) \neq 0$ (See Thm~\ref{thm:lim_correctness}).
 
@@ -621,8 +621,8 @@ Even though Thm.~\ref{thm:stability} states that $\frac{p_{\ell}'(x)}{p_{\ell}(x
 
 \section{Experimental Results}
 \subsection{Setup}
-%what are the polynomials used? 
-We now present the results of our experiments in which we compute the bounds on the extremal root radii $|x_1|$ and $|x_d|$ given by \ref{eqrtrdbndsrev1} for the polynomials in the test suite of MPSolve. The test suite covers a number of univariate polynomial families over a range of degrees. (A fuller description of the test suite can be found in \texttt{https://numpi.dm.unipi.it/mpsolve-2.2/mpsolve.pdf}.) 
+%what are the polynomials used?
+We now present the results of our experiments in which we compute the bounds on the extremal root radii $|x_1|$ and $|x_d|$ given by \ref{eqrtrdbndsrev1} for the polynomials in the test suite of MPSolve. The test suite covers a number of univariate polynomial families over a range of degrees. (A fuller description of the test suite can be found in \texttt{https://numpi.dm.unipi.it/mpsolve-2.2/mpsolve.pdf}.)
 
 Given a polynomial $p(x)$ of degree $d$, we use an implementation of DLG iterations that incorporates our algorithm from Section \ref{sec:alg_des} for computing $(p'(x)/p(x))^{(\ell)}$ and in turn compute bounds, or estimates, for root radii, $r_1 = r_{\text{max}}$ and $r_d = r_{\text{min}}$ given by (\ref{eqrtrdbndsrev1}) on extremal root radii $|x_1|$ and $|x_d|$, respectively. The performance of these bounds are evaluated on the \emph{relative error} in comparison to the corresponding root radius computed by MPSolve. That is,
 $$
@@ -631,15 +631,15 @@ $$
 where $|x_i|$ is the minimal or maximal root radius found using MPSolve and $r_i$ is the corresponding estimate for the root radii we compute.
 
 %explain the choices for l and e
-For the parameters, we use $\ell = \lfloor \log_2 d \rfloor$ and 
+For the parameters, we use $\ell = \lfloor \log_2 d \rfloor$ and for the precision we emperically found that
+\begin{equation*}
+e =  2^{\ell/3} + 330
+\end{equation*}
+bits of precision behaved pretty well; however, deducing the theoritically correct values of $e$ would be an interesting future research direction.
 
-[TODO: elaborate on the choice of $e$]. 
+By choosing $\mathcal{O}(\log d)$ iterations, we keep the number of iterations relatively small even when the degree of the polynomial increases. For instance, $\ell = 6$ for $d = \deg(p(x)) = 100$, and when $d$ grows to 6400, we still have $\ell = 12$; likewise, since the number of bits of precision used where $e = 2^{\mathcal{O}(\ell)} = \mathcal{O}(d)$, we have that the precision did not grow too large neither.
 
-By choosing $O(\log d)$ iterations, we keep the number of iterations relatively small even when the degree of the polynomial increases. For instance, $\ell = 6$ for $d = \deg(p(x)) = 100$, and when $d$ grows to 6400, we still have $\ell = 12$.
-
-[TODO: elaborate on the increasing precision mp.dps].
-
-All experiments were performed using Python 3.7.7 and MPSolve 3.2.1 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory. 
+All experiments were performed using Python 3.7.7 and MPSolve 3.2.1 on MacOS 11.6.1 with 2.8 GHz Dual-Core Intel Core i5 with 8 GB memory.
 % How challenging are these polyomials?
 
 \subsection{Observations}
@@ -650,7 +650,7 @@ In general, the relative errors for the minimal root radius $|x_d|$ is 1.0 or le
 
 The relative errors for the maximal root radius $|x_1|$ for the lower bound $r_1$ reflects a similar trend: The errors are close to 1 when $|x_1|$ is large, showing that in relation to the root radius, our estimate is close to 0, the worst lower bound possible. Since $1/x_1$ the smallest root of $p_{\text{rev}}$, this is essentially the same situation as the root $x_d$ of $p(x)$ being near 0.
 
-Finally, our results demonstrate the consequence of Thm. \ref{eqratiorcp} in Table \ref{tab:nroots} showing the figures for polynomial family \texttt{nroots} of the form $p(x)  = x^d - 1$. The ratio of $|p(0)/p'(0)|$ is infinite, so our algorithm estimates the minimal root radius to be much larger than the actual root radius. On the other hand, the algorithm estimates the maximal root radius to be close to 0 since $|p_{\text{rev}}(0)/p_{\text{rev}}'(0)|$. 
+Finally, our results demonstrate the consequence of Thm. \ref{eqratiorcp} in Table \ref{tab:nroots} showing the figures for polynomial family \texttt{nroots} of the form $p(x)  = x^d - 1$. The ratio of $|p(0)/p'(0)|$ is infinite, so our algorithm estimates the minimal root radius to be much larger than the actual root radius. On the other hand, the algorithm estimates the maximal root radius to be close to 0 since $|p_{\text{rev}}(0)/p_{\text{rev}}'(0)|$.
 
 \subsection{Tables}
 The columns of the tables, in order, are
@@ -1498,4 +1498,3 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 
 
 \end{document}
-
