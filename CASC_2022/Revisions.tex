@@ -31,35 +31,40 @@
 %
 \begin{document}
 %
-\title{Fast computation of higher  order derivatives of a black box  function}
+\title{Root-Squaring for Root-Radii Approximation}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-\author{Pedro Soto\inst{1}\orcidID{0000-0002-7120-7362} \and
-Soo Go\inst{2} \and
-Victor Pan\inst{3}}
+\author{
+Soo Go\inst{1} \and
+Victor Pan\inst{2}\and
+Pedro Soto\inst{3}\orcidID{0000-0002-7120-7362}
+}
 %
-\authorrunning{Soto, Go, and Pan}
+\authorrunning{Go, Pan, and Soto}
 % First names are abbreviated in the running head.
 % If there are more than two authors, 'et al.' is used.
 %
-\institute{The Graduate Center, CUNY
-New York, NY, USA \email{psoto@gradcenter.cuny.edu}
-\url{https://pedrojuansoto.github.io/}\\ \and
+\institute{
 The Graduate Center, CUNY
 New York, NY, USA \email{sgo@gradcenter.cuny.edu}\\ \and
 Lehman College, CUNY
 New York, NY, USA
 \
-\email{victor.pan@lehman.cuny.edu}}
+\email{victor.pan@lehman.cuny.edu}
+\\ \and
+The Graduate Center, CUNY
+New York, NY, USA \email{psoto@gradcenter.cuny.edu}
+\url{https://pedrojuansoto.github.io/}
+}
 %
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
 We revisit the classical root-squaring formula of Dandelin-Lobachevsky-Gr{\"a}ffe for polynomials and find new interesting applications to root-finding.
-
+In particular we apply the root-squaring formula of DLG to approximating root radii by computing higher order derivatives of a blackbox rational function.
 \keywords{symbolic-numeric computing \and  root finding \and polynomial algorithms \and computer algebra.}
 \end{abstract}
 %
@@ -689,7 +694,7 @@ By applying induction on Eq. \ref{eqdnd}, we have that $p_l(0) \neq 0$ if $p(0) 
 
 \begin{definition}
 If $\tilde f$is an algorithm for computing $f$ we let $\delta f(x) = f(x) - \tilde f (x)$ then the condition number of $\tilde \{ f\} (x)$ at $x$,  $\kappa \{\tilde f\} (x)$ , is given by
-$$ \kappa  \{\tilde f\} (x) = \lim _{\varepsilon \rightarrow 0}\,\sup _{\|\delta x\|\,\leq \,\varepsilon }{\frac {\|\delta f(x)\|}{\|\delta x\|}}
+$$ \kappa  \{\tilde f\} (x) = \lim _{\varepsilon \rightarrow 0}\,\sup _{\|\delta x\|\,\leq \,\varepsilon }{\frac {\|\delta f(x)\|}{\|\delta x\|}}.
 $$
 \end{definition}
 
