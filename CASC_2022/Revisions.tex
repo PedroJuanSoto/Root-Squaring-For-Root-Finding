@@ -75,7 +75,7 @@ In particular we apply the root-squaring formula of DLG to approximating root ra
 
 \section{Introduction}
 This is our companion submission to CASC 2022,
-but for reviewers' convenience, we make the paper self-contained and repeat some background information from \cite{GPS22b}.
+but for reviewers' convenience, we make the paper self-contained and repeat some background information from \cite{GPS22a} in Section~\ref{srrapp}; everything not in Section~\ref{srrapp} is new material not found in \cite{GPS22a}.
 %changed simultaneously -> independently since there was a span of 10 years from Dandelin's discovery to Gr{\"a}ffe's
 We revisit the famous method for finding roots that was independently discovered by Dandelin, Lobachevsky, and Gr{\"a}ffe and make further progress by applying this identity to the problem of approximating the root radius of a polynomial. (See \cite{10.2307/2310626} for a history of this problem.)
 This is a key step in many subdivision based root-finding algorithms.
@@ -103,7 +103,8 @@ This short survey illustrates that the application of the DLG to root-finding, w
 \section{Background and Motivation}\label{srrapp}
 
 
-We set up some basic notation and background: we discuss Dandelin, Lobachevsky, and Gr{\"a}ffe's Formulae in Sec.~\ref{subsec:DLG_form}, properties of the extremal root radii in Sec.~\ref{sestextrrtrd}, and well-known estimates for extremal root radii in Sec.~\ref{subsec:class_est}.
+We set up some basic notation and background: we discuss Dandelin, Lobachevsky, and Gr{\"a}ffe's Formulae in Sec.~\ref{subsec:DLG_form} adn recall properties of the extremal root radii in Sec.~\ref{sestextrrtrd}.
+ % and well-known estimates for extremal root radii in Sec.~\ref{subsec:class_est}.
 The reverse of a polynomial $p :=p_0+p_{1}x^1+...+p_dx^d$ is defined as $p_\text{rev}:=p_d+p_{d-1}x^1+...+p_0x^d$ and for a polynomial $p(x) = \prod_{i \in [d]} (x - x_i)$ where
 \begin{equation}\label{eqnndcrs}
  |x_1|\ge|x_2|\ge\cdots\ge |x_{d}|.
@@ -192,13 +193,15 @@ For $x=0$, the recurrence (\ref{eqdndrt}) can be specialized as follows:
  \begin{equation}\label{eqdndrt0}
  \frac{p_{{\ell}}'(0)}{p_{\ell}(0)}=\Bigg(\frac{p_{\ell-1}'(x)}{p_{\ell-1}(x)}\Bigg)_{x=0}'=\Bigg(\frac{p'(x)}{p(x)}\Bigg)_{x=0}^{(\ell)},~\ell=1,2,\dots
 \end{equation}
-Notice an immediate extension:
-\begin{equation}\label{eqdndrth} \frac{p_{{\ell}}^{(h)}(0)}{p_{\ell}(0)}=\prod_{g=1}^h\Bigg(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Bigg)_{x=0}^{(\ell)},~h=1,2,\dots.
-\end{equation}
-Eq. (\ref{eqdndrt0}) and more generally (\ref{eqdndrth})
-enable us to  strengthen
+% Notice an immediate extension:
+% \begin{equation}\label{eqdndrth} \frac{p_{{\ell}}^{(h)}(0)}{p_{\ell}(0)}=\prod_{g=1}^h\Bigg(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Bigg)_{x=0}^{(\ell)},~h=1,2,\dots.
+% \end{equation}
+Eq. (\ref{eqdndrt0})
+% and more generally (\ref{eqdndrth})
+enables us to strengthen
 upper estimates in Eq.~\ref{eqrtrdbndsrev1}
-and more generally Eq.~\ref{eq:last_appen} for root radii $r_j(0,p)$   at the origin  because $r_j(0,p_{\ell})=r_j(0,p)^{2^{\ell}}$ for $j=1,\dots,d$ (see  Eq.~\ref{eqrtrdbndsrev1}); we can  approximate the higher order derivatives
+% and more generally Eq.~\ref{eq:last_appen}
+for root radii $r_j(0,p)$   at the origin  because $r_j(0,p_{\ell})=r_j(0,p)^{2^{\ell}}$ for $j=1,\dots,d$ (see  Eq.~\ref{eqrtrdbndsrev1}); we can  approximate the higher order derivatives
 $\Big(\frac{p^{(g)}(x)}{p^{(g-1)}(x)}\Big)^{(\ell)}$
  at $x=0$ by following Remark.~\ref{rem:fin_diff}.
 Besides the listed applications of
@@ -296,11 +299,9 @@ Given an algorithm that evaluates a black box polynomial $p(x)$ at a point $x$ o
 
 If we do not know whether assumptions (\ref{eqnndcrs}) holds, we can apply
  the following well-known bounds on the extremal root radii:
-
  \begin{equation}\label{eqrtrdbndsrev1}
 |x_d|\le d~\Big |\frac{p(0)}{p'(0)}\Big |~{\rm and}~|x_1|\ge \Big |\frac{p'_{\rm rev}(0)}{d~p_{\rm rev}(0)}\Big|.
 \end{equation}
-
 We can deduce these bounds
 from the well-known expression
 \begin{equation}\label{eqratio}
@@ -309,15 +310,12 @@ from the well-known expression
 \end{equation}
 which we can obtain by differentiating the equation
 $p(x)=p_d\prod_{j=1}^d(x-x_j)$.
-
 By extending these bounds to
 the polynomial $p_k(x)$ of Eq. (\ref{eqdnd}) we obtain that
-
- \begin{equation}\label{eqratio0}
+\begin{equation}\label{eqratio0}
  |x_d|^{2^k}\le d/
 \Big| \Big(\frac{p'(x)}{p(x)}\Big)_{x=0}^{(k)}\Big|~{\rm and}~|x_1|^{2^k}\ge \frac{1}{d}\Big| \Big(\frac{p'_{\rm rev}(x)}{p_{\rm rev}(x)}\Big)_{x=0}^{(k)}\Big|.
 \end{equation}
-
 Under the
 assumptions (\ref{eqnndcrs}) for $i=2$ for $p(x)$ and for $p_{\rm rev}(x)$, respectively,  the latter two bounds
  become sharp as $k$ increases, by virtue of (\ref{eqrtrdbndsrev1}), and next we  argue informally that it tends to be sharp with a high probability under  random root models.
@@ -351,52 +349,52 @@ The problem persists for the root radius $r_d(w,p)$  where  $p'(w)$ and  $p'_{\r
 for $|a|=1$ does not  fix it but  shifts $p(x)\leftarrow t(x)=p(x-c)$
 for $c\neq 0$ can fix it, thus {\em enhancing the power of  estimates (\ref{eqrtrdbndsrev1}) and (\ref{eqratio0}).}
 
-\subsection{Classical estimates for extremal root radii}\label{subsec:class_est}
-
-Next we recall some non-costly estimates known for the extremal root radii $r_{1}=r_{1}(0, p)$ and $r_{d}=r_{d}(0, p)$ in terms of the coefficients of $p$ (cf. \cite{kerimov1977applied}, \cite{mignotte1999polynomials}, and \cite{yap2000fundamental}) and the two parameters
-\begin{equation}\label{eq:radii_at_origin_1}
-\tilde{r}_{-}:=\min _{i \geq 1}\left|\frac{p_{0}}{p_{i}}\right|^{\frac{1}{i}}, \tilde{r}_{+}:=\max _{i \geq 1}\left|\frac{p_{d-i}}{p_{d}}\right|^{\frac{1}{i}}
-\end{equation}
-These bounds on $r_{1}$ and $r_{d}$ hold in dual pairs since $r_{1}(0, p) r_{d}\left(0, p_{\text {rev }}\right)=1$.
-% (see equation (8) for $j=1$ ).
-Furthermore, we have that
-\begin{equation}\label{eq:radii_at_origin_2}
-\frac{1}{d} \tilde{r}_{+} \leq r_{1}<2 \tilde{r}_{+}, \frac{1}{2} \tilde{r}_{-} \leq r_{d} \leq d \tilde{r}_{-},
-\end{equation}
-\begin{equation}\label{eq:radii_at_origin_3}
-\tilde{r}_{+} \sqrt{\frac{2}{d}} \leq r_{1} \leq \frac{1+\sqrt{5}}{2} \tilde{r}_{+}<1.62 \tilde{r}_{+} \text { if } p_{d-1}=0,
-\end{equation}
-\begin{equation}\label{eq:radii_at_origin_4}
-0.618 \tilde{r}_{-}<\frac{2}{1+\sqrt{5}} \tilde{r}_{-} \leq r_{d} \leq \sqrt{\frac{d}{2}} \tilde{r}_{-} \text { if } p_{1}=0,
-\end{equation}
-\begin{equation}\label{eq:radii_at_origin_5}
-r_{1} \leq 1+\sum_{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|, \frac{1}{r_{d}} \leq 1+\sum_{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right| .
-\end{equation}
-$M(p):=\left|p_{d}\right| \max _{j=1}^{d}\left\{1,\left|x_{j}\right|\right\}$ is said to be the Mahler measure of $p$, and so $M\left(p_{\text {rev }}\right):=\left|p_{0}\right| \max _{j=1}^{d}\left\{1, \frac{1}{\left|x_{j}\right|}\right\} .$ It holds that
-\begin{equation}\label{eq:radii_at_origin_6}
-r_{1}^{2} \leq \frac{M(p)^{2}}{\left|p_{d}\right|} \leq \max _{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|^{2}, \frac{1}{r_{d}^{2}} \leq \frac{M\left(p_{\mathrm{rev}}\right)^{2}}{\left|p_{0}\right|^{2}} \leq \max _{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right|^{2}
-\end{equation}
-%Thm 167 - rel error bound 4d
-It is shown in \cite{imbach2021rootradii} that we can get a very fast approximation of all root radii of $p$ at the origin at a very low cost, which complements the estimates \ref{eq:radii_at_origin_1}, \ref{eq:radii_at_origin_2} \ref{eq:radii_at_origin_3}, \ref{eq:radii_at_origin_4}, \ref{eq:radii_at_origin_5}, and \ref{eq:radii_at_origin_6}.
-
-% Part 3.2 Background
-
-One can extend all these bounds to the estimates for the root radii $r_{j}(c, p)$ for any fixed complex $c$ and all $j$ by observing that $r_{j}(c, p)=r_{j}(0, t)$ for the polynomial $t(x)=p(x-c)$ and applying Taylor's shift; \emph{i.e.,} applying the mapping $\mathcal{S}_{c ,\rho }:p(x) \mapsto p\left( \frac{x - c}{\rho} \right)$.
-
-The algorithms in Sec.~\ref{sec:alg_des} closely approximate root radii $r_{j}(c, p)$ for a black box polynomial $p$ and a complex point $c$ at reasonably low cost, but the next well-known upper bounds on $r_{d}$ and lower bounds on $r_{1}$ (cf. \cite{kerimov1977applied},\cite{carstensen1991inclusion},\cite{pan2000approximating},\cite{bini2000design}, and \cite{bini2014solving}) are computed at even a lower cost, defined by a single fraction $\frac{p_{0}}{p_{i}}$ or $\frac{p_{d-i}}{p_{d}}$ for any $i$, albeit these bounds are excessively large for the worst case input.
-Finally, we have that
-$r_{d} \leq \rho_{i,-}:=\left(\left(\begin{array}{c}d \\ i\end{array}\right)\left|\frac{p_{0}}{p_{i}}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}:=\left(\left(\begin{array}{l}d \\ i\end{array}\right)\left|\frac{p_{d}}{p_{d-i}}\right|\right)^{\frac{1}{i}}$
-and therefore, since $p^{(i)}(0)=i ! p_{i} \text { for all } i>0$, that
-\begin{equation}\label{eq:last_appen}
-r_{d} \leq \rho_{i,-}=\left(i !\left(\begin{array}{c}
-d \\
-i
-\end{array}\right)\left|\frac{p(0)}{p^{(i)}(0)}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}=\left(i !\left(\begin{array}{c}
-d \\
-i
-\end{array}\right)\left|\frac{p_{\text {rev }}(0)}{p_{\text {rev }}^{(i)}(0)}\right|\right)^{\frac{1}{i}}
-\end{equation}
-for all $i$; from which we obtain relations \ref{eqrtrdbndsrev1} for $i=1$.
+% \subsection{Classical estimates for extremal root radii}\label{subsec:class_est}
+%
+% Next we recall some non-costly estimates known for the extremal root radii $r_{1}=r_{1}(0, p)$ and $r_{d}=r_{d}(0, p)$ in terms of the coefficients of $p$ (cf. \cite{kerimov1977applied}, \cite{mignotte1999polynomials}, and \cite{yap2000fundamental}) and the two parameters
+% \begin{equation}\label{eq:radii_at_origin_1}
+% \tilde{r}_{-}:=\min _{i \geq 1}\left|\frac{p_{0}}{p_{i}}\right|^{\frac{1}{i}}, \tilde{r}_{+}:=\max _{i \geq 1}\left|\frac{p_{d-i}}{p_{d}}\right|^{\frac{1}{i}}
+% \end{equation}
+% These bounds on $r_{1}$ and $r_{d}$ hold in dual pairs since $r_{1}(0, p) r_{d}\left(0, p_{\text {rev }}\right)=1$.
+% % (see equation (8) for $j=1$ ).
+% Furthermore, we have that
+% \begin{equation}\label{eq:radii_at_origin_2}
+% \frac{1}{d} \tilde{r}_{+} \leq r_{1}<2 \tilde{r}_{+}, \frac{1}{2} \tilde{r}_{-} \leq r_{d} \leq d \tilde{r}_{-},
+% \end{equation}
+% \begin{equation}\label{eq:radii_at_origin_3}
+% \tilde{r}_{+} \sqrt{\frac{2}{d}} \leq r_{1} \leq \frac{1+\sqrt{5}}{2} \tilde{r}_{+}<1.62 \tilde{r}_{+} \text { if } p_{d-1}=0,
+% \end{equation}
+% \begin{equation}\label{eq:radii_at_origin_4}
+% 0.618 \tilde{r}_{-}<\frac{2}{1+\sqrt{5}} \tilde{r}_{-} \leq r_{d} \leq \sqrt{\frac{d}{2}} \tilde{r}_{-} \text { if } p_{1}=0,
+% \end{equation}
+% \begin{equation}\label{eq:radii_at_origin_5}
+% r_{1} \leq 1+\sum_{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|, \frac{1}{r_{d}} \leq 1+\sum_{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right| .
+% \end{equation}
+% $M(p):=\left|p_{d}\right| \max _{j=1}^{d}\left\{1,\left|x_{j}\right|\right\}$ is said to be the Mahler measure of $p$, and so $M\left(p_{\text {rev }}\right):=\left|p_{0}\right| \max _{j=1}^{d}\left\{1, \frac{1}{\left|x_{j}\right|}\right\} .$ It holds that
+% \begin{equation}\label{eq:radii_at_origin_6}
+% r_{1}^{2} \leq \frac{M(p)^{2}}{\left|p_{d}\right|} \leq \max _{i=0}^{d-1}\left|\frac{p_{i}}{p_{d}}\right|^{2}, \frac{1}{r_{d}^{2}} \leq \frac{M\left(p_{\mathrm{rev}}\right)^{2}}{\left|p_{0}\right|^{2}} \leq \max _{i=1}^{d}\left|\frac{p_{i}}{p_{0}}\right|^{2}
+% \end{equation}
+% %Thm 167 - rel error bound 4d
+% It is shown in \cite{imbach2021rootradii} that we can get a very fast approximation of all root radii of $p$ at the origin at a very low cost, which complements the estimates \ref{eq:radii_at_origin_1}, \ref{eq:radii_at_origin_2} \ref{eq:radii_at_origin_3}, \ref{eq:radii_at_origin_4}, \ref{eq:radii_at_origin_5}, and \ref{eq:radii_at_origin_6}.
+%
+% % Part 3.2 Background
+%
+% One can extend all these bounds to the estimates for the root radii $r_{j}(c, p)$ for any fixed complex $c$ and all $j$ by observing that $r_{j}(c, p)=r_{j}(0, t)$ for the polynomial $t(x)=p(x-c)$ and applying Taylor's shift; \emph{i.e.,} applying the mapping $\mathcal{S}_{c ,\rho }:p(x) \mapsto p\left( \frac{x - c}{\rho} \right)$.
+%
+% The algorithms in Sec.~\ref{sec:alg_des} closely approximate root radii $r_{j}(c, p)$ for a black box polynomial $p$ and a complex point $c$ at reasonably low cost, but the next well-known upper bounds on $r_{d}$ and lower bounds on $r_{1}$ (cf. \cite{kerimov1977applied},\cite{carstensen1991inclusion},\cite{pan2000approximating},\cite{bini2000design}, and \cite{bini2014solving}) are computed at even a lower cost, defined by a single fraction $\frac{p_{0}}{p_{i}}$ or $\frac{p_{d-i}}{p_{d}}$ for any $i$, albeit these bounds are excessively large for the worst case input.
+% Finally, we have that
+% $r_{d} \leq \rho_{i,-}:=\left(\left(\begin{array}{c}d \\ i\end{array}\right)\left|\frac{p_{0}}{p_{i}}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}:=\left(\left(\begin{array}{l}d \\ i\end{array}\right)\left|\frac{p_{d}}{p_{d-i}}\right|\right)^{\frac{1}{i}}$
+% and therefore, since $p^{(i)}(0)=i ! p_{i} \text { for all } i>0$, that
+% \begin{equation}\label{eq:last_appen}
+% r_{d} \leq \rho_{i,-}=\left(i !\left(\begin{array}{c}
+% d \\
+% i
+% \end{array}\right)\left|\frac{p(0)}{p^{(i)}(0)}\right|\right)^{\frac{1}{i}}, \frac{1}{r_{1}} \leq \frac{1}{\rho_{i,+}}=\left(i !\left(\begin{array}{c}
+% d \\
+% i
+% \end{array}\right)\left|\frac{p_{\text {rev }}(0)}{p_{\text {rev }}^{(i)}(0)}\right|\right)^{\frac{1}{i}}
+% \end{equation}
+% for all $i$; from which we obtain relations \ref{eqrtrdbndsrev1} for $i=1$.
 
 
 
@@ -408,14 +406,12 @@ for all $i$; from which we obtain relations \ref{eqrtrdbndsrev1} for $i=1$.
   \centering
   \includegraphics[width=0.8\linewidth]{rational_root_tree.png}
   \caption{The upper tree depicts the steps of \textsc{\textsc{Circle\_Roots\_Rational\_Form}}($p,q,l$) in Alg.\ref{alg:circ_roots_rational_form} for $l=2$, $p=1$, and $q=1$. The lower tree depicts the steps of \textsc{Roots}($r,t,u,l$) in Alg.\ref{alg:roots} for $r=2$, $l=2$, $p=1$, and $q=1$}\label{fig:rat_roots_tree}
-  \caption{}
 \end{figure}
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\linewidth]{p_prime.png}
   \caption{The steps of \textsc{DLG\_Rational\_Form}($p,p^\prime,r,t,u,l$) in Alg.\ref{alg:DLG_rational_form} for $r=2$, $l=2$, $t=1$, and $u=1$.}\label{fig:DLG}
-  \caption{}
 \end{figure}
 
 In this section we present the design of the general algorithm for approximating the root radius given by Eq.~\ref{eqdndrt0}.
@@ -739,9 +735,11 @@ where $|x_i|$ is the minimal or maximal root radius found using MPSolve and $r_i
 
 %explain the choices for l and e
 For the parameters, we use $\ell = \lfloor \log_2 d \rfloor$ and for the precision we emperically found that
-\begin{equation*}
+$
+% \begin{equation*}
 e =  2^{\ell/3} + 330
-\end{equation*}
+% \end{equation*}
+$
 bits of precision behaved pretty well; however, deducing the theoritically correct values of $e$ would be an interesting future research direction.
 
 By choosing $\mathcal{O}(\log d)$ iterations, we keep the number of iterations relatively small even when the degree of the polynomial increases. For instance, $\ell = 6$ for $d = \deg(p(x)) = 100$, and when $d$ grows to 6400, we still have $\ell = 12$; likewise, since the number of bits of precision used where $e = 2^{\mathcal{O}(\ell)} = \mathcal{O}(d)$, we have that the precision did not grow too large neither.
@@ -760,24 +758,25 @@ The relative errors for the maximal root radius $|x_1|$ for the lower bound $r_1
 Finally, our results demonstrate the consequence of Thm. \ref{eqratiorcp} in Table \ref{tab:nroots} showing the figures for polynomial family \texttt{nroots} of the form $p(x)  = x^d - 1$. The ratio of $|p(0)/p'(0)|$ is infinite, so our algorithm estimates the minimal root radius to be much larger than the actual root radius. On the other hand, the algorithm estimates the maximal root radius to be close to 0 since $|p_{\text{rev}}(0)/p_{\text{rev}}'(0)|$ = 0.
 
 \subsection{Tables}
-The columns of the tables, in order, are
-\begin{itemize}
-\item $d$: degree of the input polynomial
-\item $\ell$: number of iterations
-\item $e$: $-\log(|x|)$
-\item mp.dps: the \texttt{mpmath} precision level used
-\item the relative errors for the minimum and maximum root radii
-\item total runtime,
-\item the extremal root radii as computed by MPSolve for the particular given polynomial.
-\end{itemize}
+The columns of the tables, in order, are respectively:
+% \begin{itemize}
+$d$: degree of the input polynomial,
+$\ell$: number of iterations,
+$e$: $-\log(|x|)$,
+mp.dps: the \texttt{mpmath} precision level used,
+the relative errors for the minimum and maximum root radii,
+total runtime,
+the extremal root radii as computed by MPSolve for the particular given polynomial.
+% \end{itemize}
 
  The entries `-' in the tables indicate the test was terminated before completion.
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{chebyshev}} % Chebyshev}
 \vskip -0.15in\label{tab:chebyshev}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -797,12 +796,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{chrma}} %  chromatic polynomial (zero root removed) kind a}
 \vskip -0.15in\label{tab:chrma}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -820,13 +820,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{chrma\_d}} % chromatic polynomial deflated: a}
 \vskip -0.15in\label{tab:chrma_d}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -844,13 +845,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{chrmc}} %  chromatic polynomial (zero root removed) kind c}
 \vskip -0.15in\label{tab:chrmc}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -867,13 +869,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$  & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{chrmc\_d}} % chromatic polynomial deflated, kind c}
 \vskip -0.15in\label{tab:chrmc_d}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -892,13 +895,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{curz}} % Curz}
 \vskip -0.15in\label{tab:curz}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -917,13 +921,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{easy}} % Easy}
 \vskip -0.15in\label{tab:easy}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -943,13 +948,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{exp}} % Exp}
 \vskip -0.15in\label{tab:exp}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -968,12 +974,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{geom1}} % Geom1}
 \vskip -0.15in\label{tab:geom1}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -992,12 +999,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{geom2}} % Geom2}
 \vskip -0.15in\label{tab:geom2}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1016,12 +1024,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{geom3}} % Geom3}
 \vskip -0.15in\label{tab:geom3}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1040,13 +1049,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{geom4}} % Geom4}
 \vskip -0.15in\label{tab:geom4}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1065,12 +1075,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{hermite}} % Hermite}
 \vskip -0.15in\label{tab:hermite}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1090,12 +1101,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{kam1}} % Kam1}
 \vskip -0.15in\label{tab:kam1}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1113,13 +1125,14 @@ $d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{kam2}} % Kam2}
 \vskip -0.15in
 \label{tab:kam2}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1137,12 +1150,13 @@ $d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{kam3}} % Kam3}
 \vskip -0.15in\label{tab:kam3}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1160,12 +1174,13 @@ $d$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{kir1}} % Kir1}
 \label{tab:kir1}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1184,12 +1199,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{kir1\_mod}} % Kir1 mod}
 \label{tab:kir1_mod}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1207,13 +1223,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{lagurerre}} %  Lagurerre }
 \label{tab:lagurerre}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1233,12 +1250,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{lar1}} % Lar1}
 \label{tab:lar1}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1255,12 +1273,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{legendre}} % Legendre}
 \label{tab:legendre}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1280,12 +1299,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{lsr}} % LSR} %polynomial having roots with very large and very small moduli
 \label{tab:lsr}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1308,12 +1328,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{mand}} % Mand}
 \label{tab:mand}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1336,14 +1357,15 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.13in \end{table}
 
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{mig1}} % Mig1}
 \label{tab:mig1}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1366,13 +1388,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{mult}} % Mult}
 \label{tab:mult}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1391,13 +1414,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{nroots}} % $x^n - 1$}
 \label{tab:nroots}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1420,12 +1444,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{nrooti}} % $x^n - i$}
 \label{tab:nrooti}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1448,12 +1473,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{sendra}} %  Sendra}
 \label{tab:sendra}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1473,12 +1499,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{sparse}}
 \label{tab:sparse}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1498,12 +1525,13 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{spiral}} %  Spiral}
 \label{tab:spiral}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1523,15 +1551,16 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{toep}} % Toeplitz}
 \label{tab:toep}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1550,13 +1579,14 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
 
 \begin{table}
+\vskip -0.1775in
 \caption{Experimental Data for \texttt{wilk}} % Wilk}
 \label{tab:wilk}
-\vskip -0.15in
+\vskip -0.0000005in
 \begin{center}
 \begin{small}
 \begin{sc}
@@ -1577,9 +1607,8 @@ $d~$& $\ell$& $e$ & dps&error $r_d$       & error $r_1$ &time& root radius\\
 \end{small}
 \end{center}
 \vskip -0.15in
-\end{table}
+\vskip 0.073in \end{table}
 
-\section{Conclusion}
 
 
 %%
