@@ -66,7 +66,7 @@ New York, NY, USA \email{psoto@gradcenter.cuny.edu}
 \begin{abstract}
 Motivated by the extensive work in the companion paper \cite{GPS22a}  submitted to CASC,
 we devised, analyzed and tested numerically an algorithm
-for computing a $k$th order derivative of the ratio $p'{x}/p(x)$ for a black box univariate polynomial $p(x)$ -- given by a black box for its evaluation.
+for computing a $k$th order derivative of the ratio $\frac{p'(x)}{p(x)}$ for a black box univariate polynomial $p(x)$ -- given by a black box for its evaluation.
 This is an alternative to the algorithm in \cite{GPS22a}, which also works for a black box univariate polynomial $p(x)$.
 \keywords{symbolic-numeric computing \and  root finding \and polynomial algorithms \and computer algebra.}
 \end{abstract}
@@ -76,7 +76,7 @@ This is an alternative to the algorithm in \cite{GPS22a}, which also works for a
 %changed simultaneously -> independently since there was a span of 10 years from Dandelin's discovery to Gr{\"a}ffe's
 
 \section{Introduction}
-Our subject is a  novel efficient algorithm for the computation of ratio $p'{x}/p(x)$ for a black box univariate polynomial $p(x)$ -- given by a black box for its evaluation. This goal was
+Our subject is a  novel efficient algorithm for the computation of ratio $\frac{p'(x)}{p(x)}$ for a black box univariate polynomial $p(x)$ -- given by a black box for its evaluation. This goal was
 motivated by the discovery in our companion submission to  CASC \cite{GPS22a} of the reduction to this problem of the classic root-squaring DLG iterations by   Dandelin 1826, Loba\-chevsky 1834,  Gr{\"a}ffe 1837(cf. \cite{10.2307/2310626}).
 For the sake of completeness
 of our exposition we reproduce the relevant material from \cite{GPS22a}
@@ -89,10 +89,15 @@ The main method for root-finding by root-squaring was independently discovered b
 The work \cite{Malajovich2001OnTG} also considers root-finding using Eq.~\ref{eqdnd} and further states that the DLG method becomes very unstable for more than 2 iterations; by contrast, as we will see in Sec.~\ref{sec:exp}, our algorithm performs reasonably well for as many iterations as $12$. The same authors went on to design a variation of the DLG root-finding algorithm that makes use of different renormalizations and other preprocessing transformations for DLG root finding in \cite{Malajovich2001TangentGI}, and the work also proves convergence results for their DLG iterative algorithm.
 
 The authors of \cite{Bialas2010GeneralizationOV} consider DLG based algorithms for the solutions of fractional-order polynomials, \emph{i.e.,} generalized polynomials that have rational exponents. In \cite{Hoeven2011EfficientRC} the authors apply the DLG formulae to root counting.
-The authors of \cite{Grenet2015DeterministicRF} apply the DLG formulae to solving polynomials over finite fields. The authors of \cite{Becker2018ANS} apply DLG iterations to the benchmark problem (\emph{i.e.}, the isolation of the roots of a polynomials, See Sec. \ref{srrapp}) to improve upon the record bound in \cite{pan2002univariate} which at the time was unbroken for 14 years.
+The authors of \cite{Grenet2015DeterministicRF} apply the DLG formulae to solving polynomials over finite fields. The authors of \cite{Becker2018ANS} apply DLG iterations to the benchmark problem (\emph{i.e.}, the isolation of the roots of a polynomials, See Sec. \ref{srrapp}) which they claim is comparable to the record bound in \cite{pan2002univariate} which at the time was unbroken for 14 years.
 
 
-This short survey illustrates that the application of the DLG to root-finding, while more than a century old, is still an interesting research topic. One of the novelties and improvements of our algorithms is to consider the identities given by Eq.~\ref{eqdndrt}, instead of the usual Eq.~\ref{eqdnd}, to approximate the root radius. Furthermore, we show that, contrary to intuition, our algorithm is numerically stable and well-behaved when taking the limit of Eq.~\ref{eqdndrt} to 0.
+This short survey illustrates that the application of the DLG to root-finding, while more than a century old, is still an interesting research topic. One of the novelties and improvements of our algorithms is to
+% consider the identities given by Eq.~\ref{eqdndrt}, instead of the usual Eq.~\ref{eqdnd}, to approximate the root radius.
+devise, analyze and numerically test an algorithm
+for computing a $k$th order derivative of the ratio $\frac{p'(x)}{p(x)}$ for a black box univariate polynomial $p(x)$ -- given by a black box for its evaluation.
+This is an alternative to the algorithm in \cite{GPS22a}, which also works for a black box univariate polynomial $p(x)$.
+Furthermore, we show that, contrary to intuition, our algorithm is numerically stable and well-behaved when taking the limit of Eq.~\ref{eqdndrt} to 0.
 
 
 
