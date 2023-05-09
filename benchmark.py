@@ -11,10 +11,9 @@ import sum_methods as sm
 import DLG_alg_mpmath as dlg
 
 #SETTINGS
-COEFF_PREC = 300
+COEFF_PREC = 200
 TEST_PREC = 200
 PRINT_PREC = 3
-NUM_LOOPS = 1
 
 #Polynomial class to store function details
 class Polynomial:
@@ -170,19 +169,8 @@ def get_bound(poly, l, roots, r_min, mpsolve_time, pol_family=None):
     dlg_out = mp.fabs(dlg_out)
     d_rd, d_rd_err = get_numbers(poly, dlg_out, r_min, poly.deg, 2**l)
     
-    #print("%s, %s, %s, %s, %s\\\\ %%csv_r_dlg" % (pol_family, poly.deg, l, mp.nstr(d_rd_err, PRINT_PREC), round(dlg_time, 5)))
-
-    #print("& %s \t& %s \t& %s \t& %s \t& %s \t& %s \\\\ %%dlg_table" % (poly.deg, l, mp.nstr(r_min, PRINT_PREC-1), mp.nstr(d_rd_err,PRINT_PREC), round(dlg_time, PRINT_PREC), round(mpsolve_time, PRINT_PREC)))
-
     return d_rd, d_rd_err
 
-def run_tests(poly, roots, r_min, mpsolve_time, pol_family=None):
-    L = ceil(log2(log2(poly.deg)))
-    print("using ceil(loglog d) for h")
-
-    for l in range(L,L+NUM_LOOPS):
-        k = 2**l
-        rd_bd, rd_err = get_bound(poly, l, k, roots, r_min, mpsolve_time, pol_family=pol_family)
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -199,22 +187,6 @@ def main():
 
     ##for precision, adjust this following line
     mp.mp.dps = TEST_PREC
-    print("decimal precision used: %s" % mp.mp.dps)
-    print("bit precision used: %s" % mp.mp.prec)
-
-    pol_name = pol_file.split('/')[-1].split('.')[0]
-    pol_pat = '([a-z]+)[0-9]+$'
-    if '_' in pol_name:
-        part1, part2 = pol_name.split('_')[:2]
-        m = re.match(pol_pat, part2)
-        if m:
-            pol_family = part1 + '_' + m.groups()[0]
-        else: 
-            pol_family = part1
-    else:
-        pol_family = re.match(pol_pat, pol_name).groups()[0]
-
-    #run_tests(poly, roots, r_min, mpsolve_time)
 
     l = ceil(log2(log2(poly.deg)))
     rd_bd, rd_err = get_bound(poly, l, roots, r_min, mpsolve_time)
