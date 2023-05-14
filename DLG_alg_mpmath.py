@@ -1,4 +1,5 @@
 import mpmath as mp
+from math import log2
 
 mp.mp.dps = 30
 precision = 30
@@ -8,7 +9,7 @@ sub = lambda x,y : mp.fsub(x, y, exact = True)
 mul = lambda x,y : mp.fmul(x, y, exact = True)
 div = lambda x,y : mp.fdiv(x, y) #dps = precision)
 pod = lambda x,y : mp.power(x, y)
-mpf = lambda x   : mp.mpf(x)    #dps = precision)
+mpf = lambda x	 : mp.mpf(x)		#dps = precision)
 mpc = lambda x,y : mp.mpc( mpf(x), mpf(y))
 
 #the input to this function is a representation
@@ -37,12 +38,12 @@ def circ_neg(p,q):
 #and y_i = e^{2*pi*i*(r_i/s_i)} implies y_i^{2^l} = x
 #with the r_i,s_i ordered according to the DLG recursion
 def circ_roots_rational_form(p,q,l):
-	r, s  = circ_sq_root(p,q)
-	t, u  = circ_neg(r,s)
+	r, s	= circ_sq_root(p,q)
+	t, u	= circ_neg(r,s)
 	if l == 1:
 		return [(r,s),(t,u)]
 	elif l != 0:
-		left  = circ_roots_rational_form(r,s,l-1)
+		left	= circ_roots_rational_form(r,s,l-1)
 		right = circ_roots_rational_form(t,u,l-1)
 		left.extend(right)
 		return left
@@ -76,8 +77,8 @@ def circ_roots(p,q,l):
 #so that roots(r,t,u,l) = y_1,...,y_{2^l} where y_i^{2^l} = x
 #with the y_i ordered according to the DLG recursion
 def roots(r,t,u,l):
-	circ_root       = circ_roots(t,u,l)
-	r_root          = mp.root(r,2**l)
+	circ_root				= circ_roots(t,u,l)
+	r_root					= mp.root(r,2**l)
 	return [mul(r_root, root) for root in circ_root]
 
 #the input to this function is a black box polynomial p, its derivative p',
@@ -85,9 +86,13 @@ def roots(r,t,u,l):
 #so that circ_DLG(p,dp,r,t,u,l) = (1/2z) p'_i(z)/p_i(z) - p'_i(z)/p_i(z) were
 #z = x^(-1/2); i.e., circ_DLG(p,dp,r,t,u,l) = "the l^th difference of p'/p at x"
 def DLG_rational_form(p,dp,r,t,u,l):
-	root       = roots(r,t,u,l)
-	base_step  = [div(dp(r),p(r)) for r in root]
-	derivs     = [base_step]
+	root			 = roots(r,t,u,l)
+
+	#alternate: divided diff approach
+	pvals = [p(root[i]) for i in range(len(root))]
+	delta = 2**-(mp.mp.prec//(2*log2(len(root)-1)))
+	base_step = [div(sub(pvals[i], p(sub(root[i],delta))), mul(pvals[i], delta)) for i in range(len(root))]
+	derivs		 = [base_step]
 	for i in range(l):
 		derivs.append([])
 		for j in range(2**(l-i-1)):
@@ -101,7 +106,7 @@ def DLG_rational_form(p,dp,r,t,u,l):
 #z = x^(-1/2); i.e., circ_DLG(p,dp,r,t,u,l) = "the l^th difference of p'/p at x"
 def DLG(p,dp,x,l,epsilon):
 	angle = mp.arg(x)
-	u     = pod(2,epsilon)
-	t     = mp.fmod(angle,pod(2,-epsilon))
-	r     = mpf(mp.fabs(x))
+	u			= pod(2,epsilon)
+	t			= mp.fmod(angle,pod(2,-epsilon))
+	r			= mpf(mp.fabs(x))
 	return DLG_rational_form(p,dp,r,t,u,l)

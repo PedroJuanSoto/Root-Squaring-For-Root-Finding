@@ -8,12 +8,11 @@ import time
 from math import factorial, log2, ceil
 import mpmath as mp
 import sum_methods as sm
-import DLG_alg_mpmath as dlg
+import DLG_alg as dlg
 
 #SETTINGS
 COEFF_PREC = 200
 TEST_PREC = 200
-PRINT_PREC = 3
 
 #Polynomial class to store function details
 class Polynomial:
@@ -155,22 +154,24 @@ def get_numbers(poly, rootsum, r_min, d, k):
 #accuracy test against MPSolve
 def get_bound(poly, l, roots, r_min, mpsolve_time, pol_family=None):
     start_time = time.time()
-    #x is the point which defines a line to 0 on which we are taking a limit
-    angle = mp.rand()
   
     #default DLG eval precision
     e = int(mp.mp.prec*0.95)
+    angle = mp.rand()
     x = mp.expjpi(angle*2)
     x = mp.fsub(0,mp.fmul(x,mp.power(2,-e)))
 
     dlg_out = dlg.DLG(poly.p, poly.dp, x, l, e) #sum 1/x_i, use for x_d. 
-    dlg_time = time.time() - start_time
-
     dlg_out = mp.fabs(dlg_out)
-    d_rd, d_rd_err = get_numbers(poly, dlg_out, r_min, poly.deg, 2**l)
+    rd, rd_err = get_numbers(poly, dlg_out, r_min, poly.deg, 2**l)
+    dlg_time = time.time() - start_time
     
-    return d_rd, d_rd_err
+    ##simple refinement, assuming there is a convenient way to obtain the LC.
+    #lc = poly.coeffs[poly.deg]
+    #new_rd = mp.fabs(mp.root(mp.fdiv(poly.p(0), lc), poly.deg))
+    #new_rd_err = get_err(new_rd, r_min)
 
+    return rd, rd_err
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -187,9 +188,12 @@ def main():
 
     ##for precision, adjust this following line
     mp.mp.dps = TEST_PREC
+    print("decimal precision used: %s" % mp.mp.dps)
+    print("bit precision used: %s" % mp.mp.prec)
 
     l = ceil(log2(log2(poly.deg)))
-    rd_bd, rd_err = get_bound(poly, l, roots, r_min, mpsolve_time)
+  
+    rd_bd, rd_err = get_bound(poly, l, roots, r_min)
 
 if __name__ == '__main__':
     main()
