@@ -32,9 +32,6 @@ class Polynomial:
 
         self.deg = deg
         self.p = p
-        self.dp = lambda x: mp.diff(self.p, x)
-        self.p_rev = lambda x: mp.fmul(self.p(mp.power(x,-1)), mp.power(x, self.deg))
-        self.dp_rev = lambda x: mp.diff(self.p_rev, x)
         self.coeffs = {deg-i: p_coeffs[i] for i in range(deg+1)}
     
     def fromFile(self, pol_file):
@@ -92,9 +89,6 @@ class Polynomial:
     
         self.deg = deg
         self.p = p
-        self.dp = lambda x: mp.diff(self.p, x)
-        self.p_rev = lambda x: mp.fmul(self.p(mp.power(x,-1)), mp.power(x, self.deg))
-        self.dp_rev = lambda x: mp.diff(self.p_rev, x)
         self.coeffs = {p_degs[i]: p_coeffs[i] for i in range(len(p_degs))}
     
     def get_trailing_coeffs(self, N, rev=False):
@@ -152,7 +146,7 @@ def get_numbers(poly, rootsum, r_min, d, k):
 
 
 #accuracy test against MPSolve
-def get_bound(poly, l, roots, r_min, mpsolve_time, pol_family=None):
+def get_bound(poly, l, roots, r_min):
     start_time = time.time()
   
     #default DLG eval precision
