@@ -8,7 +8,7 @@ import time
 from math import factorial, log2, ceil
 import mpmath as mp
 import sum_methods as sm
-import DLG_alg_mpmath as dlg
+import DLG_alg as dlg
 
 #SETTINGS
 COEFF_PREC = 200
